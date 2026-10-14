@@ -1,0 +1,145 @@
+{
+  "app": "Speicherstand",
+  "version": 2,
+  "exportiert": "2026-10-14T09:24:24.919023Z",
+  "spiele": [
+    {
+      "cover": null,
+      "created": 1762600000000,
+      "end": "2025-12-01",
+      "example": true,
+      "genres": [
+        "Jump ’n’ Run"
+      ],
+      "hours": 18,
+      "moment": "",
+      "notes": "Beispiel-Eintrag.\n\nPerfekt für die kurzen Abende im November. Jedes Level hat eine neue Idee.",
+      "platform": "PS5",
+      "score": 9,
+      "scores": {
+        "gameplay": 9.5,
+        "grafik": 9,
+        "sound": 8.5
+      },
+      "shots": [],
+      "start": "2025-11-08",
+      "status": "platin",
+      "title": "Astro Bot",
+      "updated": 1764600000000,
+      "verdict": "Pure Spielfreude, und die Platin war genau richtig fordernd.",
+      "year": 2025,
+      "id": "beispiel-astrobot"
+    },
+    {
+      "cover": null,
+      "created": 1767600000000,
+      "end": "2026-02-15",
+      "example": true,
+      "genres": [
+        "Rollenspiel",
+        "Rundenbasiert"
+      ],
+      "hours": 58,
+      "moment": "Das Ende von Akt 1. Ich saß danach eine Weile einfach nur da.",
+      "notes": "Beispiel-Eintrag: So könnte ein Tagebuch-Text aussehen.\n\nDie ersten Stunden war ich skeptisch, rundenbasiert ist eigentlich nicht mein Ding. Aber das Parieren hat irgendwann Klick gemacht, und ab da wollte ich jeden Kampf perfekt spielen.\n\nAkt 2 habe ich an einem Wochenende fast am Stück durchgespielt.",
+      "platform": "PC",
+      "score": 9.5,
+      "scores": {
+        "atmo": 10,
+        "gameplay": 9,
+        "grafik": 9,
+        "sound": 10,
+        "story": 9.5
+      },
+      "shots": [],
+      "song": "Lumière",
+      "songUrl": "",
+      "start": "2026-01-04",
+      "status": "durch",
+      "title": "Clair Obscur: Expedition 33",
+      "updated": 1771200000000,
+      "verdict": "Hat mich emotional komplett erwischt, und der Soundtrack läuft immer noch bei mir.",
+      "year": 2026,
+      "id": "beispiel-expedition33"
+    },
+    {
+      "cover": null,
+      "created": 1781000000000,
+      "end": "",
+      "example": true,
+      "genres": [
+        "Rollenspiel",
+        "Open World"
+      ],
+      "hours": 64,
+      "moment": "",
+      "notes": "Beispiel-Eintrag.\n\nIm Sommer pausiert, weil es so viel Zeit frisst. Will ich im Winter zu Ende spielen.",
+      "platform": "PS5",
+      "score": 8,
+      "scores": {
+        "atmo": 9,
+        "story": 8.5
+      },
+      "shots": [],
+      "start": "2026-06-10",
+      "status": "pausiert",
+      "title": "Kingdom Come: Deliverance II",
+      "updated": 1785000000000,
+      "verdict": "Großartige Welt, ich brauche nur mal wieder den Kopf frei dafür.",
+      "year": 2026,
+      "id": "beispiel-kcd2"
+    },
+    {
+      "cover": null,
+      "created": 1772400000000,
+      "end": "2026-04-20",
+      "example": true,
+      "genres": [
+        "Metroidvania"
+      ],
+      "hours": 41,
+      "moment": "",
+      "notes": "Beispiel-Eintrag.\n\nHornet spielt sich viel schneller als der Knight. Ein paar Bosse haben mich Abende gekostet, trotzdem wollte ich nie aufhören.",
+      "platform": "Switch 2",
+      "score": 8.5,
+      "scores": {
+        "atmo": 9,
+        "gameplay": 9.5,
+        "sound": 8.5
+      },
+      "shots": [],
+      "start": "2026-03-02",
+      "status": "durch",
+      "title": "Hollow Knight: Silksong",
+      "updated": 1776700000000,
+      "verdict": "Bockschwer, aber jeder Fortschritt fühlt sich verdient an.",
+      "year": 2026,
+      "id": "beispiel-silksong"
+    }
+  ],
+  "tierlisten": {
+    "2026": {
+      "A": [
+        "beispiel-silksong"
+      ],
+      "B": [],
+      "C": [],
+      "D": [],
+      "S": [
+        "beispiel-expedition33"
+      ],
+      "goty": "beispiel-expedition33"
+    },
+    "2025": {
+      "A": [],
+      "B": [],
+      "C": [],
+      "D": [],
+      "S": [
+        "beispiel-astrobot"
+      ],
+      "goty": "beispiel-astrobot"
+    }
+  },
+  "bilder": {}
+}

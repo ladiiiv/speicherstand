@@ -1,0 +1,21 @@
+SPEICHERSTAND – dein Spieletagebuch
+
+Inhalt
+  index.html          die Seite
+  daten/spiele.json   alle Einträge und Tierlisten als JSON
+  daten/spiele.js     dieselben Daten, so verpackt, dass die Seite sie lädt
+  bilder/             Cover und Screenshots
+  schriften/          die Schriften der Seite (Bebas Neue, Instrument Sans; SIL Open Font License)
+
+Ansehen
+  index.html im Browser öffnen. Das klappt auch offline.
+
+Öffentlich machen mit GitHub Pages
+  1. Öffentliches Repo anlegen, z. B. "speicherstand".
+  2. Diesen Ordnerinhalt hochladen (GitHub Desktop oder im Browser
+     über "Add file > Upload files", dort höchstens 100 Dateien pro Upload).
+  3. Settings > Pages: Branch "main" und Ordner "/ (root)" wählen, speichern.
+  4. Nach kurzer Zeit ist die Seite unter https://DEINNAME.github.io/speicherstand/ erreichbar.
+
+Aktualisieren
+  Neues Paket herunterladen, Inhalt über den alten Ordner kopieren, hochladen.
