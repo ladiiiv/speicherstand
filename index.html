@@ -413,6 +413,22 @@ body.view-start #banner{display:none}
 .goty-empty .goty-title{font-size:clamp(28px,3.2vw,40px);color:var(--muted)}
 .goty select{max-width:320px}
 .goty.drop-over{outline:3px solid var(--red);outline-offset:-3px}
+.goty-adj-btn{position:absolute;top:12px;right:12px;z-index:2;background:rgba(20,20,20,.62);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.goty-adj-btn:hover{background:rgba(60,60,60,.85)}
+.goty.adjusting{outline:2px dashed rgba(255,255,255,.6);outline-offset:-2px;user-select:none;-webkit-user-select:none}
+.goty.adjusting .goty-txt{opacity:.45}
+.goty.adjusting .goty-txt .btn,.goty.adjusting .goty-txt select{visibility:hidden}
+.goty-drag{position:absolute;inset:0;z-index:1;cursor:grab;touch-action:none;display:grid;place-items:center;border-radius:inherit}
+.goty-drag.grabbing{cursor:grabbing}
+.goty-drag:focus-visible{outline:3px solid #fff;outline-offset:-6px}
+.goty-drag-hint{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:rgba(0,0,0,.66);font-weight:600;font-size:14px;pointer-events:none;transition:opacity .25s}
+.goty-drag.moved .goty-drag-hint{opacity:0}
+.goty-adj-bar{position:absolute;right:12px;bottom:12px;z-index:2;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;max-width:calc(100% - 24px)}
+@media (max-width:600px){
+  .goty-adj-btn .gab-txt,.goty-adj-bar .gab-txt{display:none} .goty-adj-btn{padding:8px}
+  .goty-drag{place-items:start center;padding-top:14px} .goty-drag-hint{font-size:13px;padding:7px 12px}
+  .goty-adj-bar{flex-wrap:nowrap}
+}
 .board{display:grid;gap:6px}
 .t-row{display:grid;grid-template-columns:86px minmax(0,1fr);min-height:124px;border-radius:4px;overflow:hidden;background:var(--bg-2);transition:background .15s}
 .t-label{display:grid;place-items:center;align-content:center;gap:2px;background:linear-gradient(160deg,var(--t),var(--t2));color:var(--t-ink);font-family:var(--f-display);font-size:56px;line-height:.85;padding-top:4px}
@@ -511,7 +527,7 @@ body.view-start #banner{display:none}
 
 <header class="top" id="top">
   <div class="top-in">
-    <a class="brand" href="#start" id="brand">Speicherstand</a>
+    <a class="brand" href="#start" id="brand">ladiiv</a>
     <nav class="tabs" aria-label="Bereiche">
       <button class="tab" type="button" data-view="start" aria-current="page">Start</button>
       <button class="tab" type="button" data-view="lib">Bibliothek</button>
@@ -620,6 +636,7 @@ const ICONS = {
   next:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
   search:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>',
   down:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>',
+  move:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18M9 6l3-3 3 3M9 18l3 3 3-3M6 9l-3 3 3 3M18 9l3 3-3 3"/></svg>',
 };
 function icon(n){ const s=document.createElement('span'); s.className='ico'; s.setAttribute('aria-hidden','true'); s.innerHTML=ICONS[n]; return s; }
 const sleep = ms => new Promise(r=>setTimeout(r,ms));
@@ -692,7 +709,10 @@ function songEmbed(url){
   if (host==='soundcloud.com' && /^\/[\w-]+\/[\w-]+/.test(u.pathname)) return {kind:'soundcloud', label:'SoundCloud', src:'https://w.soundcloud.com/player/?url='+encodeURIComponent('https://soundcloud.com'+u.pathname)+'&auto_play=true&visual=false&show_comments=false&color=%23e50914', h:166};
   return null;
 }
-function normTier(d){ d=d||{}; const t={}; for (const T of TIERS) t[T] = Array.isArray(d[T]) ? d[T].filter(x=>typeof x==='string') : []; t.goty = typeof d.goty==='string' ? d.goty : null; return t; }
+function normTier(d){ d=d||{}; const t={}; for (const T of TIERS) t[T] = Array.isArray(d[T]) ? d[T].filter(x=>typeof x==='string') : []; t.goty = typeof d.goty==='string' ? d.goty : null; t.gotyArt = normArt(d.gotyArt); return t; }
+/* Bildausschnitt beim Spiel des Jahres: welches Bild und wohin verschoben (0–100 % wie object-position) */
+function pct(v, def){ const n=Number(v); return Number.isFinite(n) ? Math.round(Math.max(0,Math.min(100,n))*10)/10 : def; }
+function normArt(a){ return (a && typeof a==='object' && typeof a.id==='string' && typeof a.img==='string') ? {id:a.id, img:a.img, x:pct(a.x,50), y:pct(a.y,50)} : null; }
 function cloneTier(t){ const n=normTier(t); for (const T of TIERS) n[T]=[...n[T]]; return n; }
 function tierOf(g){ const t=S.tiers[g.year]; if(!t) return null; for (const T of TIERS) if (t[T].includes(g.id)) return T; return null; }
 function isGoty(g){ return S.tiers[g.year]?.goty === g.id; }
@@ -735,7 +755,7 @@ function writeDoc(path, fn){
 function saveTier(year, t){
   S.tiers[year] = t;
   const path = 'tierlists/' + year;
-  return writeDoc(path, () => S.db.doc(path).set({S:t.S, A:t.A, B:t.B, C:t.C, D:t.D, goty:t.goty || null}));
+  return writeDoc(path, () => S.db.doc(path).set({S:t.S, A:t.A, B:t.B, C:t.C, D:t.D, goty:t.goty || null, gotyArt:t.gotyArt || null}));
 }
 function removeFromTier(year, ids){
   const t=S.tiers[year]; if(!t) return;
@@ -818,7 +838,7 @@ function lock(){ document.body.classList.toggle('locked', !$('#detail').hidden |
 function updTop(){ const t=$('#top'); if (t) t.classList.toggle('solid', S.view!=='start' || window.scrollY>40); }
 const VIEWS={start:'start', lib:'bibliothek', tiers:'tierlisten', stats:'statistik'};
 function setView(v, push){
-  S.view = v;
+  S.view = v; if (v!=='tiers') S.gotyAdj=null;
   for (const t of document.querySelectorAll('.tab')){ if (t.dataset.view===v) t.setAttribute('aria-current','page'); else t.removeAttribute('aria-current'); }
   $('#view-start').hidden = v!=='start'; $('#view-lib').hidden = v!=='lib'; $('#view-tiers').hidden = v!=='tiers'; $('#view-stats').hidden = v!=='stats';
   document.body.classList.toggle('view-start', v==='start');
@@ -857,11 +877,9 @@ async function deleteExamples(){
 
 /* Bibliothek */
 function card(g){
-  const tier=tierOf(g);
   return h('button',{class:'card', type:'button', style:{'--h':hue(g.title)}, 'aria-label':`${g.title} öffnen`, onclick:()=>openDetail(g.id)},
     h('div',{class:'card-cover'}, coverEl(g,'cover'),
-      g.score ? h('span',{class:'score-badge'}, fmtScore(g.score)) : null,
-      tier ? h('span',{class:'tier-badge', style:tierVar(tier), title:`${tier}-Tier ${g.year}`}, tier) : null),
+      g.score ? h('span',{class:'score-badge'}, fmtScore(g.score)) : null),
     h('div',{class:'card-meta'},
       h('span',{class:'card-title'}, g.title),
       h('span',{class:'card-sub'}, [g.platform, fmtHours(g.hours)].filter(Boolean).join(' · ') || ' '),
@@ -1292,7 +1310,7 @@ function tile(g){
   return b;
 }
 function renderTiers(){
-  if (drag && drag.active){ S.tiersDirty=true; return; }
+  if ((drag && drag.active) || (S.gotyAdj && S.gotyAdj.drag)){ S.tiersDirty=true; return; }
   const root=$('#view-tiers'); root.replaceChildren();
   const gate=gateEl(); if (gate){ root.append(gate); return; }
   const years=allYears(); if (!years.includes(S.tierYear)) S.tierYear=years[0];
@@ -1304,12 +1322,12 @@ function renderTiers(){
   const gotyG = t.goty && ids.has(t.goty) ? S.games.get(t.goty) : null;
   const edit = S.tierEdit && S.owner && yGames.length>0;
 
-  const sel=h('select',{class:'nf-select', id:'tier-year', 'aria-label':'Jahr wählen', onchange:e=>{ S.tierYear=+e.target.value; S.tierEdit=false; renderTiers(); }},
+  const sel=h('select',{class:'nf-select', id:'tier-year', 'aria-label':'Jahr wählen', onchange:e=>{ S.tierYear=+e.target.value; S.tierEdit=false; S.gotyAdj=null; renderTiers(); }},
     years.map(yy=>h('option',{value:String(yy), selected:yy===y}, `${yy} · ${plural(gamesOf(yy).length,'Spiel','Spiele')}`)));
   root.append(h('div',{class:'page-head'},
     h('h2',{class:'page-title'}, 'Tierliste'), sel,
     yGames.length ? h('span',{class:'page-count'}, `${placed.size} von ${yGames.length} eingestuft`) : null,
-    S.owner && yGames.length ? h('div',{class:'page-tools'}, h('button',{class:'btn '+(edit?'btn-red':'btn-grey'), type:'button', onclick:()=>{ S.tierEdit=!S.tierEdit; renderTiers(); }}, edit ? [icon('check'),'Fertig'] : [icon('edit'),'Bearbeiten'])) : null));
+    S.owner && yGames.length ? h('div',{class:'page-tools'}, h('button',{class:'btn '+(edit?'btn-red':'btn-grey'), type:'button', onclick:()=>{ S.tierEdit=!S.tierEdit; S.gotyAdj=null; renderTiers(); }}, edit ? [icon('check'),'Fertig'] : [icon('edit'),'Bearbeiten'])) : null));
   if (!yGames.length){
     root.append(h('div',{class:'empty'},
       h('div',{class:'slot','aria-hidden':'true'}, h('span',{class:'slot-plus'},'+'), h('span',{class:'slot-lbl'}, String(y))),
@@ -1341,15 +1359,100 @@ function gotyBlock(y, gg, yGames, edit){
   const sel = edit ? h('select',{class:'nf-select', id:'goty-sel', 'aria-label':'Spiel des Jahres wählen', onchange:e=>{ const n=cloneTier(S.tiers[y]||normTier({})); n.goty=e.target.value||null; saveTier(y,n); renderTiers(); }},
       h('option',{value:''},'Noch keins gewählt'),
       yGames.slice().sort((a,b)=>(b.score||0)-(a.score||0)).map(g=>h('option',{value:g.id, selected:!!gg && gg.id===g.id}, g.title))) : null;
-  return h('div',{class:'goty'+(gg?'':' goty-empty'), 'data-drop': edit ? 'GOTY' : null},
-    gg ? h('div',{class:'goty-bg','aria-hidden':'true'}, landscapeArt(gg)) : null,
+  const adj=gotyAdjFor(y, gg), imgs=gg ? gotyImgs(gg) : [];
+  const canAdj = !!gg && S.owner && !S.isStatic && !!S.db && imgs.length>0;
+  return h('div',{class:'goty'+(gg?'':' goty-empty')+(adj?' adjusting':''), 'data-drop': edit && !adj ? 'GOTY' : null},
+    gg ? h('div',{class:'goty-bg','aria-hidden':'true'}, gotyArt(y, gg)) : null,
     h('div',{class:'goty-txt'},
       h('p',{class:'bb-tag'}, h('span',{class:'bb-mark'}), `Spiel des Jahres ${y}`),
       h('p',{class:'goty-title'}, gg ? gg.title : 'Noch nicht gekürt'),
       gg ? h('p',{class:'bb-meta'}, gg.score ? h('span',{class:'match'}, `${fmtScore(gg.score)}/10`) : null, gg.platform ? h('span',null,gg.platform) : null, gg.hours ? h('span',null,fmtHours(gg.hours)) : null)
          : S.owner ? h('p',{class:'muted small'}, edit ? 'Wähle unten ein Spiel aus oder zieh eine Hülle hierher.' : 'Über „Bearbeiten“ kürst du dein Spiel des Jahres.') : null,
       gg && !edit ? h('button',{class:'btn btn-white btn-sm', type:'button', onclick:()=>openDetail(gg.id)}, icon('info'), 'Weitere Infos') : null,
-      sel));
+      sel),
+    canAdj && !adj ? h('button',{class:'btn btn-grey btn-sm goty-adj-btn', type:'button', title:'Bildausschnitt verschieben', 'aria-label':'Bildausschnitt verschieben', onclick:()=>startGotyAdj(y, gg)}, icon('move'), h('span',{class:'gab-txt'},'Bild verschieben')) : null,
+    adj ? h('div',{class:'goty-drag', tabindex:'0', 'aria-label':'Bildausschnitt: ziehen oder mit den Pfeiltasten verschieben, Enter speichert, Escape bricht ab',
+        onpointerdown:adjDown, onpointermove:adjMove, onpointerup:adjUp, onpointercancel:adjUp, onkeydown:e=>adjKey(e, y, gg)},
+        h('span',{class:'goty-drag-hint'}, icon('move'), 'Zieh das Bild an die richtige Stelle')) : null,
+    adj ? h('div',{class:'goty-adj-bar'},
+        imgs.length>1 ? h('button',{class:'btn btn-grey btn-sm', type:'button', 'aria-label':'Anderes Bild wählen', onclick:()=>cycleGotyImg(gg)}, icon('img'), h('span',{class:'gab-txt'},'Anderes Bild ·'), `${imgs.indexOf(adj.img)+1}/${imgs.length}`) : null,
+        h('button',{class:'btn btn-grey btn-sm', type:'button', onclick:cancelGotyAdj}, 'Abbrechen'),
+        h('button',{class:'btn btn-white btn-sm', type:'button', onclick:()=>saveGotyAdj(y, gg)}, icon('check'), 'Speichern')) : null);
+}
+/* Spiel des Jahres: Bildausschnitt verschieben */
+function gotyImgs(g){ return [...g.shots.map(s=>s.id), ...(g.cover && !g.shots.some(s=>s.id===g.cover) ? [g.cover] : [])]; }
+function gotySaved(y, g){ const a=S.tiers[y]?.gotyArt; return (a && a.id===g.id && gotyImgs(g).includes(a.img)) ? a : null; }
+function gotyAdjFor(y, g){ const a=S.gotyAdj; return (a && g && a.year===y && a.id===g.id) ? a : null; }
+function gotyDefPos(g, img){ return (img===g.cover && !g.shots.some(s=>s.id===img)) ? {x:50, y:25} : {x:50, y:50}; }
+function gotyImgEl(g, img, x, y){
+  const im=h('img',{src:blobUrl(img), alt:'', decoding:'async', draggable:'false', style:{'object-position':`${x}% ${y}%`}});
+  im.addEventListener('error', ()=>im.replaceWith(genWide(g)), {once:true});
+  return im;
+}
+function gotyArt(y, g){
+  const adj=gotyAdjFor(y, g); if (adj) return gotyImgEl(g, adj.img, adj.px, adj.py);
+  const a=gotySaved(y, g); return a ? gotyImgEl(g, a.img, a.x, a.y) : landscapeArt(g);
+}
+function gotyFocus(){ const el=$('#view-tiers .goty-drag'); if (el) el.focus({preventScroll:true}); }
+function startGotyAdj(y, g){
+  if (!gotyImgs(g).length) return;
+  const a=gotySaved(y, g);
+  let img, p;
+  if (a){ img=a.img; p={x:a.x, y:a.y}; }
+  else { const s=pickShot(g,'stable'); img=s ? s.id : g.cover; p=gotyDefPos(g, img); }
+  S.gotyAdj={year:y, id:g.id, img, px:p.x, py:p.y, drag:null};
+  renderTiers(); gotyFocus();
+}
+function cycleGotyImg(g){
+  const a=S.gotyAdj, imgs=gotyImgs(g); if (!a || imgs.length<2) return;
+  a.img=imgs[(imgs.indexOf(a.img)+1) % imgs.length];
+  const p=gotyDefPos(g, a.img); a.px=p.x; a.py=p.y;
+  renderTiers();
+}
+function cancelGotyAdj(){ S.gotyAdj=null; renderTiers(); }
+function saveGotyAdj(y, g){
+  const a=S.gotyAdj; if (!a) return;
+  const n=cloneTier(S.tiers[y]||normTier({}));
+  n.gotyArt={id:g.id, img:a.img, x:pct(a.px,50), y:pct(a.py,50)};
+  S.gotyAdj=null;
+  saveTier(y, n).then(ok=>{ if (ok) toast('Bildausschnitt gespeichert'); });
+  renderTiers();
+}
+function adjImg(layer){ return $('.goty-bg>img', layer.closest('.goty')); }
+function adjSet(im, a){ if (im) im.style.objectPosition=`${a.px}% ${a.py}%`; }
+function adjDown(e){
+  const a=S.gotyAdj; if (!a || (e.pointerType==='mouse' && e.button!==0)) return;
+  const layer=e.currentTarget, im=adjImg(layer);
+  if (!im || !im.naturalWidth) return;
+  e.preventDefault(); layer.focus({preventScroll:true});
+  try { layer.setPointerCapture(e.pointerId); } catch {}
+  /* object-fit:cover: nur der überstehende Teil lässt sich verschieben */
+  const r=im.getBoundingClientRect(), sc=Math.max(r.width/im.naturalWidth, r.height/im.naturalHeight);
+  a.drag={pid:e.pointerId, x0:e.clientX, y0:e.clientY, px:a.px, py:a.py, ox:im.naturalWidth*sc-r.width, oy:im.naturalHeight*sc-r.height, im};
+  layer.classList.add('grabbing','moved');
+}
+function adjMove(e){
+  const a=S.gotyAdj, d=a && a.drag; if (!d || e.pointerId!==d.pid) return;
+  e.preventDefault();
+  if (d.ox>1) a.px=pct(d.px-(e.clientX-d.x0)/d.ox*100, 50);
+  if (d.oy>1) a.py=pct(d.py-(e.clientY-d.y0)/d.oy*100, 50);
+  adjSet(d.im, a);
+}
+function adjUp(e){
+  const a=S.gotyAdj; if (!a || !a.drag || e.pointerId!==a.drag.pid) return;
+  a.drag=null; e.currentTarget.classList.remove('grabbing');
+  if (S.tiersDirty){ S.tiersDirty=false; renderTiers(); gotyFocus(); }
+}
+function adjKey(e, y, g){
+  const a=S.gotyAdj; if (!a) return;
+  if (e.key==='Escape'){ e.preventDefault(); cancelGotyAdj(); return; }
+  if (e.key==='Enter'){ e.preventDefault(); saveGotyAdj(y, g); return; }
+  const st=e.shiftKey ? 10 : 2;
+  const m={ArrowLeft:[st,0], ArrowRight:[-st,0], ArrowUp:[0,st], ArrowDown:[0,-st]}[e.key];
+  if (!m) return;
+  e.preventDefault();
+  a.px=pct(a.px+m[0],50); a.py=pct(a.py+m[1],50);
+  adjSet(adjImg(e.currentTarget), a); e.currentTarget.classList.add('moved');
 }
 function tileDown(e){
   if (!S.tierEdit || !S.owner || (e.pointerType==='mouse' && e.button!==0)) return;
@@ -1447,11 +1550,9 @@ function landscapeArt(g, mode, eager){
   return genWide(g);
 }
 function posterCard(g){
-  const tier=tierOf(g);
   const flag = g.status==='spielt' ? h('span',{class:'nc-flag'}, 'Läuft gerade') : g.status==='platin' ? h('span',{class:'nc-flag gold'}, '100 %') : g.example ? h('span',{class:'nc-flag grey'}, 'Beispiel') : null;
   return h('button',{class:'nc poster', type:'button', style:{'--h':hue(g.title)}, 'aria-label':`${g.title} öffnen`, onclick:()=>openDetail(g.id)},
     h('div',{class:'nc-art'}, coverEl(g,'cover'),
-      tier ? h('span',{class:'tier-badge', style:tierVar(tier), title:`${tier}-Tier ${g.year}`}, tier) : null,
       flag,
       h('div',{class:'nc-hover'}, h('b',null, g.title), h('span',null, h('em',null, g.score ? `${fmtScore(g.score)}/10` : '–'), [g.platform, fmtHours(g.hours)].filter(Boolean).join(' · ')))));
 }
@@ -1493,7 +1594,7 @@ function billboardList(all, recent){
   return out;
 }
 function bbContent(g, label){
-  const tier=tierOf(g), goty=isGoty(g), song=songHref(g);
+  const goty=isGoty(g), song=songHref(g);
   const text=g.verdict || '';
   return [
     h('p',{class:'bb-tag'}, h('span',{class:'bb-mark'}), label),
@@ -1503,7 +1604,6 @@ function bbContent(g, label){
       g.year ? h('span',null, String(g.year)) : null,
       g.platform ? h('span',null, g.platform) : null,
       g.hours ? h('span',null, fmtHours(g.hours)) : null,
-      tier ? h('span',{class:'box'}, `${tier}-Tier`) : null,
       goty ? h('span',{class:'box gold'}, icon('crown'), 'Spiel des Jahres') : null),
     text ? h('p',{class:'bb-text'}, text) : null,
     h('div',{class:'bb-btns'},
