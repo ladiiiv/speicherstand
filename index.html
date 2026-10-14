@@ -308,7 +308,15 @@ body.view-start #banner{display:none}
 .shot-btn{display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;overflow:hidden;background:var(--surface)}
 .shot-btn img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
 .shot-btn:hover img{transform:scale(1.04)}
-.shot figcaption{padding:10px 12px 12px;font-size:13.5px;color:var(--ink-2);overflow-wrap:anywhere}
+.shot figcaption{flex:1 1 auto;min-width:0;font-size:13.5px;color:var(--ink-2);overflow-wrap:anywhere}
+.shot-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 10px;padding:9px 10px 10px 12px}
+.shot-foot:empty{display:none}
+.shot.hero{box-shadow:0 0 0 2px var(--gold)}
+.shot-star{display:inline-flex;align-items:center;gap:6px;flex:none;margin-left:auto;padding:5px 11px;border-radius:999px;border:1px solid var(--line-2);background:transparent;color:var(--ink-2);font-size:12.5px;font-weight:600;transition:color .15s,border-color .15s,background .15s}
+.shot-star:hover{color:#fff;border-color:#fff}
+.shot-star.on{background:var(--gold);border-color:var(--gold);color:#141414}
+.shot-star .ico svg{width:15px;height:15px}
+.shot-hint{font-size:13px;color:var(--muted);margin-top:-6px}
 .similar{display:grid;grid-template-columns:repeat(auto-fill,minmax(122px,1fr));gap:12px}
 .similar .nc.poster{width:auto}
 .broken{width:100%;height:100%;display:grid;place-items:center;font-size:12px;color:var(--muted);background:var(--surface)}
@@ -382,6 +390,11 @@ body.view-start #banner{display:none}
 .ed-shot-img img{width:100%;height:100%;object-fit:cover;display:block}
 .ed-shot .x,.ed-shot .mv{position:absolute;top:6px;width:28px;height:28px;border-radius:50%;border:0;display:grid;place-items:center;background:rgba(0,0,0,.75);color:#fff}
 .ed-shot .x{right:6px} .ed-shot .mv{left:6px}
+.ed-shot .st{position:absolute;right:6px;bottom:6px;width:30px;height:30px;border-radius:50%;border:0;display:grid;place-items:center;background:rgba(0,0,0,.75);color:#fff}
+.ed-shot .st:hover{background:rgba(0,0,0,.9)}
+.ed-shot .st.on{background:var(--gold);color:#141414}
+.ed-shot .st svg{width:15px;height:15px}
+.ed-shot.hero .ed-shot-img{box-shadow:0 0 0 2px var(--gold)}
 .ed-shot .x svg,.ed-shot .mv svg{width:14px;height:14px}
 .ed-shot .cap{min-height:34px;padding:6px 9px;font-size:13px}
 .ed-danger{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-top:20px;border-top:1px solid #404040}
@@ -601,6 +614,8 @@ const ICONS = {
   img:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="9.5" cy="9.5" r="1.6"/><path d="M20 15.5l-4.5-4.5L6 20"/></svg>',
   music:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>',
   play:'<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M6.5 3.8v16.4L20.5 12z"/></svg>',
+  star:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>',
+  starOn:'<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>',
   info:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6M12 7.6v.01"/></svg>',
   next:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
   search:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>',
@@ -635,6 +650,7 @@ function norm(id, d){
   const scores = {};
   for (const [k] of SUBS){ const v=clampScore(sc[k]); if (v) scores[k]=v; }
   const hours = numOr(d.hours);
+  const shots = Array.isArray(d.shots) ? d.shots.filter(s=>s && isId(s.id)).slice(0,300).map(s=>({id:s.id, caption:str(s.caption,300)})) : [];
   return {
     id,
     title: str(d.title,200).trim() || 'Ohne Titel',
@@ -648,7 +664,8 @@ function norm(id, d){
     verdict: str(d.verdict,600), notes: str(d.notes,60000), moment: str(d.moment,4000),
     song: str(d.song,200).trim(), songUrl: safeUrl(str(d.songUrl,500).trim()),
     cover: isId(d.cover) ? d.cover : null,
-    shots: Array.isArray(d.shots) ? d.shots.filter(s=>s && isId(s.id)).slice(0,300).map(s=>({id:s.id, caption:str(s.caption,300)})) : [],
+    shots,
+    heroShot: (typeof d.heroShot==='string' && shots.some(x=>x.id===d.heroShot)) ? d.heroShot : null,
     example: d.example === true,
     created: numOr(d.created)||0, updated: numOr(d.updated)||0,
   };
@@ -936,7 +953,7 @@ function detailContent(g){
   const ext={target:'_blank', rel:'noopener noreferrer'};
   const close=h('div',{class:'d-close-wrap'}, h('button',{class:'d-close sheet-close', type:'button', 'aria-label':'Schließen', onclick:closeDetail}, icon('close')));
   const hero=h('header',{class:'d-hero'},
-    h('div',{class:'d-bg','aria-hidden':'true'}, landscapeArt(g,'next')),
+    h('div',{class:'d-bg','aria-hidden':'true'}, landscapeArt(g,'detail')),
     h('div',{class:'d-hero-in'},
       h('h1',{class:'d-title'}, g.title),
       h('div',{class:'d-btns'},
@@ -963,12 +980,16 @@ function detailContent(g){
     dline('Genres', g.genres.join(', ') || '–'),
     dline('Status', STATUS[g.status].label),
     span ? dline('Gespielt', span) : null);
+  const canStar = S.owner && !S.isStatic && !!S.db;
   const shots = g.shots.length
     ? h('section',{class:'d-sec'}, h('h3',{class:'d-h3'}, 'Screenshots', h('span',null, String(g.shots.length))),
-        h('div',{class:'shots-grid'}, g.shots.map((s,i)=>h('figure',{class:'shot'},
+        canStar ? h('p',{class:'shot-hint'}, g.heroShot ? 'Der Screenshot mit Stern erscheint auf der Startseite. Klick ihn nochmal an, damit die Bilder wieder wechseln.' : 'Mit dem Stern wählst du, welcher Screenshot auf der Startseite erscheint. Ohne Stern wechseln die Bilder.') : null,
+        h('div',{class:'shots-grid'}, g.shots.map((s,i)=>{ const on=g.heroShot===s.id; return h('figure',{class:'shot'+(on?' hero':'')},
           h('button',{class:'shot-btn', type:'button', 'aria-label':`Screenshot ${i+1} vergrößern`, onclick:()=>openLB(g,i)}, pic(blobUrl(s.id), s.caption)),
-          s.caption ? h('figcaption',null, s.caption) : null))))
-    : S.owner ? h('section',{class:'d-sec'}, h('h3',{class:'d-h3'}, 'Screenshots'), h('p',{class:'muted'},'Noch keine Screenshots. Über „Bearbeiten“ kannst du welche hochladen, reinziehen oder mit Strg+V einfügen. Der erste wird zum Titelbild.')) : null;
+          h('div',{class:'shot-foot'},
+            s.caption ? h('figcaption',null, s.caption) : null,
+            canStar ? h('button',{class:'shot-star'+(on?' on':''), type:'button', 'aria-pressed':String(on), title: on ? 'Titelbild der Startseite, zum Abwählen klicken' : 'Als Titelbild für die Startseite wählen', onclick:()=>setHeroShot(g.id, s.id)}, icon(on?'starOn':'star'), on ? 'Titelbild' : 'Als Titelbild') : null)); })))
+    : S.owner ? h('section',{class:'d-sec'}, h('h3',{class:'d-h3'}, 'Screenshots'), h('p',{class:'muted'},'Noch keine Screenshots. Über „Bearbeiten“ kannst du welche hochladen, reinziehen oder mit Strg+V einfügen.')) : null;
   const similar=[...S.games.values()].filter(x=>x.id!==g.id).map(x=>[x, x.genres.filter(z=>g.genres.includes(z)).length]).filter(x=>x[1]>0)
     .sort((a,b)=>b[1]-a[1] || (b[0].score||0)-(a[0].score||0)).slice(0,6).map(x=>x[0]);
   const more = similar.length ? h('section',{class:'d-sec'}, h('h3',{class:'d-h3'}, 'Mehr wie dies'), h('div',{class:'similar'}, similar.map(posterCard))) : null;
@@ -1005,6 +1026,15 @@ function songBlock(g){
         h('div',{class:'song-txt'}, h('span',{class:'song-name'}, g.song), h('span',{class:'song-from'}, `aus ${g.title}`), h('span',{class:'eq','aria-hidden':'true'}, h('i'), h('i'), h('i'), h('i')))),
       h('div',{class:'song-actions'}, actions),
       hint ? h('p',{class:'song-hint'}, hint) : null));
+}
+async function setHeroShot(id, sid){
+  const g=S.games.get(id); if (!g || !S.db) return;
+  const val = g.heroShot===sid ? null : sid;
+  const ok=await writeDoc('games/'+id, ()=>S.db.doc('games/'+id).update({heroShot: val}));
+  if (!ok) return;
+  const cur=S.games.get(id); if (cur) cur.heroShot=val;
+  if (S.openId===id) renderDetail(false);
+  toast(val ? 'Dieser Screenshot ist jetzt das Titelbild auf der Startseite' : 'Kein festes Titelbild mehr, die Screenshots wechseln wieder');
 }
 async function deleteGame(id){
   const g=S.games.get(id); if(!g) return;
@@ -1044,7 +1074,7 @@ let E=null;
 function openEditor(id, preset){
   if (!S.owner || !S.db) return;
   const g = id ? S.games.get(id) : null;
-  const blank={title:'', year:(preset&&preset.year)||null, platform:'', genres:[], status:'durch', score:null, scores:{}, start:'', end:'', hours:null, verdict:'', notes:'', moment:'', song:'', songUrl:'', cover:null, shots:[]};
+  const blank={title:'', year:(preset&&preset.year)||null, platform:'', genres:[], status:'durch', score:null, scores:{}, start:'', end:'', hours:null, verdict:'', notes:'', moment:'', song:'', songUrl:'', cover:null, shots:[], heroShot:null};
   E = { id:g?g.id:null, orig:g?JSON.parse(JSON.stringify(g)):null, d:g?JSON.parse(JSON.stringify(g)):blank, fresh:new Set(), pending:[], busy:0, coverBusy:false, yearTouched:!!(g&&g.year)||!!preset };
   const sheet=$('#editor'); sheet.hidden=false;
   $('.sheet-panel',sheet).replaceChildren(...editorContent());
@@ -1183,15 +1213,16 @@ function shotsBlock(){
     zone.addEventListener('dragover', e=>{ e.preventDefault(); zone.classList.add('over'); });
     zone.addEventListener('dragleave', ()=>zone.classList.remove('over'));
     zone.addEventListener('drop', e=>{ e.preventDefault(); zone.classList.remove('over'); addShots([...(e.dataTransfer?.files||[])].filter(f=>/^image\//.test(f.type))); });
-    wrap.append(zone, input);
+    wrap.append(zone, input, h('p',{class:'f-h'},'Mit dem Stern wählst du das Titelbild für die Startseite. Ohne Stern wechseln die Screenshots.'));
   } else wrap.append(h('p',{class:'f-h'},'Bilder hochladen geht in dieser Ansicht nicht.'));
   E.drawShots=()=>{
     if (!E) return;
     const a=E.d.shots;
     grid.replaceChildren(
-      ...a.map((s,i)=>h('div',{class:'ed-shot'},
+      ...a.map((s,i)=>h('div',{class:'ed-shot'+(E.d.heroShot===s.id?' hero':'')},
         h('div',{class:'ed-shot-img'}, pic(blobUrl(s.id),''),
-          h('button',{class:'x', type:'button', 'aria-label':'Screenshot entfernen', onclick:()=>{ dropAsset(s.id); a.splice(a.indexOf(s),1); E.drawShots(); }}, icon('close')),
+          h('button',{class:'x', type:'button', 'aria-label':'Screenshot entfernen', onclick:()=>{ if (E.d.heroShot===s.id) E.d.heroShot=null; dropAsset(s.id); a.splice(a.indexOf(s),1); E.drawShots(); }}, icon('close')),
+          h('button',{class:'st'+(E.d.heroShot===s.id?' on':''), type:'button', 'aria-pressed':String(E.d.heroShot===s.id), title: E.d.heroShot===s.id ? 'Titelbild der Startseite, zum Abwählen klicken' : 'Als Titelbild für die Startseite wählen', 'aria-label': E.d.heroShot===s.id ? 'Titelbild abwählen' : 'Als Titelbild für die Startseite wählen', onclick:()=>{ E.d.heroShot = E.d.heroShot===s.id ? null : s.id; E.drawShots(); }}, icon(E.d.heroShot===s.id?'starOn':'star')),
           i>0 ? h('button',{class:'mv', type:'button', 'aria-label':'Weiter nach vorne', title:'Weiter nach vorne', onclick:()=>{ const j=a.indexOf(s); [a[j-1],a[j]]=[a[j],a[j-1]]; E.drawShots(); }}, icon('left')) : null),
         h('input',{type:'text', class:'cap', id:'ed-cap-'+s.id, maxlength:300, value:s.caption||'', placeholder:'Bildunterschrift', 'aria-label':`Bildunterschrift für Screenshot ${i+1}`, oninput:e=>{ s.caption=e.target.value; }}))),
       ...E.pending.map(()=>h('div',{class:'ed-shot'}, h('div',{class:'ed-shot-img'}, h('div',{class:'busy'}, h('span',{class:'spin'}), 'Lädt …')))));
@@ -1235,7 +1266,7 @@ async function saveEditor(){
   const now=Date.now();
   const body={ title:d.title, year:d.year, platform:d.platform, genres:d.genres, status:d.status, score:d.score, scores:d.scores,
     start:d.start, end:d.end, hours:d.hours, verdict:d.verdict, moment:d.moment, song:d.song, songUrl:d.songUrl, cover:d.cover||null,
-    shots:d.shots.map(s=>({id:s.id, caption:(s.caption||'').trim()})), created:(myE.orig && myE.orig.created)||now, updated:now };
+    shots:d.shots.map(s=>({id:s.id, caption:(s.caption||'').trim()})), heroShot:(d.heroShot && d.shots.some(x=>x.id===d.heroShot)) ? d.heroShot : null, created:(myE.orig && myE.orig.created)||now, updated:now };
   const btn=$('#ed-save'); btn.disabled=true; btn.textContent='Speichert …';
   const ok=await writeDoc('games/'+ref.id, ()=>ref.set(body));
   if (!ok){ if (E===myE) updSave(); return; }
@@ -1388,8 +1419,10 @@ function genWide(g){ return h('div',{class:'gen', style:{'--h':hue(g.title)}}); 
 /* Screenshots abwechseln: 'next' nimmt jedes Mal einen anderen (alle der Reihe nach in zufälliger Folge),
    'stable' bleibt pro Seitenaufruf gleich, damit Reihen beim Neuzeichnen nicht flackern */
 const shotQueue={}, shotLast={}, shotStable={};
+function heroOf(g){ return g.heroShot ? (g.shots.find(x=>x.id===g.heroShot) || null) : null; }
 function pickShot(g, mode){
   const n=g.shots.length; if (!n) return null;
+  if (mode!=='detail'){ const hs=heroOf(g); if (hs) return hs; }
   if (n===1) return g.shots[0];
   if (mode==='stable'){
     if (!(shotStable[g.id]<n)) shotStable[g.id]=Math.floor(Math.random()*n);
@@ -1479,22 +1512,48 @@ function bbContent(g, label){
       song ? h('button',{class:'btn btn-grey btn-lg', type:'button', onclick:()=>openDetail(g.id)}, icon('info'), 'Weitere Infos')
            : h('button',{class:'btn btn-grey btn-lg', type:'button', onclick:()=>setView('lib',true)}, 'Zur Bibliothek'))];
 }
+/* Titelbild-Runden: erst die normale Runde, dann Runden aus der Top 10 (gemischt, je höchstens 6 Spiele),
+   danach wieder die normale Runde. So kommen auch Spiele dran, die sonst nie vorne stehen. */
+function topRanked(){ return [...S.games.values()].filter(g=>g.score).sort((a,b)=>b.score-a.score || a.title.localeCompare(b.title,'de')).slice(0,10); }
+function mainBillboard(){ const all=[...S.games.values()]; return billboardList(all, all.slice().sort((a,b)=>recentKey(b).localeCompare(recentKey(a)))); }
+function topBatches(){
+  const top=topRanked(); if (top.length<2) return [];
+  const rank=new Map(top.map((g,i)=>[g.id, i+1]));
+  const ids=top.map(g=>g.id);
+  for (let i=ids.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [ids[i],ids[j]]=[ids[j],ids[i]]; }
+  const nb=Math.ceil(ids.length/6), size=Math.ceil(ids.length/nb), out=[];
+  for (let k=0;k<ids.length;k+=size) out.push(ids.slice(k,k+size).map(id=>({g:S.games.get(id), label:`Platz ${rank.get(id)} deiner Top 10`, round:'top'})));
+  return out;
+}
 function billboard(list){
   const bg=h('div',{class:'bb-bg','aria-hidden':'true'});
   const inner=h('div',{class:'bb-in', 'aria-live':'polite'});
   const flag=h('div',{class:'bb-flag'});
-  const dots = list.length>1 ? h('div',{class:'bb-dots', role:'group', 'aria-label':'Titelbild wechseln'},
-    list.map((it,i)=>h('button',{class:'bb-dot', type:'button', title:it.g.title, 'aria-label':`${it.g.title} zeigen`, onclick:()=>show(i)}, h('i',null, h('b'))))) : null;
+  const dots=h('div',{class:'bb-dots', role:'group', 'aria-label':'Titelbild wechseln'});
   const col=h('div',{class:'bb-col'}, inner, dots);
   const sec=h('section',{class:'bb'}, bg, col, flag);
   const reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
-  let cur=-1, swapT=null, pre=null;
-  const artFor=i=>{ if (pre && pre.i===i){ const el=pre.el; pre=null; return el; } return landscapeArt(list[i].g,'next',true); };
+  let cur=-1, started=false, swapT=null, pre=null, queue=topBatches(), upcoming=null;
+  const renderDots=()=>{
+    dots.replaceChildren(...list.map((it,i)=>h('button',{class:'bb-dot', type:'button', title:it.g.title, 'aria-label':`${it.g.title} zeigen`, onclick:()=>show(i)}, h('i',null, h('b')))));
+    dots.hidden = list.length<2;
+  };
+  const takeRound=()=>{
+    if (!queue.length) queue=[mainBillboard(), ...topBatches()];
+    let nl=queue.shift().filter(it=>it.g && S.games.has(it.g.id));
+    if (!nl.length) nl=mainBillboard();
+    const last=list.at(cur);
+    if (nl.length>1 && last && nl.at(0).g.id===last.g.id) nl=nl.slice(1).concat(nl.slice(0,1));
+    return nl;
+  };
+  const peekRound=()=>{ if (!upcoming) upcoming=takeRound(); return upcoming; };
+  const nextItem=()=> cur+1<list.length ? list.at(cur+1) : peekRound().at(0);
+  const artFor=it=>{ if (pre && pre.id===it.g.id){ const el=pre.el; pre=null; return el; } return landscapeArt(it.g,'next',true); };
   function show(i){
     i=(i+list.length)%list.length;
-    const first=cur<0; cur=i;
-    const {g,label}=list[i]; S.bbId=g.id;
-    const layer=h('div',{class:'bb-layer'}, artFor(i));
+    const first=!started; started=true; cur=i;
+    const it=list.at(i), {g,label}=it; S.bbId=g.id;
+    const layer=h('div',{class:'bb-layer'}, artFor(it));
     bg.append(layer);
     if (first) layer.classList.add('on'); else requestAnimationFrame(()=>requestAnimationFrame(()=>layer.classList.add('on')));
     const old=[...bg.children].slice(0,-1);
@@ -1502,20 +1561,22 @@ function billboard(list){
     const fill=()=>{ inner.replaceChildren(...bbContent(g,label)); flag.textContent=STATUS[g.status].label; };
     clearTimeout(swapT);
     if (first) fill(); else { inner.classList.add('out'); swapT=setTimeout(()=>{ fill(); inner.classList.remove('out'); }, 280); }
-    if (dots){
-      [...dots.children].forEach((d,j)=>{ d.classList.remove('on'); d.classList.toggle('done', j<i); if (j===i) d.setAttribute('aria-current','true'); else d.removeAttribute('aria-current'); d.querySelector('i').replaceChildren(h('b')); });
-      dots.children[i].classList.add('on');
-      const ni=(i+1)%list.length;
-      pre={i:ni, el:landscapeArt(list[ni].g,'next',true)};
-    }
+    [...dots.children].forEach((d,j)=>{ d.classList.remove('on'); d.classList.toggle('done', j<i); if (j===i) d.setAttribute('aria-current','true'); else d.removeAttribute('aria-current'); d.querySelector('i').replaceChildren(h('b')); });
+    if (dots.children.length>i) dots.children[i].classList.add('on');
+    if (list.length>1){ const nx=nextItem(); if (nx && nx.g.id!==g.id) pre={id:nx.g.id, el:landscapeArt(nx.g,'next',true)}; }
   }
-  if (dots && !reduce) dots.addEventListener('animationend', e=>{ if (e.animationName==='bbfill' && sec.isConnected) show(cur+1); });
+  const advance=()=>{
+    if (cur+1<list.length){ show(cur+1); return; }
+    list=peekRound(); upcoming=null; renderDots(); show(0);
+  };
+  if (!reduce) dots.addEventListener('animationend', e=>{ if (e.animationName==='bbfill' && sec.isConnected) advance(); });
   const pause=on=>sec.classList.toggle('paused', on);
   col.addEventListener('mouseenter', ()=>pause(true)); col.addEventListener('mouseleave', ()=>pause(col.contains(document.activeElement)));
   col.addEventListener('focusin', ()=>pause(true)); col.addEventListener('focusout', ()=>setTimeout(()=>pause(col.matches(':hover') || col.contains(document.activeElement)), 0));
   let sx=null, sy=0;
   sec.addEventListener('pointerdown', e=>{ sx=e.clientX; sy=e.clientY; });
-  sec.addEventListener('pointerup', e=>{ if (sx==null || list.length<2) return; const dx=e.clientX-sx, dy=e.clientY-sy; sx=null; if (Math.abs(dx)>60 && Math.abs(dy)<50) show(cur+(dx<0 ? 1 : -1)); });
+  sec.addEventListener('pointerup', e=>{ if (sx==null || list.length<2) return; const dx=e.clientX-sx, dy=e.clientY-sy; sx=null; if (Math.abs(dx)>60 && Math.abs(dy)<50){ if (dx<0) advance(); else show(cur-1); } });
+  renderDots();
   show(Math.max(0, list.findIndex(it=>it.g.id===S.bbId)));
   return sec;
 }
