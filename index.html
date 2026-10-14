@@ -148,7 +148,24 @@ body.view-start #banner{display:none}
 .bb-bg>img.from-cover{object-position:center 25%}
 .bb::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(77deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.3) 48%,transparent 78%)}
 .bb::after{content:"";position:absolute;left:0;right:0;bottom:0;height:42%;z-index:-1;background:linear-gradient(180deg,rgba(20,20,20,0),rgba(20,20,20,.65) 55%,var(--bg))}
-.bb-in{max-width:min(660px,100%);display:grid;gap:16px;justify-items:start}
+.bb-in{max-width:min(660px,100%);display:grid;gap:16px;justify-items:start;transition:opacity .3s ease,transform .3s ease}
+.bb-in.out{opacity:0;transform:translateY(10px)}
+.bb-col{display:grid;gap:26px;justify-items:start;max-width:min(660px,100%);min-width:0}
+.bb-layer{position:absolute;inset:0;overflow:hidden;opacity:0;transition:opacity .9s ease}
+.bb-layer.on{opacity:1}
+.bb-layer>img,.bb-layer>.gen{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.bb-layer>img.from-cover{object-position:center 25%}
+.bb-layer.on>img,.bb-layer.on>.gen{animation:bbzoom calc(var(--bb-dur,8s) + 2s) ease-out both}
+@keyframes bbzoom{from{transform:scale(1.07)}to{transform:scale(1)}}
+.bb-dots{display:flex;flex-wrap:wrap;gap:6px}
+.bb-dot{width:clamp(28px,3vw,42px);padding:9px 0;border:0;background:none;cursor:pointer}
+.bb-dot i{display:block;height:3px;border-radius:2px;background:rgba(255,255,255,.28);overflow:hidden}
+.bb-dot b{display:block;height:100%;background:#fff;transform:scaleX(0);transform-origin:left}
+.bb-dot:hover i{background:rgba(255,255,255,.5)}
+.bb-dot.done b{transform:scaleX(1);opacity:.55}
+.bb-dot.on b{animation:bbfill var(--bb-dur,8s) linear forwards}
+@keyframes bbfill{to{transform:scaleX(1)}}
+.bb.paused .bb-dot.on b,body.locked .bb-dot.on b,body.tab-hidden .bb-dot.on b{animation-play-state:paused}
 .bb-tag{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.36em;text-transform:uppercase;color:#E5E5E5;text-shadow:0 1px 4px rgba(0,0,0,.6)}
 .bb-mark{width:13px;height:18px;background:var(--red);clip-path:polygon(0 0,68% 0,100% 22%,100% 100%,0 100%);flex:none}
 .bb-title{font-family:var(--f-display);font-weight:400;font-size:clamp(56px,8.4vw,132px);line-height:.86;letter-spacing:.012em;text-shadow:0 4px 30px rgba(0,0,0,.45);text-wrap:balance;overflow-wrap:break-word;max-width:100%}
@@ -267,7 +284,7 @@ body.view-start #banner{display:none}
 .d-hero-in{display:grid;gap:18px;justify-items:start;max-width:100%}
 .d-title{font-family:var(--f-display);font-weight:400;font-size:clamp(44px,6.4vw,82px);line-height:.88;letter-spacing:.012em;text-shadow:0 4px 24px rgba(0,0,0,.5);text-wrap:balance;overflow-wrap:break-word;max-width:100%}
 .d-btns{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.d-body{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:24px 36px;padding:8px clamp(18px,4.5vw,48px) 40px}
+.d-body{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:24px 36px;align-items:start;padding:8px clamp(18px,4.5vw,48px) 32px}
 @media (max-width:760px){.d-body{grid-template-columns:minmax(0,1fr)}.d-hero{aspect-ratio:4/3}}
 .d-left,.d-right{display:grid;gap:16px;align-content:start;min-width:0}
 .d-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:15px;color:#BCBCBC;font-weight:500}
@@ -446,6 +463,27 @@ body.view-start #banner{display:none}
 .meter{height:6px;border-radius:999px;background:#333;overflow:hidden}
 .meter span{display:block;height:100%;background:var(--red)}
 
+/* Mini-Player */
+.mp{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60;width:min(380px,calc(100% - 32px));background:#181818;border-radius:8px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.08)}
+.mp-head{display:flex;align-items:center;gap:10px;padding:8px 8px 8px 14px}
+.mp-t{display:grid;min-width:0;flex:1;line-height:1.3}
+.mp-t b{font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mp-t span{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mp-x{width:32px;height:32px;border-radius:50%;border:0;background:transparent;color:#fff;display:grid;place-items:center;flex:none}
+.mp-x:hover{background:rgba(255,255,255,.12)}
+.mp-x svg{width:16px;height:16px}
+.mp-frame{position:relative;background:#000}
+.mp-frame iframe{display:block;width:100%;border:0}
+.mp-frame.yt{aspect-ratio:16/9}
+.mp-frame.yt iframe{position:absolute;inset:0;height:100%}
+.mp .eq{height:12px;flex:none}
+.song-hint{font-size:12.5px;color:var(--muted)}
+.d-left .d-songsec{margin-top:4px}
+.d-left .song{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px 18px;padding:12px 14px}
+.d-left .song-actions{justify-content:flex-end}
+.d-left .song-hint{grid-column:1 / -1;margin-top:-2px}
+@media (max-width:560px){.d-left .song{grid-template-columns:minmax(0,1fr)}.d-left .song-actions{justify-content:flex-start}}
+
 /* Toast */
 .toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);z-index:120;max-width:min(520px,calc(100% - 32px));padding:11px 16px;border-radius:4px;background:#fff;color:#000;font-size:14px;font-weight:700;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -504,6 +542,7 @@ body.view-start #banner{display:none}
 <div class="sheet" id="editor" hidden><div class="sheet-panel" role="dialog" aria-modal="true" aria-label="Eintrag bearbeiten"></div></div>
 <div class="lb" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Screenshot"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="mp" id="player" role="region" aria-label="Musik-Player" hidden></div>
 <datalist id="dl-platforms"></datalist>
 
 <script>
@@ -525,7 +564,7 @@ const MONTHS = ['Januar','Februar','März','April','Mai','Juni','Juli','August',
 const S = {
   db:null, assets:null, downloads:null, owner:false, noDb:false, loadErr:null, isStatic:false, assetMap:null, exportedAt:'',
   games:new Map(), tiers:{}, loaded:{games:false, tiers:false},
-  view:'lib', q:'', fYear:'all', fStatus:'all', sort:'recent',
+  view:'lib', bbId:null, q:'', fYear:'all', fStatus:'all', sort:'recent',
   tierYear:YEAR_NOW, tierEdit:false, tiersDirty:false, openId:null, usage:null,
 };
 
@@ -616,6 +655,26 @@ function norm(id, d){
 }
 function safeUrl(u){ if (!u) return ''; try { const x=new URL(u); return (x.protocol==='https:'||x.protocol==='http:') ? x.href : ''; } catch { return ''; } }
 function songService(u){ let host=''; try { host=new URL(u).hostname.replace(/^www\./,''); } catch {} if (/(^|\.)spotify\.com$/.test(host)) return 'Spotify'; if (host==='music.youtube.com') return 'YouTube Music'; if (/(^|\.)youtube\.com$|^youtu\.be$/.test(host)) return 'YouTube'; if (host==='music.apple.com') return 'Apple Music'; if (/(^|\.)soundcloud\.com$/.test(host)) return 'SoundCloud'; return ''; }
+function ytStart(u){ const t=u.searchParams.get('t')||u.searchParams.get('start'); if (!t) return 0; if (/^\d+$/.test(t)) return +t; const m=t.match(/^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?$/); return m ? (+(m[1]||0))*3600+(+(m[2]||0))*60+(+(m[3]||0)) : 0; }
+function songEmbed(url){
+  let u; try { u=new URL(url); } catch { return null; }
+  if (u.protocol!=='https:' && u.protocol!=='http:') return null;
+  const host=u.hostname.toLowerCase().replace(/^www\./,'');
+  if (host==='open.spotify.com'){
+    const m=u.pathname.match(/^\/(?:intl-[a-z]{2}(?:-[a-z]{2})?\/)?(?:embed\/)?(track|album|playlist)\/([A-Za-z0-9]{10,40})\/?$/);
+    return m ? {kind:'spotify', label:'Spotify', src:`https://open.spotify.com/embed/${m[1]}/${m[2]}?utm_source=generator&theme=0`, h:152} : null;
+  }
+  let yt=null;
+  if (host==='youtu.be') yt=u.pathname.slice(1).split('/')[0];
+  else if (host==='youtube.com' || host==='m.youtube.com' || host==='music.youtube.com'){
+    yt=u.searchParams.get('v');
+    if (!yt){ const m=u.pathname.match(/^\/(?:shorts|embed|live)\/([\w-]{11})/); if (m) yt=m[1]; }
+  }
+  if (yt && /^[\w-]{11}$/.test(yt)){ const st=ytStart(u); return {kind:'youtube', label:'YouTube', src:`https://www.youtube-nocookie.com/embed/${yt}?autoplay=1&rel=0&playsinline=1${st ? '&start='+st : ''}`}; }
+  if (host==='music.apple.com' && /^\/[a-z]{2}\/(album|song|playlist)\/\S+$/.test(u.pathname)) return {kind:'apple', label:'Apple Music', src:'https://embed.music.apple.com'+u.pathname+u.search, h:175};
+  if (host==='soundcloud.com' && /^\/[\w-]+\/[\w-]+/.test(u.pathname)) return {kind:'soundcloud', label:'SoundCloud', src:'https://w.soundcloud.com/player/?url='+encodeURIComponent('https://soundcloud.com'+u.pathname)+'&auto_play=true&visual=false&show_comments=false&color=%23e50914', h:166};
+  return null;
+}
 function normTier(d){ d=d||{}; const t={}; for (const T of TIERS) t[T] = Array.isArray(d[T]) ? d[T].filter(x=>typeof x==='string') : []; t.goty = typeof d.goty==='string' ? d.goty : null; return t; }
 function cloneTier(t){ const n=normTier(t); for (const T of TIERS) n[T]=[...n[T]]; return n; }
 function tierOf(g){ const t=S.tiers[g.year]; if(!t) return null; for (const T of TIERS) if (t[T].includes(g.id)) return T; return null; }
@@ -824,7 +883,7 @@ function emptyLib(){
     h('div',{class:'empty-txt'},
       h('h2',null, S.owner ? 'Dein erster Speicherstand' : 'Noch keine Spiele eingetragen'),
       h('p',null, S.owner
-        ? 'Trag ein Spiel ein, das du gerade spielst oder beendet hast: Wertung, Gedanken, Lieblingsmoment und Screenshots. Daraus entstehen mit der Zeit deine Jahres-Tierlisten und Statistiken.'
+        ? 'Trag ein Spiel ein, das du gerade spielst oder beendet hast: Wertung, kurzes Fazit, Lieblingssong und Screenshots. Daraus entstehen mit der Zeit deine Jahres-Tierlisten und Statistiken.'
         : 'Sobald hier Spiele eingetragen sind, erscheinen sie in dieser Bibliothek.'),
       S.owner ? h('button',{class:'btn btn-primary', type:'button', onclick:()=>openEditor(null)}, icon('plus'), 'Spiel eintragen') : null));
 }
@@ -846,6 +905,30 @@ function renderDetail(reset){
 }
 function fact(k,v){ return [h('dt',null,k), h('dd',null,v)]; }
 function rankOf(g){ if (!g.score) return 0; const top=[...S.games.values()].filter(x=>x.score).sort((a,b)=>b.score-a.score || a.title.localeCompare(b.title,'de')).slice(0,10); const i=top.findIndex(x=>x.id===g.id); return i<0 ? 0 : i+1; }
+function playable(g){ return (S.isStatic && g.song && g.songUrl) ? songEmbed(g.songUrl) : null; }
+function playSong(g){
+  const e=playable(g); if (!e) return;
+  const el=$('#player');
+  const ifr=document.createElement('iframe');
+  ifr.src=e.src; ifr.title=`${g.song} – Player`;
+  ifr.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+  ifr.referrerPolicy='strict-origin-when-cross-origin';
+  ifr.setAttribute('allowfullscreen','');
+  if (e.h) ifr.height=String(e.h);
+  el.replaceChildren(
+    h('div',{class:'mp-head'}, h('span',{class:'eq','aria-hidden':'true'}, h('i'), h('i'), h('i'), h('i')),
+      h('div',{class:'mp-t'}, h('b',null, g.song), h('span',null, `aus ${g.title}`)),
+      h('button',{class:'mp-x', type:'button', 'aria-label':'Player schließen', title:'Player schließen', onclick:stopSong}, icon('close'))),
+    h('div',{class:'mp-frame'+(e.kind==='youtube' ? ' yt' : '')}, ifr));
+  el.hidden=false;
+}
+function stopSong(){ const el=$('#player'); el.hidden=true; el.replaceChildren(); }
+function playBtn(g, cls){
+  const href=songHref(g); if (!href) return null;
+  return playable(g)
+    ? h('button',{class:cls, type:'button', onclick:()=>playSong(g)}, icon('play'), 'Song abspielen')
+    : h('a',{class:cls, href, target:'_blank', rel:'noopener noreferrer'}, icon('play'), 'Song abspielen');
+}
 function songHref(g){ return g.song ? (g.songUrl || `https://open.spotify.com/search/${encodeURIComponent(g.song+' '+g.title)}`) : null; }
 function dline(k,v){ return h('p',{class:'d-line'}, h('span',{class:'k'}, k+': '), v); }
 function detailContent(g){
@@ -853,15 +936,15 @@ function detailContent(g){
   const ext={target:'_blank', rel:'noopener noreferrer'};
   const close=h('div',{class:'d-close-wrap'}, h('button',{class:'d-close sheet-close', type:'button', 'aria-label':'Schließen', onclick:closeDetail}, icon('close')));
   const hero=h('header',{class:'d-hero'},
-    h('div',{class:'d-bg','aria-hidden':'true'}, landscapeArt(g)),
+    h('div',{class:'d-bg','aria-hidden':'true'}, landscapeArt(g,'next')),
     h('div',{class:'d-hero-in'},
       h('h1',{class:'d-title'}, g.title),
       h('div',{class:'d-btns'},
-        song ? h('a',{class:'btn btn-white btn-lg', href:song, ...ext}, icon('play'), 'Song abspielen') : null,
+        song ? playBtn(g,'btn btn-white btn-lg') : null,
         S.owner ? (song ? h('button',{class:'btn-round', type:'button', title:'Bearbeiten', 'aria-label':'Bearbeiten', onclick:()=>openEditor(g.id)}, icon('edit')) : h('button',{class:'btn btn-white btn-lg', type:'button', onclick:()=>openEditor(g.id)}, icon('edit'), 'Bearbeiten')) : null,
         g.shots.length ? h('button',{class:'btn-round', type:'button', title:'Screenshots ansehen', 'aria-label':'Screenshots ansehen', onclick:()=>openLB(g,0)}, icon('img')) : null)));
   const span = g.start && g.end ? `${fmtDate(g.start)} – ${fmtDate(g.end)}` : g.start ? `seit ${fmtDate(g.start)}` : g.end ? `beendet ${fmtDate(g.end)}` : '';
-  const hasText = g.verdict || g.notes || g.moment;
+  const hasText = g.verdict || g.moment;
   const left=h('div',{class:'d-left'},
     h('p',{class:'d-meta'},
       g.score ? h('span',{class:'match'}, `${fmtScore(g.score)}/10`) : h('span',null,'Noch keine Wertung'),
@@ -873,14 +956,13 @@ function detailContent(g){
     goty ? h('p',{class:'d-rankline'}, h('span',{class:'top-badge'}, icon('crown')), `Spiel des Jahres ${g.year}`)
       : rank ? h('p',{class:'d-rankline'}, h('span',{class:'top-badge'}, h('small',null,'TOP'), h('b',null,'10')), `Platz ${rank} deiner Bestenliste`) : null,
     g.verdict ? h('p',{class:'d-verdict'}, g.verdict) : null,
-    g.notes ? h('div',{class:'notes'}, g.notes) : null,
     g.moment ? h('div',{class:'d-moment'}, h('span',{class:'d-sub'},'Lieblingsmoment'), h('p',null, g.moment)) : null,
-    !hasText ? h('p',{class:'muted'}, S.owner ? 'Noch keine Gedanken notiert. Über „Bearbeiten“ kannst du Fazit, Tagebuch und Lieblingsmoment ergänzen.' : 'Noch keine Notizen.') : null);
+    !hasText ? h('p',{class:'muted'}, S.owner ? 'Noch kein Fazit. Über „Bearbeiten“ kannst du eins ergänzen.' : 'Noch kein Fazit.') : null,
+    songBlock(g));
   const right=h('div',{class:'d-right'},
     dline('Genres', g.genres.join(', ') || '–'),
     dline('Status', STATUS[g.status].label),
-    span ? dline('Gespielt', span) : null,
-    songBlock(g));
+    span ? dline('Gespielt', span) : null);
   const shots = g.shots.length
     ? h('section',{class:'d-sec'}, h('h3',{class:'d-h3'}, 'Screenshots', h('span',null, String(g.shots.length))),
         h('div',{class:'shots-grid'}, g.shots.map((s,i)=>h('figure',{class:'shot'},
@@ -904,7 +986,15 @@ function songBlock(g){
   const q=encodeURIComponent(`${g.song} ${g.title}`);
   const ext={target:'_blank', rel:'noopener noreferrer'};
   const svc=g.songUrl ? songService(g.songUrl) : '';
-  const actions = g.songUrl
+  const pl=playable(g);
+  const hint = !S.owner || S.isStatic ? null
+    : g.songUrl && songEmbed(g.songUrl) ? 'Auf deiner öffentlichen Seite spielt der Song direkt im Player. Hier in Claude öffnet er sich in einem neuen Tab.'
+    : g.songUrl ? 'Diesen Link kann die Seite nur öffnen. Mit einem YouTube- oder Spotify-Link spielt der Song auf deiner öffentlichen Seite direkt ab.'
+    : 'Füg beim Bearbeiten einen YouTube- oder Spotify-Link ein, dann spielt der Song auf deiner öffentlichen Seite direkt ab.';
+  const actions = pl
+    ? [h('button',{class:'btn btn-white btn-sm', type:'button', onclick:()=>playSong(g)}, icon('play'), 'Abspielen'),
+       h('a',{class:'btn btn-grey btn-sm', href:g.songUrl, ...ext}, `Auf ${pl.label} öffnen`)]
+    : g.songUrl
     ? [h('a',{class:'btn btn-white btn-sm', href:g.songUrl, ...ext}, icon('play'), svc ? `Abspielen auf ${svc}` : 'Abspielen')]
     : [h('a',{class:'btn btn-white btn-sm', href:`https://open.spotify.com/search/${q}`, ...ext}, icon('play'), 'Auf Spotify'),
        h('a',{class:'btn btn-grey btn-sm', href:`https://www.youtube.com/results?search_query=${q}`, ...ext}, icon('search'), 'Auf YouTube')];
@@ -913,7 +1003,8 @@ function songBlock(g){
       h('div',{class:'song-top'},
         h('div',{class:'song-art gen-bg', style:{'--h':hue(g.song)}}, icon('music')),
         h('div',{class:'song-txt'}, h('span',{class:'song-name'}, g.song), h('span',{class:'song-from'}, `aus ${g.title}`), h('span',{class:'eq','aria-hidden':'true'}, h('i'), h('i'), h('i'), h('i')))),
-      h('div',{class:'song-actions'}, actions)));
+      h('div',{class:'song-actions'}, actions),
+      hint ? h('p',{class:'song-hint'}, hint) : null));
 }
 async function deleteGame(id){
   const g=S.games.get(id); if(!g) return;
@@ -1011,10 +1102,17 @@ function editorContent(){
   const song=h('input',{type:'text', id:'ed-song', maxlength:200, value:d.song||'', placeholder:'z. B. der Titelsong oder dein Bosskampf-Track', autocomplete:'off'});
   const songUrl=h('input',{type:'url', id:'ed-song-url', maxlength:500, value:d.songUrl||'', placeholder:'https://open.spotify.com/track/…', autocomplete:'off', inputmode:'url'});
   const songErr=h('p',{class:'f-err', id:'ed-song-err', hidden:true}, 'Der Link muss mit https:// anfangen.');
-  songUrl.addEventListener('input', ()=>{ songErr.hidden=true; });
+  const songInfo=h('p',{class:'f-h', id:'ed-song-info', 'aria-live':'polite'});
+  const updSongInfo=()=>{
+    const val=songUrl.value.trim();
+    if (!val){ songInfo.textContent='Am besten ein YouTube-Link, der spielt den ganzen Song. Spotify spielt Besuchern ohne Spotify-Login oft nur 30 Sekunden.'; return; }
+    const e=songEmbed(val);
+    songInfo.textContent = e ? `Erkannt: ${e.label}. Auf deiner öffentlichen Seite spielt der Song direkt im Player.` : 'Diesen Link kann die Seite nur öffnen, nicht direkt abspielen. Direkt abspielen klappt mit YouTube, Spotify, Apple Music und SoundCloud.';
+  };
+  songUrl.addEventListener('input', ()=>{ songErr.hidden=true; updSongInfo(); });
+  updSongInfo();
 
-  const verdict=h('textarea',{id:'ed-verdict', rows:2, maxlength:600, placeholder:'Was bleibt hängen, in einem Satz?'}, d.verdict);
-  const notes=h('textarea',{id:'ed-notes', rows:9, maxlength:60000, placeholder:'Wie lief es? Was hat dich begeistert, was genervt? Gedanken während des Spielens …'}, d.notes);
+  const verdict=h('textarea',{id:'ed-verdict', rows:2, maxlength:300, placeholder:'Was bleibt hängen, in ein, zwei Sätzen?'}, d.verdict);
   const moment=h('textarea',{id:'ed-moment', rows:3, maxlength:4000, placeholder:'Die Szene, an die du in fünf Jahren noch denkst.'}, d.moment);
 
   const form=h('div',{class:'ed'},
@@ -1032,16 +1130,15 @@ function editorContent(){
         field('Jahr für die Tierliste', year, {hint:'optional', after:yearHelp}))),
     h('section',{class:'ed-sec'}, h('h3',null,'Wertung'),
       h('div',{class:'fgrid'}, score)),
-    h('section',{class:'ed-sec'}, h('h3',null,'Tagebuch'),
+    h('section',{class:'ed-sec'}, h('h3',null,'Fazit'),
       h('div',{class:'fgrid'},
-        field('Fazit', verdict, {full:true}),
-        field('Notizen', notes, {full:true}),
+        field('Kurzes Fazit', verdict, {full:true, hint:'optional, höchstens 300 Zeichen'}),
         field('Lieblingsmoment', moment, {full:true}))),
     h('section',{class:'ed-sec'}, h('h3',null,'Lieblingssong'),
       h('div',{class:'fgrid'},
         field('Titel des Songs', song),
-        field('Link zum Anhören', songUrl, {hint:'optional', after:songErr}),
-        h('p',{class:'f-h f full'}, 'Spotify-, YouTube- oder Apple-Music-Link. Ohne Link zeigt die Spielseite Knöpfe, die den Song auf Spotify oder YouTube suchen.'))),
+        field('Link zum Anhören', songUrl, {hint:'optional', after:[songErr, songInfo]}),
+        h('p',{class:'f-h f full'}, 'Ohne Link zeigt die Spielseite Knöpfe, die den Song auf Spotify oder YouTube suchen. Hier in Claude öffnen sich Songs immer in einem neuen Tab, weil Claude fremde Player auf der Seite sperrt.'))),
     h('section',{class:'ed-sec'}, h('h3',null,'Cover & Screenshots'),
       h('div',{class:'ed-media'}, coverBlock(), shotsBlock())),
     E.id ? h('div',{class:'ed-danger'}, h('span',{class:'muted small'},'Löscht den Eintrag samt Cover und Screenshots.'), confirmBtn('Spiel löschen','Wirklich löschen?', ()=>deleteGame(E.id), 'btn btn-sm btn-danger')) : null);
@@ -1127,7 +1224,7 @@ function readForm(){
   d.song=v('ed-song').trim(); d.songUrl=safeUrl(v('ed-song-url').trim());
   d.start=isDate(v('ed-start'))?v('ed-start'):''; d.end=isDate(v('ed-end'))?v('ed-end'):'';
   const hr=numOr(v('ed-hours')); d.hours = hr>0 ? Math.round(hr*10)/10 : null;
-  d.verdict=v('ed-verdict').trim(); d.notes=v('ed-notes').replace(/\s+$/,''); d.moment=v('ed-moment').trim();
+  d.verdict=v('ed-verdict').trim(); d.moment=v('ed-moment').trim();
 }
 async function saveEditor(){
   if (!E || E.busy) return;
@@ -1137,7 +1234,7 @@ async function saveEditor(){
   const ref = myE.id ? S.db.collection('games').doc(myE.id) : S.db.collection('games').doc();
   const now=Date.now();
   const body={ title:d.title, year:d.year, platform:d.platform, genres:d.genres, status:d.status, score:d.score, scores:d.scores,
-    start:d.start, end:d.end, hours:d.hours, verdict:d.verdict, notes:d.notes, moment:d.moment, song:d.song, songUrl:d.songUrl, cover:d.cover||null,
+    start:d.start, end:d.end, hours:d.hours, verdict:d.verdict, moment:d.moment, song:d.song, songUrl:d.songUrl, cover:d.cover||null,
     shots:d.shots.map(s=>({id:s.id, caption:(s.caption||'').trim()})), created:(myE.orig && myE.orig.created)||now, updated:now };
   const btn=$('#ed-save'); btn.disabled=true; btn.textContent='Speichert …';
   const ok=await writeDoc('games/'+ref.id, ()=>ref.set(body));
@@ -1288,10 +1385,29 @@ function latestYear(){ const ys=[...new Set([...S.games.values()].map(g=>g.year)
 function tsStat(v,l){ return h('div',{class:'ts-stat'}, h('b',null,v), h('span',null,l)); }
 function goTiers(y){ S.tierYear=y; S.tierEdit=false; setView('tiers',true); }
 function genWide(g){ return h('div',{class:'gen', style:{'--h':hue(g.title)}}); }
-function landscapeArt(g){
-  const s=g.shots[0];
+/* Screenshots abwechseln: 'next' nimmt jedes Mal einen anderen (alle der Reihe nach in zufälliger Folge),
+   'stable' bleibt pro Seitenaufruf gleich, damit Reihen beim Neuzeichnen nicht flackern */
+const shotQueue={}, shotLast={}, shotStable={};
+function pickShot(g, mode){
+  const n=g.shots.length; if (!n) return null;
+  if (n===1) return g.shots[0];
+  if (mode==='stable'){
+    if (!(shotStable[g.id]<n)) shotStable[g.id]=Math.floor(Math.random()*n);
+    return g.shots[shotStable[g.id]];
+  }
+  let q=(shotQueue[g.id]||[]).filter(i=>i<n);
+  if (!q.length){
+    q=[...Array(n).keys()];
+    for (let i=n-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [q[i],q[j]]=[q[j],q[i]]; }
+    if (q[0]===shotLast[g.id]) q.push(q.shift());
+  }
+  const i=q.shift(); shotQueue[g.id]=q; shotLast[g.id]=i;
+  return g.shots[i];
+}
+function landscapeArt(g, mode, eager){
+  const s=pickShot(g, mode||'stable');
   if (s || g.cover){
-    const im=h('img',{src:blobUrl(s ? s.id : g.cover), alt:'', class: s ? null : 'from-cover', loading:'lazy', decoding:'async', draggable:'false'});
+    const im=h('img',{src:blobUrl(s ? s.id : g.cover), alt:'', class: s ? null : 'from-cover', loading: eager ? 'eager' : 'lazy', decoding:'async', draggable:'false'});
     im.addEventListener('error', ()=>im.replaceWith(genWide(g)), {once:true});
     return im;
   }
@@ -1334,29 +1450,74 @@ function row(title, items, opts){
       track,
       h('button',{class:'row-arrow next', type:'button', 'aria-label':'Weiterblättern', onclick:()=>step(1)}, icon('right'))));
 }
-function billboard(g, label){
+function billboardList(all, recent){
+  const out=[], seen=new Set();
+  const add=(g,label)=>{ if (g && !seen.has(g.id) && out.length<6){ seen.add(g.id); out.push({g,label}); } };
+  recent.filter(g=>g.status==='spielt').forEach(g=>add(g,'Gerade dabei'));
+  Object.keys(S.tiers).sort((a,b)=>b-a).forEach(y=>{ const id=S.tiers[y].goty; const g=id && S.games.get(id); if (g && g.year===+y) add(g,`Spiel des Jahres ${y}`); });
+  all.filter(g=>g.score).sort((a,b)=>b.score-a.score || a.title.localeCompare(b.title,'de')).slice(0,3).forEach(g=>add(g,'Top bewertet'));
+  recent.forEach(g=>add(g, g.status==='spielt' ? 'Gerade dabei' : 'Zuletzt gespielt'));
+  return out;
+}
+function bbContent(g, label){
   const tier=tierOf(g), goty=isGoty(g), song=songHref(g);
-  const ext={target:'_blank', rel:'noopener noreferrer'};
-  const text=g.verdict || g.notes || '';
-  return h('section',{class:'bb'},
-    h('div',{class:'bb-bg','aria-hidden':'true'}, landscapeArt(g)),
-    h('div',{class:'bb-in'},
-      h('p',{class:'bb-tag'}, h('span',{class:'bb-mark'}), label),
-      h('h1',{class:'bb-title'}, g.title),
-      h('p',{class:'bb-meta'},
-        g.score ? h('span',{class:'match'}, `${fmtScore(g.score)}/10`) : null,
-        g.year ? h('span',null, String(g.year)) : null,
-        g.platform ? h('span',null, g.platform) : null,
-        g.hours ? h('span',null, fmtHours(g.hours)) : null,
-        tier ? h('span',{class:'box'}, `${tier}-Tier`) : null,
-        goty ? h('span',{class:'box gold'}, icon('crown'), 'Spiel des Jahres') : null),
-      text ? h('p',{class:'bb-text'}, text) : null,
-      h('div',{class:'bb-btns'},
-        song ? h('a',{class:'btn btn-white btn-lg', href:song, ...ext}, icon('play'), 'Song abspielen')
-             : h('button',{class:'btn btn-white btn-lg', type:'button', onclick:()=>openDetail(g.id)}, icon('info'), 'Weitere Infos'),
-        song ? h('button',{class:'btn btn-grey btn-lg', type:'button', onclick:()=>openDetail(g.id)}, icon('info'), 'Weitere Infos')
-             : h('button',{class:'btn btn-grey btn-lg', type:'button', onclick:()=>setView('lib',true)}, 'Zur Bibliothek'))),
-    h('div',{class:'bb-flag'}, STATUS[g.status].label));
+  const text=g.verdict || '';
+  return [
+    h('p',{class:'bb-tag'}, h('span',{class:'bb-mark'}), label),
+    h('h1',{class:'bb-title'}, g.title),
+    h('p',{class:'bb-meta'},
+      g.score ? h('span',{class:'match'}, `${fmtScore(g.score)}/10`) : null,
+      g.year ? h('span',null, String(g.year)) : null,
+      g.platform ? h('span',null, g.platform) : null,
+      g.hours ? h('span',null, fmtHours(g.hours)) : null,
+      tier ? h('span',{class:'box'}, `${tier}-Tier`) : null,
+      goty ? h('span',{class:'box gold'}, icon('crown'), 'Spiel des Jahres') : null),
+    text ? h('p',{class:'bb-text'}, text) : null,
+    h('div',{class:'bb-btns'},
+      song ? playBtn(g,'btn btn-white btn-lg')
+           : h('button',{class:'btn btn-white btn-lg', type:'button', onclick:()=>openDetail(g.id)}, icon('info'), 'Weitere Infos'),
+      song ? h('button',{class:'btn btn-grey btn-lg', type:'button', onclick:()=>openDetail(g.id)}, icon('info'), 'Weitere Infos')
+           : h('button',{class:'btn btn-grey btn-lg', type:'button', onclick:()=>setView('lib',true)}, 'Zur Bibliothek'))];
+}
+function billboard(list){
+  const bg=h('div',{class:'bb-bg','aria-hidden':'true'});
+  const inner=h('div',{class:'bb-in', 'aria-live':'polite'});
+  const flag=h('div',{class:'bb-flag'});
+  const dots = list.length>1 ? h('div',{class:'bb-dots', role:'group', 'aria-label':'Titelbild wechseln'},
+    list.map((it,i)=>h('button',{class:'bb-dot', type:'button', title:it.g.title, 'aria-label':`${it.g.title} zeigen`, onclick:()=>show(i)}, h('i',null, h('b'))))) : null;
+  const col=h('div',{class:'bb-col'}, inner, dots);
+  const sec=h('section',{class:'bb'}, bg, col, flag);
+  const reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  let cur=-1, swapT=null, pre=null;
+  const artFor=i=>{ if (pre && pre.i===i){ const el=pre.el; pre=null; return el; } return landscapeArt(list[i].g,'next',true); };
+  function show(i){
+    i=(i+list.length)%list.length;
+    const first=cur<0; cur=i;
+    const {g,label}=list[i]; S.bbId=g.id;
+    const layer=h('div',{class:'bb-layer'}, artFor(i));
+    bg.append(layer);
+    if (first) layer.classList.add('on'); else requestAnimationFrame(()=>requestAnimationFrame(()=>layer.classList.add('on')));
+    const old=[...bg.children].slice(0,-1);
+    setTimeout(()=>old.forEach(x=>x.remove()), first ? 0 : 1000);
+    const fill=()=>{ inner.replaceChildren(...bbContent(g,label)); flag.textContent=STATUS[g.status].label; };
+    clearTimeout(swapT);
+    if (first) fill(); else { inner.classList.add('out'); swapT=setTimeout(()=>{ fill(); inner.classList.remove('out'); }, 280); }
+    if (dots){
+      [...dots.children].forEach((d,j)=>{ d.classList.remove('on'); d.classList.toggle('done', j<i); if (j===i) d.setAttribute('aria-current','true'); else d.removeAttribute('aria-current'); d.querySelector('i').replaceChildren(h('b')); });
+      dots.children[i].classList.add('on');
+      const ni=(i+1)%list.length;
+      pre={i:ni, el:landscapeArt(list[ni].g,'next',true)};
+    }
+  }
+  if (dots && !reduce) dots.addEventListener('animationend', e=>{ if (e.animationName==='bbfill' && sec.isConnected) show(cur+1); });
+  const pause=on=>sec.classList.toggle('paused', on);
+  col.addEventListener('mouseenter', ()=>pause(true)); col.addEventListener('mouseleave', ()=>pause(col.contains(document.activeElement)));
+  col.addEventListener('focusin', ()=>pause(true)); col.addEventListener('focusout', ()=>setTimeout(()=>pause(col.matches(':hover') || col.contains(document.activeElement)), 0));
+  let sx=null, sy=0;
+  sec.addEventListener('pointerdown', e=>{ sx=e.clientX; sy=e.clientY; });
+  sec.addEventListener('pointerup', e=>{ if (sx==null || list.length<2) return; const dx=e.clientX-sx, dy=e.clientY-sy; sx=null; if (Math.abs(dx)>60 && Math.abs(dy)<50) show(cur+(dx<0 ? 1 : -1)); });
+  show(Math.max(0, list.findIndex(it=>it.g.id===S.bbId)));
+  return sec;
 }
 function renderStart(){
   const root=$('#view-start'); root.replaceChildren();
@@ -1367,15 +1528,14 @@ function renderStart(){
       h('div',{class:'bb-bg','aria-hidden':'true'}, h('div',{class:'gen', style:{'--h':352}})),
       h('div',{class:'bb-in'},
         h('p',{class:'bb-tag'}, h('span',{class:'bb-mark'}), 'Spieletagebuch'),
-        h('h1',{class:'bb-title'}, 'Dein erster Speicherstand'),
-        h('p',{class:'bb-text'}, 'Hier sammelst du deine Spiele mit Wertung, Gedanken, Lieblingssong und Screenshots. Daraus entstehen deine Reihen, Tierlisten und Statistiken.'),
+        h('h1',{class:'bb-title'}, S.owner ? 'Dein erster Speicherstand' : 'Bald geht es los'),
+        h('p',{class:'bb-text'}, S.owner ? 'Hier sammelst du deine Spiele mit Wertung, kurzem Fazit, Lieblingssong und Screenshots. Daraus entstehen deine Reihen, Tierlisten und Statistiken.' : 'Hier entsteht ein Spieletagebuch mit Wertungen, Lieblingssongs und Screenshots. Die ersten Spiele kommen bald dazu.'),
         S.owner ? h('div',{class:'bb-btns'}, h('button',{class:'btn btn-white btn-lg', type:'button', onclick:()=>openEditor(null)}, icon('plus'), 'Erstes Spiel eintragen')) : null)));
     return;
   }
   const recent=all.slice().sort((a,b)=>recentKey(b).localeCompare(recentKey(a)));
   const playing=recent.filter(g=>g.status==='spielt');
-  const feat=playing[0] || recent[0];
-  root.append(billboard(feat, playing.length ? 'Gerade dabei' : 'Zuletzt gespielt'));
+  root.append(billboard(billboardList(all, recent)));
   const rows=h('div',{class:'rows-wrap'});
   if (playing.length) rows.append(row('Gerade dabei', playing.map(wideCard)));
   rows.append(row('Zuletzt gespielt', recent.filter(g=>g.status!=='spielt').slice(0,12).map(wideCard), {more:()=>setView('lib',true)}));
@@ -1586,6 +1746,7 @@ function bind(){
   $('#f-sort').addEventListener('change', e=>{ S.sort=e.target.value; renderLib(); });
   $('#f-status').addEventListener('change', e=>{ S.fStatus=e.target.value; renderLib(); });
   window.addEventListener('scroll', updTop, {passive:true});
+  document.addEventListener('visibilitychange', ()=>document.body.classList.toggle('tab-hidden', document.hidden));
   $('#detail').addEventListener('click', e=>{ if (e.target===e.currentTarget) closeDetail(); });
   document.addEventListener('keydown', e=>{
     if (!$('#lightbox').hidden){ if (e.key==='Escape') closeLB(); else if (e.key==='ArrowLeft') stepLB(-1); else if (e.key==='ArrowRight') stepLB(1); return; }
