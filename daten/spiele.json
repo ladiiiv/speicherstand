@@ -1,14 +1,14 @@
 {
   "app": "Speicherstand",
   "version": 2,
-  "exportiert": "2026-10-14T23:19:13.243611Z",
+  "exportiert": "2026-10-15T22:23:05.216028Z",
   "spiele": [
     {
       "cover": "fa81d3c8455c05277d2311d3b18bfc95",
       "created": 1792016472786,
       "end": "2026-08-10",
       "genres": [],
-      "heroShot": null,
+      "heroShot": "73e101a27d201abb5f394c81b93a98fd",
       "hours": null,
       "moment": "",
       "platform": "PC",
@@ -117,7 +117,7 @@
         "Zombies",
         "Horror"
       ],
-      "heroShot": null,
+      "heroShot": "60d28300bcf79c1b3bbf0b2c929c8b2e",
       "hours": 39.8,
       "moment": "\"Stand back, Grace. This resident is about to get evil\"",
       "platform": "PC",
@@ -261,6 +261,41 @@
       "id": "cuwn307uby6sunbu416o"
     },
     {
+      "cover": "49ac46e89e63963903aa7c8a4badf1e5",
+      "created": 1792056253354,
+      "end": "2025-05-08",
+      "genres": [
+        "RPG",
+        "Story Rich",
+        "Fantasy"
+      ],
+      "heroShot": null,
+      "hours": 200,
+      "moment": "This game got me away from League of Legends",
+      "platform": "PC",
+      "score": 9.5,
+      "scores": {},
+      "shots": [
+        {
+          "caption": "",
+          "id": "7b349830e2b38d4a35de00404130bb2e"
+        },
+        {
+          "caption": "",
+          "id": "7603abad7e0edc38061a4085a76b8809"
+        }
+      ],
+      "song": "Down By The River",
+      "songUrl": "https://www.youtube.com/watch?v=zSVRtM1x9wQ&list=RDzSVRtM1x9wQ&start_radio=1",
+      "start": "2025-02-01",
+      "status": "durch",
+      "title": "Baldurs Gate 3",
+      "updated": 1792056253354,
+      "verdict": "The worm in my brain says it is good",
+      "year": 2025,
+      "id": "d3tvflqkxgvh73jctnsb"
+    },
+    {
       "cover": "1234560f11a1e5806cd63ef11539e1d8",
       "created": 1792009486504,
       "end": "2026-04-20",
@@ -290,6 +325,45 @@
       "verdict": "I discovered Thalassophobia, Framerate is really bad tho and EULA aswell",
       "year": 2026,
       "id": "d9wbjn8zpylzq5nvctfv"
+    },
+    {
+      "cover": "e11152a49a751098f04d7161cb032af6",
+      "created": 1792058691338,
+      "end": "2025-01-13",
+      "genres": [
+        "Souls Like",
+        "Roguelike",
+        "Co-op"
+      ],
+      "heroShot": null,
+      "hours": 316,
+      "moment": "Reached Depth 5 and holy cow that was a rough ride!",
+      "platform": "PC",
+      "score": 9,
+      "scores": {},
+      "shots": [
+        {
+          "caption": "",
+          "id": "49cdd2aadd53fd49bfe0ce970b80e130"
+        },
+        {
+          "caption": "",
+          "id": "da4bb588368c3fc1e33f8582e41b6b2f"
+        },
+        {
+          "caption": "",
+          "id": "6a3cc3dd29d447432b95a4f9d8e21289"
+        }
+      ],
+      "song": "Caligo, Miasma Of Night",
+      "songUrl": "https://www.youtube.com/watch?v=o0yz457hVec&list=RDo0yz457hVec&start_radio=1",
+      "start": "2025-01-01",
+      "status": "platin",
+      "title": "Elden Ring Nightreign",
+      "updated": 1792058691338,
+      "verdict": "I would never hate this game and the time I spent on it. It's surprisingly addictive.",
+      "year": 2025,
+      "id": "hbuqov9y0q6leuinoys0"
     },
     {
       "cover": "36bb10ac6f9b6acaec1c712b8c9c4526",
@@ -488,6 +562,37 @@
       "id": "kecevxs3p39dcu8kgtd2"
     },
     {
+      "cover": "34fb44cdb93d7d027a30dd4a3623852c",
+      "created": 1792057602394,
+      "end": "2025-12-25",
+      "genres": [
+        "Turn-Based Combat",
+        "Story Rich",
+        "Fantasy"
+      ],
+      "heroShot": "9465b64a7ac77590052b550480678d79",
+      "hours": 28.3,
+      "moment": "",
+      "platform": "PC",
+      "score": 5.5,
+      "scores": {},
+      "shots": [
+        {
+          "caption": "",
+          "id": "9465b64a7ac77590052b550480678d79"
+        }
+      ],
+      "song": "",
+      "songUrl": "",
+      "start": "2025-12-02",
+      "status": "durch",
+      "title": "Clair Obscur: Expedition 33",
+      "updated": 1792057602394,
+      "verdict": "I really wanted to love Expedition 33, but by the end i was mostly playing cause i just wanted to be done with it",
+      "year": 2025,
+      "id": "kmwxbotmry9053vql0xq"
+    },
+    {
       "cover": "d5e0a0d8201732f77faa5e9f59dcdf26",
       "created": 1791981222898,
       "end": "",
@@ -527,6 +632,37 @@
       "id": "lqfs29yz7853ocs4nak2"
     },
     {
+      "cover": "97bcf379f6d655a363a979206f3514cc",
+      "created": 1792058305255,
+      "end": "2025-03-15",
+      "genres": [
+        "FPS",
+        "Loot",
+        "Multiplayer"
+      ],
+      "heroShot": null,
+      "hours": 58.8,
+      "moment": "",
+      "platform": "PC",
+      "score": 7,
+      "scores": {},
+      "shots": [
+        {
+          "caption": "",
+          "id": "a53750f9ac369e4caf8d2ceb03154a2f"
+        }
+      ],
+      "song": "",
+      "songUrl": "",
+      "start": "2025-02-01",
+      "status": "durch",
+      "title": "Borderlands 4",
+      "updated": 1792058305255,
+      "verdict": "It has its flaws but i still had fun with it",
+      "year": 2025,
+      "id": "moz4fu535f7cvm91azaw"
+    },
+    {
       "cover": "9efa370d7878d062b5a149c9d8298f0d",
       "created": 1791986787578,
       "end": "2026-08-05",
@@ -535,7 +671,7 @@
         "Cats",
         "Dark Humor"
       ],
-      "heroShot": null,
+      "heroShot": "58a24c0a4ff3ef367eea097630299653",
       "hours": null,
       "moment": "Get rid of ugly cats",
       "platform": "PC",
@@ -560,6 +696,41 @@
       "verdict": "Didn't get very far but the experience didn't feel interactive felt more like the game was playing itself and you just got to observe and click a few times. Soundtrack is a banger tho!",
       "year": 2026,
       "id": "on9js3156k4390djffgg"
+    },
+    {
+      "cover": "52dd83191f1241d05f3d03371e124620",
+      "created": 1792057893470,
+      "end": "2025-06-21",
+      "genres": [
+        "Horror",
+        "Lovecraftian",
+        "Dark"
+      ],
+      "heroShot": null,
+      "hours": 5.8,
+      "moment": "i love scotland",
+      "platform": "PC",
+      "score": 8,
+      "scores": {},
+      "shots": [
+        {
+          "caption": "",
+          "id": "9455906aad7d30ae3f3312c81549bd7a"
+        },
+        {
+          "caption": "",
+          "id": "c0b5666d7474a8ecff374e0d0e269dea"
+        }
+      ],
+      "song": "Endgame",
+      "songUrl": "https://youtu.be/jDFa24y8dk8?list=RDjDFa24y8dk8",
+      "start": "2025-06-03",
+      "status": "durch",
+      "title": "Still Wakes the Deep",
+      "updated": 1792057893470,
+      "verdict": "Solid horror experience, a bit short but it manages to squeeze your guts multiple times during it's stay. Voice acting is top notch and the rest is disgustingly awesome.",
+      "year": 2025,
+      "id": "qo583d4fr8hs052fyny4"
     },
     {
       "cover": "10f21decc10ab78a102bd765ff81c515",
@@ -599,6 +770,37 @@
       "verdict": "Its just something you need to experience in your lifetime",
       "year": null,
       "id": "rp8mzkap6uqjyn7lic45"
+    },
+    {
+      "cover": "9b626706ba9cb05ec5074b26fdfa7227",
+      "created": 1792020889392,
+      "end": "",
+      "genres": [
+        "RPG",
+        "JRPG",
+        "Story"
+      ],
+      "heroShot": "dea0ba6d572bbb824568d89fa75531bd",
+      "hours": 8,
+      "moment": "",
+      "platform": "PC",
+      "score": 7,
+      "scores": {},
+      "shots": [
+        {
+          "caption": "",
+          "id": "dea0ba6d572bbb824568d89fa75531bd"
+        }
+      ],
+      "song": "Let The Battles Begin",
+      "songUrl": "https://youtu.be/s5NxP6tjm5o?list=RDs5NxP6tjm5o&t=3",
+      "start": "2026-10-11",
+      "status": "spielt",
+      "title": "FINAL FANTASY VII REMAKE INTERGRADE",
+      "updated": 1792021878386,
+      "verdict": "",
+      "year": null,
+      "id": "s49aa5wj2bvb92c6chvf"
     },
     {
       "cover": "98ad76860954c9d88e26348d1303767d",
@@ -745,6 +947,7 @@
         "Indie",
         "2D"
       ],
+      "heroShot": "fd946c82203d1331648f2a83c80ab18a",
       "hours": 794.3,
       "moment": "The game where the Devil also accepts your credit card. PEAK",
       "platform": "PC",
@@ -783,7 +986,7 @@
         "Co-op",
         "Fishing"
       ],
-      "heroShot": null,
+      "heroShot": "3562f0762b5beb2dd6432195f6139d86",
       "hours": null,
       "moment": "",
       "platform": "PC",
@@ -822,7 +1025,7 @@
         "Strategy",
         "Survival"
       ],
-      "heroShot": null,
+      "heroShot": "c48df9bfde54fc1f180287ab870c9838",
       "hours": 7.3,
       "moment": "",
       "platform": "PC",
@@ -853,6 +1056,37 @@
       "id": "yyxs03512oa4pdtm3zth"
     },
     {
+      "cover": "775b49d248ae87583db746ab8bb671eb",
+      "created": 1792056654026,
+      "end": "2025-07-17",
+      "genres": [
+        "Souls-like",
+        "Action",
+        "Atmospheric"
+      ],
+      "heroShot": null,
+      "hours": 74.9,
+      "moment": "You can be a clown",
+      "platform": "PC",
+      "score": 9,
+      "scores": {},
+      "shots": [
+        {
+          "caption": "",
+          "id": "de9fbe5e0efd18fc6e1d9bc99b388b84"
+        }
+      ],
+      "song": "Quixotic",
+      "songUrl": "https://youtu.be/n1VsHarZwm4?list=RDn1VsHarZwm4",
+      "start": "2025-07-01",
+      "status": "durch",
+      "title": "Lies of P",
+      "updated": 1792056654026,
+      "verdict": "Maybe the best non Souls Souls like",
+      "year": 2025,
+      "id": "z6di32w4w0cuy8mi4bj9"
+    },
+    {
       "cover": "ea25a510fc770d29067e1fdfebbf1dad",
       "created": 1792010281125,
       "end": "2026-06-30",
@@ -861,7 +1095,7 @@
         "PvE",
         "FPS"
       ],
-      "heroShot": null,
+      "heroShot": "73753d3210f76d9a9e979566a5b5ee02",
       "hours": 20.7,
       "moment": "Post-Brexit London has never been rendered in such loving detail",
       "platform": "PC",
@@ -932,6 +1166,31 @@
     }
   ],
   "tierlisten": {
+    "2025": {
+      "A": [
+        "hbuqov9y0q6leuinoys0",
+        "z6di32w4w0cuy8mi4bj9",
+        "qo583d4fr8hs052fyny4"
+      ],
+      "B": [
+        "moz4fu535f7cvm91azaw"
+      ],
+      "C": [
+        "kmwxbotmry9053vql0xq"
+      ],
+      "D": [],
+      "S": [
+        "cuwn307uby6sunbu416o",
+        "d3tvflqkxgvh73jctnsb"
+      ],
+      "goty": "cuwn307uby6sunbu416o",
+      "gotyArt": {
+        "id": "cuwn307uby6sunbu416o",
+        "img": "e824f8dcbb1b5f5d3012f038c3c67bbf",
+        "x": 50,
+        "y": 81.3
+      }
+    },
     "2026": {
       "A": [
         "jxzggc97j235qv0omhhi",
@@ -963,7 +1222,7 @@
         "id": "5xgk6gvm06k2ijkkzx77",
         "img": "60d28300bcf79c1b3bbf0b2c929c8b2e",
         "x": 50,
-        "y": 29.8
+        "y": 29.6
       }
     }
   },
@@ -993,8 +1252,15 @@
     "92a576533d8123746c14da3ce2dfbd45": "bilder/92a576533d8123746c14da3ce2dfbd45.jpg",
     "e824f8dcbb1b5f5d3012f038c3c67bbf": "bilder/e824f8dcbb1b5f5d3012f038c3c67bbf.jpg",
     "665f095c09b6296d28583d5ddaf83bd1": "bilder/665f095c09b6296d28583d5ddaf83bd1.jpg",
+    "49ac46e89e63963903aa7c8a4badf1e5": "bilder/49ac46e89e63963903aa7c8a4badf1e5.jpg",
+    "7b349830e2b38d4a35de00404130bb2e": "bilder/7b349830e2b38d4a35de00404130bb2e.jpg",
+    "7603abad7e0edc38061a4085a76b8809": "bilder/7603abad7e0edc38061a4085a76b8809.jpg",
     "1234560f11a1e5806cd63ef11539e1d8": "bilder/1234560f11a1e5806cd63ef11539e1d8.jpg",
     "2998a0187233c0fab2f8069559922dca": "bilder/2998a0187233c0fab2f8069559922dca.jpg",
+    "e11152a49a751098f04d7161cb032af6": "bilder/e11152a49a751098f04d7161cb032af6.jpg",
+    "49cdd2aadd53fd49bfe0ce970b80e130": "bilder/49cdd2aadd53fd49bfe0ce970b80e130.jpg",
+    "da4bb588368c3fc1e33f8582e41b6b2f": "bilder/da4bb588368c3fc1e33f8582e41b6b2f.jpg",
+    "6a3cc3dd29d447432b95a4f9d8e21289": "bilder/6a3cc3dd29d447432b95a4f9d8e21289.jpg",
     "36bb10ac6f9b6acaec1c712b8c9c4526": "bilder/36bb10ac6f9b6acaec1c712b8c9c4526.jpg",
     "ca9b9f89e85fa0097f8f449d9fe3acf0": "bilder/ca9b9f89e85fa0097f8f449d9fe3acf0.jpg",
     "566d2b6fffee75bb7a864240e5df65a4": "bilder/566d2b6fffee75bb7a864240e5df65a4.jpg",
@@ -1010,17 +1276,26 @@
     "8778b40388f14cf287953855f6fe77ce": "bilder/8778b40388f14cf287953855f6fe77ce.jpg",
     "17c876938d66eb7a06e5c9f522d8f8fd": "bilder/17c876938d66eb7a06e5c9f522d8f8fd.jpg",
     "e72e123e6d9272e674f57749cf3a33f5": "bilder/e72e123e6d9272e674f57749cf3a33f5.jpg",
+    "34fb44cdb93d7d027a30dd4a3623852c": "bilder/34fb44cdb93d7d027a30dd4a3623852c.jpg",
+    "9465b64a7ac77590052b550480678d79": "bilder/9465b64a7ac77590052b550480678d79.jpg",
     "d5e0a0d8201732f77faa5e9f59dcdf26": "bilder/d5e0a0d8201732f77faa5e9f59dcdf26.jpg",
     "c1692266b5d38a8bbc8c3503f0a82285": "bilder/c1692266b5d38a8bbc8c3503f0a82285.jpg",
     "d30565dda727c3de4c40a664d59d126f": "bilder/d30565dda727c3de4c40a664d59d126f.jpg",
     "1d82cb990ddf71ca6a85db185ef05ca2": "bilder/1d82cb990ddf71ca6a85db185ef05ca2.jpg",
+    "97bcf379f6d655a363a979206f3514cc": "bilder/97bcf379f6d655a363a979206f3514cc.jpg",
+    "a53750f9ac369e4caf8d2ceb03154a2f": "bilder/a53750f9ac369e4caf8d2ceb03154a2f.jpg",
     "9efa370d7878d062b5a149c9d8298f0d": "bilder/9efa370d7878d062b5a149c9d8298f0d.jpg",
     "58a24c0a4ff3ef367eea097630299653": "bilder/58a24c0a4ff3ef367eea097630299653.jpg",
     "3c603942f82da9cf133f3323a321600f": "bilder/3c603942f82da9cf133f3323a321600f.jpg",
+    "52dd83191f1241d05f3d03371e124620": "bilder/52dd83191f1241d05f3d03371e124620.jpg",
+    "9455906aad7d30ae3f3312c81549bd7a": "bilder/9455906aad7d30ae3f3312c81549bd7a.jpg",
+    "c0b5666d7474a8ecff374e0d0e269dea": "bilder/c0b5666d7474a8ecff374e0d0e269dea.jpg",
     "10f21decc10ab78a102bd765ff81c515": "bilder/10f21decc10ab78a102bd765ff81c515.jpg",
     "7a0c413e8e8541e47386f734001bf6e6": "bilder/7a0c413e8e8541e47386f734001bf6e6.jpg",
     "10e287e7db45f9de02eec8716401d56f": "bilder/10e287e7db45f9de02eec8716401d56f.jpg",
     "9c3d36f751b3dda08fc7161684861dbe": "bilder/9c3d36f751b3dda08fc7161684861dbe.jpg",
+    "9b626706ba9cb05ec5074b26fdfa7227": "bilder/9b626706ba9cb05ec5074b26fdfa7227.jpg",
+    "dea0ba6d572bbb824568d89fa75531bd": "bilder/dea0ba6d572bbb824568d89fa75531bd.jpg",
     "98ad76860954c9d88e26348d1303767d": "bilder/98ad76860954c9d88e26348d1303767d.jpg",
     "f421fce4e44e24d2ef90257df41184dd": "bilder/f421fce4e44e24d2ef90257df41184dd.jpg",
     "099941174e967a08499cbe7c8d0bdf27": "bilder/099941174e967a08499cbe7c8d0bdf27.jpg",
@@ -1044,6 +1319,8 @@
     "c48df9bfde54fc1f180287ab870c9838": "bilder/c48df9bfde54fc1f180287ab870c9838.jpg",
     "ee6443d2b4f16fe8ce9acc10e9eb8dec": "bilder/ee6443d2b4f16fe8ce9acc10e9eb8dec.jpg",
     "25cde69d425c2a53c1d53b152eae3f7b": "bilder/25cde69d425c2a53c1d53b152eae3f7b.jpg",
+    "775b49d248ae87583db746ab8bb671eb": "bilder/775b49d248ae87583db746ab8bb671eb.jpg",
+    "de9fbe5e0efd18fc6e1d9bc99b388b84": "bilder/de9fbe5e0efd18fc6e1d9bc99b388b84.jpg",
     "ea25a510fc770d29067e1fdfebbf1dad": "bilder/ea25a510fc770d29067e1fdfebbf1dad.jpg",
     "73753d3210f76d9a9e979566a5b5ee02": "bilder/73753d3210f76d9a9e979566a5b5ee02.jpg",
     "d2ce355ba551d3db1089950ab170a1cf": "bilder/d2ce355ba551d3db1089950ab170a1cf.jpg",

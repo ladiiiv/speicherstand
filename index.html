@@ -528,50 +528,50 @@ body.view-start #banner{display:none}
 <header class="top" id="top">
   <div class="top-in">
     <a class="brand" href="#start" id="brand">ladiiv</a>
-    <nav class="tabs" aria-label="Bereiche">
+    <nav class="tabs" aria-label="Sections">
       <button class="tab" type="button" data-view="start" aria-current="page">Start</button>
-      <button class="tab" type="button" data-view="lib">Bibliothek</button>
-      <button class="tab" type="button" data-view="tiers">Tierlisten</button>
-      <button class="tab" type="button" data-view="stats">Statistik</button>
+      <button class="tab" type="button" data-view="lib">Library</button>
+      <button class="tab" type="button" data-view="tiers">Tier lists</button>
+      <button class="tab" type="button" data-view="stats">Stats</button>
     </nav>
     <div class="top-actions">
       <span class="savestate" id="savestate" aria-live="polite"><span class="save-ico" aria-hidden="true"></span><span class="save-txt"></span></span>
-      <button class="btn" id="btn-new" type="button" hidden><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span><span class="hide-sm">Spiel eintragen</span><span class="show-sm">Eintragen</span></button>
+      <button class="btn" id="btn-new" type="button" hidden><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span><span class="hide-sm">Add game</span><span class="show-sm">Add</span></button>
     </div>
   </div>
 </header>
 
 <main class="wrap">
   <div id="banner"></div>
-  <section id="view-start" aria-label="Start"><div class="gate-pad"><div class="loading"><span class="spin"></span>Lade Speicherstände …</div></div></section>
-  <section id="view-lib" aria-label="Bibliothek" hidden>
+  <section id="view-start" aria-label="Start"><div class="gate-pad"><div class="loading"><span class="spin"></span>Loading …</div></div></section>
+  <section id="view-lib" aria-label="Library" hidden>
     <div class="page-head" id="lib-pagehead" hidden>
-      <h2 class="page-title">Bibliothek</h2>
-      <select id="f-status" class="nf-select" aria-label="Nach Status filtern"></select>
+      <h2 class="page-title">Library</h2>
+      <select id="f-status" class="nf-select" aria-label="Filter by status"></select>
       <span class="page-count" id="lib-count"></span>
       <div class="page-tools">
-        <div class="search"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span><input id="q" type="search" placeholder="Titel, Genre, Plattform" aria-label="Suchen" autocomplete="off"></div>
-        <select id="f-sort" class="nf-select" aria-label="Sortierung">
-          <option value="recent">Zuletzt gespielt</option>
-          <option value="added">Zuletzt eingetragen</option>
-          <option value="score">Beste Wertung</option>
-          <option value="hours">Längste Spielzeit</option>
-          <option value="title">Titel A–Z</option>
+        <div class="search"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span><input id="q" type="search" placeholder="Title, genre, platform" aria-label="Search" autocomplete="off"></div>
+        <select id="f-sort" class="nf-select" aria-label="Sort">
+          <option value="recent">Recently played</option>
+          <option value="added">Recently added</option>
+          <option value="score">Highest rated</option>
+          <option value="hours">Longest playtime</option>
+          <option value="title">Title A–Z</option>
         </select>
       </div>
     </div>
-    <div id="lib-body"><div class="loading"><span class="spin"></span>Lade Speicherstände …</div></div>
+    <div id="lib-body"><div class="loading"><span class="spin"></span>Loading …</div></div>
   </section>
-  <section id="view-tiers" aria-label="Tierlisten" hidden></section>
-  <section id="view-stats" aria-label="Statistik" hidden></section>
+  <section id="view-tiers" aria-label="Tier lists" hidden></section>
+  <section id="view-stats" aria-label="Stats" hidden></section>
 </main>
 <footer class="foot" id="foot" hidden></footer>
 
-<div class="sheet" id="detail" hidden><div class="sheet-panel" role="dialog" aria-modal="true" aria-label="Spiel"></div></div>
-<div class="sheet" id="editor" hidden><div class="sheet-panel" role="dialog" aria-modal="true" aria-label="Eintrag bearbeiten"></div></div>
+<div class="sheet" id="detail" hidden><div class="sheet-panel" role="dialog" aria-modal="true" aria-label="Game"></div></div>
+<div class="sheet" id="editor" hidden><div class="sheet-panel" role="dialog" aria-modal="true" aria-label="Edit entry"></div></div>
 <div class="lb" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Screenshot"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<div class="mp" id="player" role="region" aria-label="Musik-Player" hidden></div>
+<div class="mp" id="player" role="region" aria-label="Music player" hidden></div>
 <datalist id="dl-platforms"></datalist>
 
 <script>
@@ -580,15 +580,15 @@ body.view-start #banner{display:none}
 const YEAR_NOW = new Date().getFullYear();
 const TIERS = ['S','A','B','C','D'];
 const STATUS = {
-  spielt:      {label:'Spiele ich gerade', cls:'st-info'},
-  durch:       {label:'Durchgespielt',     cls:'st-ok'},
-  platin:      {label:'100 % / Platin',    cls:'st-gold'},
-  pausiert:    {label:'Pausiert',          cls:'st-idle'},
-  abgebrochen: {label:'Abgebrochen',       cls:'st-bad'},
+  spielt:      {label:'Playing', cls:'st-info'},
+  durch:       {label:'Completed',     cls:'st-ok'},
+  platin:      {label:'100% / Platinum',    cls:'st-gold'},
+  pausiert:    {label:'On hold',          cls:'st-idle'},
+  abgebrochen: {label:'Dropped',       cls:'st-bad'},
 };
-const SUBS = [['story','Story'],['gameplay','Gameplay'],['atmo','Atmosphäre'],['grafik','Grafik'],['sound','Soundtrack']];
+const SUBS = [['story','Story'],['gameplay','Gameplay'],['atmo','Atmosphere'],['grafik','Graphics'],['sound','Soundtrack']];
 const PLATFORMS = ['PC','Steam Deck','PS5','PS4','Switch 2','Switch','Xbox Series X|S','Xbox One','iPhone / iPad','Android','Retro'];
-const MONTHS = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
 const S = {
   db:null, assets:null, downloads:null, owner:false, noDb:false, loadErr:null, isStatic:false, assetMap:null, exportedAt:'',
@@ -650,11 +650,11 @@ function clampScore(v){ const n=numOr(v); if (n==null || n<=0) return null; retu
 function clampYear(y){ y=parseInt(y,10); return (y>=1970 && y<=YEAR_NOW+1) ? y : null; }
 function hue(s){ let x=0; for (const ch of String(s)) x=(x*31 + ch.charCodeAt(0))>>>0; return x%360; }
 const blobUrl = id => (S.assetMap && S.assetMap[id]) ? S.assetMap[id] : '/_blob/' + encodeURIComponent(id);
-const nf1 = new Intl.NumberFormat('de-DE',{maximumFractionDigits:1});
+const nf1 = new Intl.NumberFormat('en-US',{maximumFractionDigits:1});
 function fmtScore(s){ return s ? nf1.format(s) : '–'; }
 function fmtHours(n){ return n ? nf1.format(n)+' h' : ''; }
-function fmtDate(d){ if(!isDate(d)) return ''; const dt=new Date(d+'T12:00:00'); return isNaN(dt) ? '' : dt.toLocaleDateString('de-DE',{day:'numeric',month:'short',year:'numeric'}); }
-function fmtStamp(ms){ return ms ? new Date(ms).toLocaleDateString('de-DE',{day:'numeric',month:'long',year:'numeric'}) : ''; }
+function fmtDate(d){ if(!isDate(d)) return ''; const dt=new Date(d+'T12:00:00'); return isNaN(dt) ? '' : dt.toLocaleDateString('en-US',{day:'numeric',month:'short',year:'numeric'}); }
+function fmtStamp(ms){ return ms ? new Date(ms).toLocaleDateString('en-US',{day:'numeric',month:'long',year:'numeric'}) : ''; }
 function fmtBytes(b){ return b>=1e9 ? nf1.format(b/1e9)+' GB' : nf1.format(b/1e6)+' MB'; }
 function plural(n, one, many){ return `${n} ${n===1?one:many}`; }
 let toastT;
@@ -670,7 +670,7 @@ function norm(id, d){
   const shots = Array.isArray(d.shots) ? d.shots.filter(s=>s && isId(s.id)).slice(0,300).map(s=>({id:s.id, caption:str(s.caption,300)})) : [];
   return {
     id,
-    title: str(d.title,200).trim() || 'Ohne Titel',
+    title: str(d.title,200).trim() || 'Untitled',
     year: clampYear(d.year),
     platform: str(d.platform,60).trim(),
     genres: Array.isArray(d.genres) ? d.genres.map(x=>str(x,40).trim()).filter(Boolean).slice(0,8) : [],
@@ -725,17 +725,17 @@ const chains = new Map();
 let pend = 0, savedT;
 function setSave(state){
   const el=$('#savestate'); const txt=$('.save-txt',el);
-  if (state==='saving'){ el.className='savestate is-saving'; txt.textContent='Speichert …'; clearTimeout(savedT); }
-  else if (state==='saved'){ el.className='savestate is-saved'; txt.textContent='Gespeichert'; clearTimeout(savedT); savedT=setTimeout(()=>{ if(!pend) el.className='savestate'; }, 2200); }
+  if (state==='saving'){ el.className='savestate is-saving'; txt.textContent='Saving …'; clearTimeout(savedT); }
+  else if (state==='saved'){ el.className='savestate is-saved'; txt.textContent='Saved'; clearTimeout(savedT); savedT=setTimeout(()=>{ if(!pend) el.className='savestate'; }, 2200); }
   else { el.className='savestate'; }
 }
 function dbErr(e){
   switch (e && e.code){
-    case 'invalid_argument': return 'Speichern hat nicht geklappt. Nur du als Besitzer kannst Einträge ändern.';
-    case 'quota_exceeded': return 'Der Speicher ist voll. Lösche alte Einträge, um Platz zu schaffen.';
-    case 'resource_exhausted': return 'Zu viele Änderungen auf einmal. Warte kurz und versuch es nochmal.';
-    case 'revoked': case 'not_granted': return 'Der Zugriff auf die Daten wurde beendet. Lade die Seite neu.';
-    default: return 'Speichern hat nicht geklappt. Prüfe deine Verbindung und versuch es nochmal.';
+    case 'invalid_argument': return 'Couldn’t save. Only the owner can change entries.';
+    case 'quota_exceeded': return 'Storage is full. Delete old entries to free up space.';
+    case 'resource_exhausted': return 'Too many changes at once. Wait a moment and try again.';
+    case 'revoked': case 'not_granted': return 'Access to the data ended. Reload the page.';
+    default: return 'Couldn’t save. Check your connection and try again.';
   }
 }
 function writeDoc(path, fn){
@@ -786,12 +786,12 @@ async function uploadImage(file, kind){
 }
 function upErr(e){
   switch (e && e.code){
-    case 'too_large': return 'Das Bild ist zu groß (höchstens 20 MB).';
-    case 'unsupported_type': return 'Dieses Format geht nicht. Nimm PNG, JPG, WebP oder GIF.';
-    case 'quota_or_state': return 'Der Speicher für Bilder ist voll. Lösche alte Screenshots, um Platz zu schaffen.';
-    case 'rate_limited': return 'Zu viele Uploads auf einmal. Warte kurz und versuch es nochmal.';
-    case 'upstream_auth': return 'Anmeldung abgelaufen. Lade die Seite neu.';
-    default: return 'Upload hat nicht geklappt. Versuch es nochmal.';
+    case 'too_large': return 'The image is too large (max. 20 MB).';
+    case 'unsupported_type': return 'This format isn’t supported. Use PNG, JPG, WebP or GIF.';
+    case 'quota_or_state': return 'Image storage is full. Delete old screenshots to free up space.';
+    case 'rate_limited': return 'Too many uploads at once. Wait a moment and try again.';
+    case 'upstream_auth': return 'Your session expired. Reload the page.';
+    default: return 'Upload failed. Please try again.';
   }
 }
 function deleteAsset(id){ if (S.assets && isId(id)) S.assets.delete(id).catch(()=>{}); }
@@ -811,7 +811,7 @@ function coverEl(g, cls){
 }
 function pic(src, alt){
   const im=h('img',{src, alt:alt||'', loading:'lazy', decoding:'async', draggable:'false'});
-  im.addEventListener('error', ()=>im.replaceWith(h('span',{class:'broken'},'Bild nicht verfügbar')), {once:true});
+  im.addEventListener('error', ()=>im.replaceWith(h('span',{class:'broken'},'Image unavailable')), {once:true});
   return im;
 }
 function statusChip(g){ const s=STATUS[g.status]; return h('span',{class:'chip status '+s.cls}, s.label); }
@@ -827,16 +827,16 @@ function confirmBtn(label, armedLabel, onConfirm, cls){
   return b;
 }
 function gateEl(){
-  if (S.noDb) return h('div',{class:'notice'}, h('h2',null,'Gerade nicht erreichbar'), h('p',{class:'muted'},'Die Einträge laden nur, wenn du bei Claude angemeldet bist. Melde dich an und öffne die Seite neu.'));
-  if (S.loadErr) return h('div',{class:'notice'}, h('h2',null,'Einträge konnten nicht laden'), h('p',{class:'muted'},'Lade die Seite neu. Deine Daten sind davon nicht betroffen.'));
-  if (!S.loaded.games) return h('div',{class:'loading'}, h('span',{class:'spin'}), 'Lade Speicherstände …');
+  if (S.noDb) return h('div',{class:'notice'}, h('h2',null,'Not available right now'), h('p',{class:'muted'},'Entries only load when you’re signed in to Claude. Sign in and reopen the page.'));
+  if (S.loadErr) return h('div',{class:'notice'}, h('h2',null,'Entries couldn’t load'), h('p',{class:'muted'},'Reload the page. Your data is not affected.'));
+  if (!S.loaded.games) return h('div',{class:'loading'}, h('span',{class:'spin'}), 'Loading …');
   return null;
 }
 function lock(){ document.body.classList.toggle('locked', !$('#detail').hidden || !$('#editor').hidden || !$('#lightbox').hidden); }
 
 /* ---------- Ansichten ---------- */
 function updTop(){ const t=$('#top'); if (t) t.classList.toggle('solid', S.view!=='start' || window.scrollY>40); }
-const VIEWS={start:'start', lib:'bibliothek', tiers:'tierlisten', stats:'statistik'};
+const VIEWS={start:'start', lib:'library', tiers:'tiers', stats:'stats'};
 function setView(v, push){
   S.view = v; if (v!=='tiers') S.gotyAdj=null;
   for (const t of document.querySelectorAll('.tab')){ if (t.dataset.view===v) t.setAttribute('aria-current','page'); else t.removeAttribute('aria-current'); }
@@ -851,7 +851,7 @@ function renderView(){
 }
 function renderAll(){
   const foot=$('#foot');
-  if (S.isStatic){ foot.hidden=false; foot.textContent = S.exportedAt ? `Speicherstand · Stand ${fmtStamp(Date.parse(S.exportedAt))}` : 'Speicherstand'; }
+  if (S.isStatic){ foot.hidden=false; foot.textContent = S.exportedAt ? `Speicherstand · Updated ${fmtStamp(Date.parse(S.exportedAt))}` : 'Speicherstand'; }
   $('#btn-new').hidden = !S.owner;
   renderBanner(); renderView();
   if (S.openId && !$('#detail').hidden) renderDetail(false);
@@ -863,8 +863,8 @@ function renderBanner(){
   const ex=[...S.games.values()].filter(g=>g.example);
   if (!ex.length) return;
   b.append(h('div',{class:'banner'},
-    h('p',null, h('strong',null,'Das sind Beispiel-Einträge. '), `Damit du siehst, wie alles aussieht, sind ${plural(ex.length,'Beispiel','Beispiele')} eingetragen. Wenn du ein Beispiel bearbeitest und speicherst, gehört es dir.`),
-    confirmBtn('Beispiele löschen','Wirklich alle löschen?', deleteExamples, 'btn btn-sm')));
+    h('p',null, h('strong',null,'These are example entries. '), `So you can see how everything looks, ${plural(ex.length,'example is','examples are')} filled in. If you edit and save an example, it becomes yours.`),
+    confirmBtn('Delete examples','Really delete all?', deleteExamples, 'btn btn-sm')));
 }
 async function deleteExamples(){
   const ex=[...S.games.values()].filter(g=>g.example);
@@ -872,20 +872,20 @@ async function deleteExamples(){
   for (const g of ex){ S.games.delete(g.id); writeDoc('games/'+g.id, ()=>S.db.doc('games/'+g.id).delete()); }
   for (const y of Object.keys(S.tiers)) removeFromTier(y, ids);
   renderAll();
-  toast('Beispiele gelöscht. Jetzt bist du dran.');
+  toast('Examples deleted. Your turn.');
 }
 
 /* Bibliothek */
 function card(g){
-  return h('button',{class:'card', type:'button', style:{'--h':hue(g.title)}, 'aria-label':`${g.title} öffnen`, onclick:()=>openDetail(g.id)},
+  return h('button',{class:'card', type:'button', style:{'--h':hue(g.title)}, 'aria-label':`Open ${g.title}`, onclick:()=>openDetail(g.id)},
     h('div',{class:'card-cover'}, coverEl(g,'cover'),
       g.score ? h('span',{class:'score-badge'}, fmtScore(g.score)) : null),
     h('div',{class:'card-meta'},
       h('span',{class:'card-title'}, g.title),
       h('span',{class:'card-sub'}, [g.platform, fmtHours(g.hours)].filter(Boolean).join(' · ') || ' '),
       h('span',{class:'card-row'}, statusChip(g),
-        g.shots.length ? h('span',{class:'shots-count', title:plural(g.shots.length,'Screenshot','Screenshots')}, icon('cam'), String(g.shots.length)) : null,
-        g.example ? h('span',{class:'chip chip-ex'},'Beispiel') : null)));
+        g.shots.length ? h('span',{class:'shots-count', title:plural(g.shots.length,'screenshot','screenshots')}, icon('cam'), String(g.shots.length)) : null,
+        g.example ? h('span',{class:'chip chip-ex'},'Example') : null)));
 }
 const SORTS={
   recent:(a,b)=>recentKey(b).localeCompare(recentKey(a)),
@@ -903,24 +903,24 @@ function renderLib(){
   if (!all.length){ body.append(emptyLib()); return; }
   if (S.fStatus!=='all' && !all.some(g=>g.status===S.fStatus)) S.fStatus='all';
   const sel=$('#f-status');
-  sel.replaceChildren(h('option',{value:'all'}, `Alle Spiele (${all.length})`), ...Object.keys(STATUS).map(k=>[k, all.filter(g=>g.status===k).length]).filter(x=>x[1]>0).map(([k,n])=>h('option',{value:k}, `${STATUS[k].label} (${n})`)));
+  sel.replaceChildren(h('option',{value:'all'}, `All games (${all.length})`), ...Object.keys(STATUS).map(k=>[k, all.filter(g=>g.status===k).length]).filter(x=>x[1]>0).map(([k,n])=>h('option',{value:k}, `${STATUS[k].label} (${n})`)));
   sel.value=S.fStatus;
   const q=S.q.trim().toLowerCase();
   const list=all.filter(g=>(S.fStatus==='all' || g.status===S.fStatus) && (!q || (g.title+' '+g.platform+' '+g.genres.join(' ')).toLowerCase().includes(q)));
   list.sort((a,b)=>(SORTS[S.sort]||SORTS.recent)(a,b) || a.title.localeCompare(b.title,'de'));
-  $('#lib-count').textContent = list.length!==all.length ? `${list.length} von ${all.length}` : plural(all.length,'Spiel','Spiele');
-  if (!list.length){ body.append(h('p',{class:'none'},'Keine Spiele passen zu deiner Suche.')); return; }
+  $('#lib-count').textContent = list.length!==all.length ? `${list.length} of ${all.length}` : plural(all.length,'game','games');
+  if (!list.length){ body.append(h('p',{class:'none'},'No games match your search.')); return; }
   body.append(h('div',{class:'grid'}, list.map(posterCard)));
 }
 function emptyLib(){
   return h('div',{class:'empty'},
-    h('div',{class:'slot','aria-hidden':'true'}, h('span',{class:'slot-plus'},'+'), h('span',{class:'slot-lbl'},'Leerer Speicherplatz')),
+    h('div',{class:'slot','aria-hidden':'true'}, h('span',{class:'slot-plus'},'+'), h('span',{class:'slot-lbl'},'Empty save slot')),
     h('div',{class:'empty-txt'},
-      h('h2',null, S.owner ? 'Dein erster Speicherstand' : 'Noch keine Spiele eingetragen'),
+      h('h2',null, S.owner ? 'Your first save' : 'No games yet'),
       h('p',null, S.owner
-        ? 'Trag ein Spiel ein, das du gerade spielst oder beendet hast: Wertung, kurzes Fazit, Lieblingssong und Screenshots. Daraus entstehen mit der Zeit deine Jahres-Tierlisten und Statistiken.'
-        : 'Sobald hier Spiele eingetragen sind, erscheinen sie in dieser Bibliothek.'),
-      S.owner ? h('button',{class:'btn btn-primary', type:'button', onclick:()=>openEditor(null)}, icon('plus'), 'Spiel eintragen') : null));
+        ? 'Add a game you’re playing or have finished: rating, short verdict, favorite song and screenshots. Over time this turns into your yearly tier lists and stats.'
+        : 'Once games are added, they’ll show up in this library.'),
+      S.owner ? h('button',{class:'btn btn-primary', type:'button', onclick:()=>openEditor(null)}, icon('plus'), 'Add game') : null));
 }
 
 /* Detail */
@@ -952,8 +952,8 @@ function playSong(g){
   if (e.h) ifr.height=String(e.h);
   el.replaceChildren(
     h('div',{class:'mp-head'}, h('span',{class:'eq','aria-hidden':'true'}, h('i'), h('i'), h('i'), h('i')),
-      h('div',{class:'mp-t'}, h('b',null, g.song), h('span',null, `aus ${g.title}`)),
-      h('button',{class:'mp-x', type:'button', 'aria-label':'Player schließen', title:'Player schließen', onclick:stopSong}, icon('close'))),
+      h('div',{class:'mp-t'}, h('b',null, g.song), h('span',null, `from ${g.title}`)),
+      h('button',{class:'mp-x', type:'button', 'aria-label':'Close player', title:'Close player', onclick:stopSong}, icon('close'))),
     h('div',{class:'mp-frame'+(e.kind==='youtube' ? ' yt' : '')}, ifr));
   el.hidden=false;
 }
@@ -961,87 +961,87 @@ function stopSong(){ const el=$('#player'); el.hidden=true; el.replaceChildren()
 function playBtn(g, cls){
   const href=songHref(g); if (!href) return null;
   return playable(g)
-    ? h('button',{class:cls, type:'button', onclick:()=>playSong(g)}, icon('play'), 'Song abspielen')
-    : h('a',{class:cls, href, target:'_blank', rel:'noopener noreferrer'}, icon('play'), 'Song abspielen');
+    ? h('button',{class:cls, type:'button', onclick:()=>playSong(g)}, icon('play'), 'Play song')
+    : h('a',{class:cls, href, target:'_blank', rel:'noopener noreferrer'}, icon('play'), 'Play song');
 }
 function songHref(g){ return g.song ? (g.songUrl || `https://open.spotify.com/search/${encodeURIComponent(g.song+' '+g.title)}`) : null; }
 function dline(k,v){ return h('p',{class:'d-line'}, h('span',{class:'k'}, k+': '), v); }
 function detailContent(g){
   const tier=tierOf(g), goty=isGoty(g), rank=rankOf(g), song=songHref(g);
   const ext={target:'_blank', rel:'noopener noreferrer'};
-  const close=h('div',{class:'d-close-wrap'}, h('button',{class:'d-close sheet-close', type:'button', 'aria-label':'Schließen', onclick:closeDetail}, icon('close')));
+  const close=h('div',{class:'d-close-wrap'}, h('button',{class:'d-close sheet-close', type:'button', 'aria-label':'Close', onclick:closeDetail}, icon('close')));
   const hero=h('header',{class:'d-hero'},
     h('div',{class:'d-bg','aria-hidden':'true'}, landscapeArt(g,'detail')),
     h('div',{class:'d-hero-in'},
       h('h1',{class:'d-title'}, g.title),
       h('div',{class:'d-btns'},
         song ? playBtn(g,'btn btn-white btn-lg') : null,
-        S.owner ? (song ? h('button',{class:'btn-round', type:'button', title:'Bearbeiten', 'aria-label':'Bearbeiten', onclick:()=>openEditor(g.id)}, icon('edit')) : h('button',{class:'btn btn-white btn-lg', type:'button', onclick:()=>openEditor(g.id)}, icon('edit'), 'Bearbeiten')) : null,
-        g.shots.length ? h('button',{class:'btn-round', type:'button', title:'Screenshots ansehen', 'aria-label':'Screenshots ansehen', onclick:()=>openLB(g,0)}, icon('img')) : null)));
-  const span = g.start && g.end ? `${fmtDate(g.start)} – ${fmtDate(g.end)}` : g.start ? `seit ${fmtDate(g.start)}` : g.end ? `beendet ${fmtDate(g.end)}` : '';
+        S.owner ? (song ? h('button',{class:'btn-round', type:'button', title:'Edit', 'aria-label':'Edit', onclick:()=>openEditor(g.id)}, icon('edit')) : h('button',{class:'btn btn-white btn-lg', type:'button', onclick:()=>openEditor(g.id)}, icon('edit'), 'Edit')) : null,
+        g.shots.length ? h('button',{class:'btn-round', type:'button', title:'View screenshots', 'aria-label':'View screenshots', onclick:()=>openLB(g,0)}, icon('img')) : null)));
+  const span = g.start && g.end ? `${fmtDate(g.start)} – ${fmtDate(g.end)}` : g.start ? `since ${fmtDate(g.start)}` : g.end ? `finished ${fmtDate(g.end)}` : '';
   const hasText = g.verdict || g.moment;
   const left=h('div',{class:'d-left'},
     h('p',{class:'d-meta'},
-      g.score ? h('span',{class:'match'}, `${fmtScore(g.score)}/10`) : h('span',null,'Noch keine Wertung'),
+      g.score ? h('span',{class:'match'}, `${fmtScore(g.score)}/10`) : h('span',null,'Not rated yet'),
       g.year ? h('span',null, String(g.year)) : null,
       g.hours ? h('span',null, fmtHours(g.hours)) : null,
       tier ? h('span',{class:'box'}, `${tier}-Tier`) : null,
       g.platform ? h('span',{class:'box'}, g.platform) : null,
-      g.example ? h('span',{class:'box'}, 'Beispiel') : null),
-    goty ? h('p',{class:'d-rankline'}, h('span',{class:'top-badge'}, icon('crown')), `Spiel des Jahres ${g.year}`)
-      : rank ? h('p',{class:'d-rankline'}, h('span',{class:'top-badge'}, h('small',null,'TOP'), h('b',null,'10')), `Platz ${rank} deiner Bestenliste`) : null,
+      g.example ? h('span',{class:'box'}, 'Example') : null),
+    goty ? h('p',{class:'d-rankline'}, h('span',{class:'top-badge'}, icon('crown')), `Game of the Year ${g.year}`)
+      : rank ? h('p',{class:'d-rankline'}, h('span',{class:'top-badge'}, h('small',null,'TOP'), h('b',null,'10')), `#${rank} in your Top 10`) : null,
     g.verdict ? h('p',{class:'d-verdict'}, g.verdict) : null,
-    g.moment ? h('div',{class:'d-moment'}, h('span',{class:'d-sub'},'Lieblingsmoment'), h('p',null, g.moment)) : null,
-    !hasText ? h('p',{class:'muted'}, S.owner ? 'Noch kein Fazit. Über „Bearbeiten“ kannst du eins ergänzen.' : 'Noch kein Fazit.') : null,
+    g.moment ? h('div',{class:'d-moment'}, h('span',{class:'d-sub'},'Favorite moment'), h('p',null, g.moment)) : null,
+    !hasText ? h('p',{class:'muted'}, S.owner ? 'No verdict yet. Add one with “Edit”.' : 'No verdict yet.') : null,
     songBlock(g));
   const right=h('div',{class:'d-right'},
     dline('Genres', g.genres.join(', ') || '–'),
     dline('Status', STATUS[g.status].label),
-    span ? dline('Gespielt', span) : null);
+    span ? dline('Played', span) : null);
   const canStar = S.owner && !S.isStatic && !!S.db;
   const shots = g.shots.length
     ? h('section',{class:'d-sec'}, h('h3',{class:'d-h3'}, 'Screenshots', h('span',null, String(g.shots.length))),
-        canStar ? h('p',{class:'shot-hint'}, g.heroShot ? 'Der Screenshot mit Stern erscheint auf der Startseite. Klick ihn nochmal an, damit die Bilder wieder wechseln.' : 'Mit dem Stern wählst du, welcher Screenshot auf der Startseite erscheint. Ohne Stern wechseln die Bilder.') : null,
+        canStar ? h('p',{class:'shot-hint'}, g.heroShot ? 'The starred screenshot is featured on the home page. Click the star again to let the images rotate.' : 'Use the star to pick which screenshot is featured on the home page. Without a star, the images rotate.') : null,
         h('div',{class:'shots-grid'}, g.shots.map((s,i)=>{ const on=g.heroShot===s.id; return h('figure',{class:'shot'+(on?' hero':'')},
-          h('button',{class:'shot-btn', type:'button', 'aria-label':`Screenshot ${i+1} vergrößern`, onclick:()=>openLB(g,i)}, pic(blobUrl(s.id), s.caption)),
+          h('button',{class:'shot-btn', type:'button', 'aria-label':`Enlarge screenshot ${i+1}`, onclick:()=>openLB(g,i)}, pic(blobUrl(s.id), s.caption)),
           h('div',{class:'shot-foot'},
             s.caption ? h('figcaption',null, s.caption) : null,
-            canStar ? h('button',{class:'shot-star'+(on?' on':''), type:'button', 'aria-pressed':String(on), title: on ? 'Titelbild der Startseite, zum Abwählen klicken' : 'Als Titelbild für die Startseite wählen', onclick:()=>setHeroShot(g.id, s.id)}, icon(on?'starOn':'star'), on ? 'Titelbild' : 'Als Titelbild') : null)); })))
-    : S.owner ? h('section',{class:'d-sec'}, h('h3',{class:'d-h3'}, 'Screenshots'), h('p',{class:'muted'},'Noch keine Screenshots. Über „Bearbeiten“ kannst du welche hochladen, reinziehen oder mit Strg+V einfügen.')) : null;
+            canStar ? h('button',{class:'shot-star'+(on?' on':''), type:'button', 'aria-pressed':String(on), title: on ? 'Featured on the home page, click to remove' : 'Feature on the home page', onclick:()=>setHeroShot(g.id, s.id)}, icon(on?'starOn':'star'), on ? 'Featured' : 'Feature') : null)); })))
+    : S.owner ? h('section',{class:'d-sec'}, h('h3',{class:'d-h3'}, 'Screenshots'), h('p',{class:'muted'},'No screenshots yet. Use “Edit” to upload, drag in or paste them with Ctrl+V.')) : null;
   const similar=[...S.games.values()].filter(x=>x.id!==g.id).map(x=>[x, x.genres.filter(z=>g.genres.includes(z)).length]).filter(x=>x[1]>0)
     .sort((a,b)=>b[1]-a[1] || (b[0].score||0)-(a[0].score||0)).slice(0,6).map(x=>x[0]);
-  const more = similar.length ? h('section',{class:'d-sec'}, h('h3',{class:'d-h3'}, 'Mehr wie dies'), h('div',{class:'similar'}, similar.map(posterCard))) : null;
-  const about=h('section',{class:'d-sec d-about'}, h('h3',{class:'d-h3'}, `Info zu ${g.title}`),
-    dline('Plattform', g.platform || '–'), dline('Status', STATUS[g.status].label), dline('Angefangen', fmtDate(g.start) || '–'),
-    dline('Beendet', fmtDate(g.end) || '–'), dline('Spielzeit', fmtHours(g.hours) || '–'), dline('Tierliste', g.year ? String(g.year) : 'keine'),
-    dline('Lieblingssong', g.song || '–'), dline('Screenshots', String(g.shots.length)),
+  const more = similar.length ? h('section',{class:'d-sec'}, h('h3',{class:'d-h3'}, 'More like this'), h('div',{class:'similar'}, similar.map(posterCard))) : null;
+  const about=h('section',{class:'d-sec d-about'}, h('h3',{class:'d-h3'}, `About ${g.title}`),
+    dline('Platform', g.platform || '–'), dline('Status', STATUS[g.status].label), dline('Started', fmtDate(g.start) || '–'),
+    dline('Finished', fmtDate(g.end) || '–'), dline('Playtime', fmtHours(g.hours) || '–'), dline('Tier list', g.year ? String(g.year) : 'none'),
+    dline('Favorite song', g.song || '–'), dline('Screenshots', String(g.shots.length)),
     h('div',{class:'d-foot'},
-      h('span',null, g.created ? `Eingetragen am ${fmtStamp(g.created)}` : '', g.updated && g.updated-g.created>60000 ? ` · zuletzt geändert am ${fmtStamp(g.updated)}` : ''),
-      S.owner ? confirmBtn('Spiel löschen','Wirklich löschen?', ()=>deleteGame(g.id), 'btn btn-sm btn-danger') : null));
+      h('span',null, g.created ? `Added ${fmtStamp(g.created)}` : '', g.updated && g.updated-g.created>60000 ? ` · last edited ${fmtStamp(g.updated)}` : ''),
+      S.owner ? confirmBtn('Delete game','Really delete?', ()=>deleteGame(g.id), 'btn btn-sm btn-danger') : null));
   return [close, hero, h('div',{class:'d-body'}, left, right), shots, more, about];
 }
 function songBlock(g){
-  if (!g.song) return S.owner ? h('section',{class:'d-songsec'}, h('h3',{class:'d-sub'},'Lieblingssong'), h('p',{class:'song-empty'}, 'Noch kein Song eingetragen. Über „Bearbeiten“ kannst du deinen Lieblingstrack aus dem Soundtrack hinzufügen.')) : null;
+  if (!g.song) return S.owner ? h('section',{class:'d-songsec'}, h('h3',{class:'d-sub'},'Favorite song'), h('p',{class:'song-empty'}, 'No song yet. Use “Edit” to add your favorite track from the soundtrack.')) : null;
   const q=encodeURIComponent(`${g.song} ${g.title}`);
   const ext={target:'_blank', rel:'noopener noreferrer'};
   const svc=g.songUrl ? songService(g.songUrl) : '';
   const pl=playable(g);
   const hint = !S.owner || S.isStatic ? null
-    : g.songUrl && songEmbed(g.songUrl) ? 'Auf deiner öffentlichen Seite spielt der Song direkt im Player. Hier in Claude öffnet er sich in einem neuen Tab.'
-    : g.songUrl ? 'Diesen Link kann die Seite nur öffnen. Mit einem YouTube- oder Spotify-Link spielt der Song auf deiner öffentlichen Seite direkt ab.'
-    : 'Füg beim Bearbeiten einen YouTube- oder Spotify-Link ein, dann spielt der Song auf deiner öffentlichen Seite direkt ab.';
+    : g.songUrl && songEmbed(g.songUrl) ? 'On your public page the song plays right in the player. Here in Claude it opens in a new tab.'
+    : g.songUrl ? 'The page can only open this link. With a YouTube or Spotify link, the song plays right on your public page.'
+    : 'Add a YouTube or Spotify link when editing and the song plays right on your public page.';
   const actions = pl
-    ? [h('button',{class:'btn btn-white btn-sm', type:'button', onclick:()=>playSong(g)}, icon('play'), 'Abspielen'),
-       h('a',{class:'btn btn-grey btn-sm', href:g.songUrl, ...ext}, `Auf ${pl.label} öffnen`)]
+    ? [h('button',{class:'btn btn-white btn-sm', type:'button', onclick:()=>playSong(g)}, icon('play'), 'Play'),
+       h('a',{class:'btn btn-grey btn-sm', href:g.songUrl, ...ext}, `Open on ${pl.label}`)]
     : g.songUrl
-    ? [h('a',{class:'btn btn-white btn-sm', href:g.songUrl, ...ext}, icon('play'), svc ? `Abspielen auf ${svc}` : 'Abspielen')]
-    : [h('a',{class:'btn btn-white btn-sm', href:`https://open.spotify.com/search/${q}`, ...ext}, icon('play'), 'Auf Spotify'),
-       h('a',{class:'btn btn-grey btn-sm', href:`https://www.youtube.com/results?search_query=${q}`, ...ext}, icon('search'), 'Auf YouTube')];
-  return h('section',{class:'d-songsec'}, h('h3',{class:'d-sub'},'Lieblingssong'),
+    ? [h('a',{class:'btn btn-white btn-sm', href:g.songUrl, ...ext}, icon('play'), svc ? `Play on ${svc}` : 'Play')]
+    : [h('a',{class:'btn btn-white btn-sm', href:`https://open.spotify.com/search/${q}`, ...ext}, icon('play'), 'On Spotify'),
+       h('a',{class:'btn btn-grey btn-sm', href:`https://www.youtube.com/results?search_query=${q}`, ...ext}, icon('search'), 'On YouTube')];
+  return h('section',{class:'d-songsec'}, h('h3',{class:'d-sub'},'Favorite song'),
     h('div',{class:'song'}, bgLayer(g),
       h('div',{class:'song-top'},
         h('div',{class:'song-art gen-bg', style:{'--h':hue(g.song)}}, icon('music')),
-        h('div',{class:'song-txt'}, h('span',{class:'song-name'}, g.song), h('span',{class:'song-from'}, `aus ${g.title}`), h('span',{class:'eq','aria-hidden':'true'}, h('i'), h('i'), h('i'), h('i')))),
+        h('div',{class:'song-txt'}, h('span',{class:'song-name'}, g.song), h('span',{class:'song-from'}, `from ${g.title}`), h('span',{class:'eq','aria-hidden':'true'}, h('i'), h('i'), h('i'), h('i')))),
       h('div',{class:'song-actions'}, actions),
       hint ? h('p',{class:'song-hint'}, hint) : null));
 }
@@ -1052,7 +1052,7 @@ async function setHeroShot(id, sid){
   if (!ok) return;
   const cur=S.games.get(id); if (cur) cur.heroShot=val;
   if (S.openId===id) renderDetail(false);
-  toast(val ? 'Dieser Screenshot ist jetzt das Titelbild auf der Startseite' : 'Kein festes Titelbild mehr, die Screenshots wechseln wieder');
+  toast(val ? 'This screenshot is now featured on the home page' : 'Nothing featured anymore, the screenshots rotate again');
 }
 async function deleteGame(id){
   const g=S.games.get(id); if(!g) return;
@@ -1063,7 +1063,7 @@ async function deleteGame(id){
   deleteAsset(g.cover); for (const s of g.shots) deleteAsset(s.id);
   if (E && E.id===id) closeEditor(false);
   closeDetail(); renderAll();
-  toast(`„${g.title}“ gelöscht`);
+  toast(`“${g.title}” deleted`);
 }
 
 /* Lightbox */
@@ -1074,15 +1074,15 @@ function stepLB(d){ if(!LB || LB.shots.length<2) return; LB.i=(LB.i+d+LB.shots.l
 function renderLB(){
   const el=$('#lightbox'); const s=LB.shots[LB.i]; const many=LB.shots.length>1;
   const stage=h('div',{class:'lb-stage'},
-    many ? h('button',{class:'lb-btn lb-prev', type:'button', 'aria-label':'Vorheriger Screenshot', onclick:e=>{e.stopPropagation(); stepLB(-1);}}, icon('left')) : null,
+    many ? h('button',{class:'lb-btn lb-prev', type:'button', 'aria-label':'Previous screenshot', onclick:e=>{e.stopPropagation(); stepLB(-1);}}, icon('left')) : null,
     h('img',{class:'lb-img', src:blobUrl(s.id), alt:s.caption || `Screenshot ${LB.i+1}`, draggable:'false'}),
-    many ? h('button',{class:'lb-btn lb-next', type:'button', 'aria-label':'Nächster Screenshot', onclick:e=>{e.stopPropagation(); stepLB(1);}}, icon('right')) : null);
+    many ? h('button',{class:'lb-btn lb-next', type:'button', 'aria-label':'Next screenshot', onclick:e=>{e.stopPropagation(); stepLB(1);}}, icon('right')) : null);
   stage.addEventListener('click', e=>{ if (e.target===stage) closeLB(); });
   let sx=null;
   stage.addEventListener('pointerdown', e=>{ sx=e.clientX; });
   stage.addEventListener('pointerup', e=>{ if (sx!=null && Math.abs(e.clientX-sx)>50) stepLB(e.clientX<sx?1:-1); sx=null; });
   el.replaceChildren(
-    h('div',{class:'lb-top'}, h('span',{class:'lb-count'}, `${LB.i+1} / ${LB.shots.length}`), h('span',{class:'lb-title'}, LB.title), h('button',{class:'lb-btn', type:'button', 'aria-label':'Schließen', onclick:closeLB}, icon('close'))),
+    h('div',{class:'lb-top'}, h('span',{class:'lb-count'}, `${LB.i+1} / ${LB.shots.length}`), h('span',{class:'lb-title'}, LB.title), h('button',{class:'lb-btn', type:'button', 'aria-label':'Close', onclick:closeLB}, icon('close'))),
     stage,
     h('p',{class:'lb-cap'}, s.caption || ' '));
 }
@@ -1107,7 +1107,7 @@ function closeEditor(saved){
 }
 function snapshotForm(){ readForm(); return JSON.stringify(E.d); }
 function isDirty(){ return E && (E.fresh.size>0 || snapshotForm()!==E.initial); }
-function updSave(){ const b=$('#ed-save'); if(!b||!E) return; b.disabled=E.busy>0; b.textContent=E.busy ? 'Lädt noch …' : 'Speichern'; }
+function updSave(){ const b=$('#ed-save'); if(!b||!E) return; b.disabled=E.busy>0; b.textContent=E.busy ? 'Still uploading …' : 'Save'; }
 function field(label, control, opts){
   opts=opts||{};
   return h('div',{class:'f'+(opts.full?' full':'')},
@@ -1116,80 +1116,80 @@ function field(label, control, opts){
 }
 function editorContent(){
   const d=E.d;
-  const cancel=h('button',{class:'btn btn-ghost', type:'button'}, icon('close'), 'Abbrechen');
+  const cancel=h('button',{class:'btn btn-ghost', type:'button'}, icon('close'), 'Cancel');
   let armed=false, at;
   cancel.addEventListener('click', ()=>{
-    if (E && E.busy===0 && !armed && isDirty()){ armed=true; cancel.replaceChildren('Änderungen verwerfen?'); cancel.classList.add('armed'); at=setTimeout(()=>{ armed=false; cancel.replaceChildren(icon('close'),'Abbrechen'); cancel.classList.remove('armed'); },4000); return; }
+    if (E && E.busy===0 && !armed && isDirty()){ armed=true; cancel.replaceChildren('Discard changes?'); cancel.classList.add('armed'); at=setTimeout(()=>{ armed=false; cancel.replaceChildren(icon('close'),'Cancel'); cancel.classList.remove('armed'); },4000); return; }
     clearTimeout(at); closeEditor(false);
   });
-  const bar=h('div',{class:'sheet-bar'}, cancel, h('strong',{class:'bar-title'}, E.id ? 'Eintrag bearbeiten' : 'Neues Spiel'), h('button',{class:'btn btn-primary', id:'ed-save', type:'button', onclick:saveEditor}, 'Speichern'));
+  const bar=h('div',{class:'sheet-bar'}, cancel, h('strong',{class:'bar-title'}, E.id ? 'Edit entry' : 'New game'), h('button',{class:'btn btn-primary', id:'ed-save', type:'button', onclick:saveEditor}, 'Save'));
 
-  const title=h('input',{type:'text', id:'ed-title', maxlength:200, value:d.title, placeholder:'z. B. Elden Ring', autocomplete:'off', required:true});
-  const titleErr=h('p',{class:'f-err', id:'ed-title-err', hidden:true}, 'Gib dem Spiel einen Titel.');
+  const title=h('input',{type:'text', id:'ed-title', maxlength:200, value:d.title, placeholder:'e.g. Elden Ring', autocomplete:'off', required:true});
+  const titleErr=h('p',{class:'f-err', id:'ed-title-err', hidden:true}, 'Give the game a title.');
   title.addEventListener('input', ()=>{ titleErr.hidden=true; if (!E.d.cover && E.drawCover) E.drawCover(); });
-  const year=h('input',{type:'number', id:'ed-year', min:1970, max:YEAR_NOW+1, step:1, value:d.year ?? '', placeholder:'kein Jahr', inputmode:'numeric'});
-  const yearHelp=h('p',{class:'f-h'}, 'Leer lassen, wenn du es nicht mehr weißt. Dann taucht das Spiel in keiner Tierliste auf. ',
-    h('button',{class:'btn btn-sm btn-ghost', type:'button', style:{padding:'2px 8px'}, onclick:()=>{ year.value=YEAR_NOW; E.yearTouched=true; }}, `${YEAR_NOW} eintragen`));
+  const year=h('input',{type:'number', id:'ed-year', min:1970, max:YEAR_NOW+1, step:1, value:d.year ?? '', placeholder:'no year', inputmode:'numeric'});
+  const yearHelp=h('p',{class:'f-h'}, 'Leave empty if you don’t remember. The game then won’t appear in any tier list. ',
+    h('button',{class:'btn btn-sm btn-ghost', type:'button', style:{padding:'2px 8px'}, onclick:()=>{ year.value=YEAR_NOW; E.yearTouched=true; }}, `Use ${YEAR_NOW}`));
   year.addEventListener('input', ()=>{ E.yearTouched=true; });
   const start=h('input',{type:'date', id:'ed-start', value:d.start});
   const end=h('input',{type:'date', id:'ed-end', value:d.end});
   end.addEventListener('change', ()=>{ const y=yearOf(end.value); if (y && !E.yearTouched) year.value=y; });
   start.addEventListener('change', ()=>{ const y=yearOf(start.value); if (y && !E.yearTouched && !year.value && !end.value) year.value=y; });
-  const hours=h('input',{type:'number', id:'ed-hours', min:0, step:0.5, value:d.hours ?? '', placeholder:'z. B. 42', inputmode:'decimal'});
+  const hours=h('input',{type:'number', id:'ed-hours', min:0, step:0.5, value:d.hours ?? '', placeholder:'e.g. 42', inputmode:'decimal'});
   const plat=h('input',{type:'text', id:'ed-platform', list:'dl-platforms', maxlength:60, value:d.platform, placeholder:'PC, PS5, Switch 2 …', autocomplete:'off'});
-  const genres=h('input',{type:'text', id:'ed-genres', maxlength:200, value:d.genres.join(', '), placeholder:'z. B. Action-RPG, Soulslike', autocomplete:'off'});
+  const genres=h('input',{type:'text', id:'ed-genres', maxlength:200, value:d.genres.join(', '), placeholder:'e.g. Action RPG, Soulslike', autocomplete:'off'});
 
   const seg=h('fieldset',{class:'seg'}, h('legend',null,'Status'),
     Object.entries(STATUS).map(([k,s])=>[ h('input',{type:'radio', name:'ed-status', id:'ed-st-'+k, value:k, checked:d.status===k}), h('label',{for:'ed-st-'+k}, s.label) ]));
 
   const out=h('output',{class:'score-out', id:'ed-score-out', for:'ed-score'}, fmtScore(d.score));
-  const range=h('input',{type:'range', id:'ed-score', min:0, max:10, step:0.5, value:d.score||0, 'aria-label':'Gesamtwertung'});
+  const range=h('input',{type:'range', id:'ed-score', min:0, max:10, step:0.5, value:d.score||0, 'aria-label':'Overall rating'});
   range.addEventListener('input', ()=>{ out.textContent=fmtScore(clampScore(range.value)); });
-  const score=h('div',{class:'f full'}, h('span',{class:'f-l'},'Gesamtwertung', h('span',{class:'f-h'},' · ganz links heißt „noch keine Wertung“')), h('div',{class:'score-in'}, out, range));
+  const score=h('div',{class:'f full'}, h('span',{class:'f-l'},'Overall rating', h('span',{class:'f-h'},' · far left means “not rated yet”')), h('div',{class:'score-in'}, out, range));
 
-  const song=h('input',{type:'text', id:'ed-song', maxlength:200, value:d.song||'', placeholder:'z. B. der Titelsong oder dein Bosskampf-Track', autocomplete:'off'});
+  const song=h('input',{type:'text', id:'ed-song', maxlength:200, value:d.song||'', placeholder:'e.g. the main theme or your favorite boss track', autocomplete:'off'});
   const songUrl=h('input',{type:'url', id:'ed-song-url', maxlength:500, value:d.songUrl||'', placeholder:'https://open.spotify.com/track/…', autocomplete:'off', inputmode:'url'});
-  const songErr=h('p',{class:'f-err', id:'ed-song-err', hidden:true}, 'Der Link muss mit https:// anfangen.');
+  const songErr=h('p',{class:'f-err', id:'ed-song-err', hidden:true}, 'The link has to start with https://.');
   const songInfo=h('p',{class:'f-h', id:'ed-song-info', 'aria-live':'polite'});
   const updSongInfo=()=>{
     const val=songUrl.value.trim();
-    if (!val){ songInfo.textContent='Am besten ein YouTube-Link, der spielt den ganzen Song. Spotify spielt Besuchern ohne Spotify-Login oft nur 30 Sekunden.'; return; }
+    if (!val){ songInfo.textContent='A YouTube link works best, it plays the whole song. Spotify often plays only 30 seconds for visitors who aren’t logged in.'; return; }
     const e=songEmbed(val);
-    songInfo.textContent = e ? `Erkannt: ${e.label}. Auf deiner öffentlichen Seite spielt der Song direkt im Player.` : 'Diesen Link kann die Seite nur öffnen, nicht direkt abspielen. Direkt abspielen klappt mit YouTube, Spotify, Apple Music und SoundCloud.';
+    songInfo.textContent = e ? `Detected: ${e.label}. On your public page the song plays right in the player.` : 'The page can only open this link, not play it directly. Direct playback works with YouTube, Spotify, Apple Music and SoundCloud.';
   };
   songUrl.addEventListener('input', ()=>{ songErr.hidden=true; updSongInfo(); });
   updSongInfo();
 
-  const verdict=h('textarea',{id:'ed-verdict', rows:2, maxlength:300, placeholder:'Was bleibt hängen, in ein, zwei Sätzen?'}, d.verdict);
-  const moment=h('textarea',{id:'ed-moment', rows:3, maxlength:4000, placeholder:'Die Szene, an die du in fünf Jahren noch denkst.'}, d.moment);
+  const verdict=h('textarea',{id:'ed-verdict', rows:2, maxlength:300, placeholder:'What stuck with you, in a sentence or two?'}, d.verdict);
+  const moment=h('textarea',{id:'ed-moment', rows:3, maxlength:4000, placeholder:'The scene you’ll still think about in five years.'}, d.moment);
 
   const form=h('div',{class:'ed'},
-    h('section',{class:'ed-sec'}, h('h3',null,'Das Spiel'),
+    h('section',{class:'ed-sec'}, h('h3',null,'The game'),
       h('div',{class:'fgrid'},
-        field('Titel', title, {full:true, after:titleErr}),
-        field('Plattform', plat),
-        field('Genres', genres, {hint:'mit Komma trennen'}),
+        field('Title', title, {full:true, after:titleErr}),
+        field('Platform', plat),
+        field('Genres', genres, {hint:'separate with commas'}),
         h('div',{class:'f full'}, seg))),
-    h('section',{class:'ed-sec'}, h('h3',null,'Zeitraum'),
+    h('section',{class:'ed-sec'}, h('h3',null,'When'),
       h('div',{class:'fgrid'},
-        field('Angefangen', start),
-        field('Beendet', end),
-        field('Spielzeit in Stunden', hours),
-        field('Jahr für die Tierliste', year, {hint:'optional', after:yearHelp}))),
-    h('section',{class:'ed-sec'}, h('h3',null,'Wertung'),
+        field('Started', start),
+        field('Finished', end),
+        field('Playtime in hours', hours),
+        field('Tier list year', year, {hint:'optional', after:yearHelp}))),
+    h('section',{class:'ed-sec'}, h('h3',null,'Rating'),
       h('div',{class:'fgrid'}, score)),
-    h('section',{class:'ed-sec'}, h('h3',null,'Fazit'),
+    h('section',{class:'ed-sec'}, h('h3',null,'Verdict'),
       h('div',{class:'fgrid'},
-        field('Kurzes Fazit', verdict, {full:true, hint:'optional, höchstens 300 Zeichen'}),
-        field('Lieblingsmoment', moment, {full:true}))),
-    h('section',{class:'ed-sec'}, h('h3',null,'Lieblingssong'),
+        field('Short verdict', verdict, {full:true, hint:'optional, max. 300 characters'}),
+        field('Favorite moment', moment, {full:true}))),
+    h('section',{class:'ed-sec'}, h('h3',null,'Favorite song'),
       h('div',{class:'fgrid'},
-        field('Titel des Songs', song),
-        field('Link zum Anhören', songUrl, {hint:'optional', after:[songErr, songInfo]}),
-        h('p',{class:'f-h f full'}, 'Ohne Link zeigt die Spielseite Knöpfe, die den Song auf Spotify oder YouTube suchen. Hier in Claude öffnen sich Songs immer in einem neuen Tab, weil Claude fremde Player auf der Seite sperrt.'))),
+        field('Song title', song),
+        field('Listening link', songUrl, {hint:'optional', after:[songErr, songInfo]}),
+        h('p',{class:'f-h f full'}, 'Without a link, the game page shows buttons that search for the song on Spotify or YouTube. Here in Claude, songs always open in a new tab because Claude blocks embedded players.'))),
     h('section',{class:'ed-sec'}, h('h3',null,'Cover & Screenshots'),
       h('div',{class:'ed-media'}, coverBlock(), shotsBlock())),
-    E.id ? h('div',{class:'ed-danger'}, h('span',{class:'muted small'},'Löscht den Eintrag samt Cover und Screenshots.'), confirmBtn('Spiel löschen','Wirklich löschen?', ()=>deleteGame(E.id), 'btn btn-sm btn-danger')) : null);
+    E.id ? h('div',{class:'ed-danger'}, h('span',{class:'muted small'},'Deletes the entry along with its cover and screenshots.'), confirmBtn('Delete game','Really delete?', ()=>deleteGame(E.id), 'btn btn-sm btn-danger')) : null);
   return [bar, form];
 }
 function dropAsset(id){ if (E && E.fresh.has(id)){ E.fresh.delete(id); deleteAsset(id); } }
@@ -1197,16 +1197,16 @@ function coverBlock(){
   const wrap=h('div',{class:'ed-cover'});
   const draw=()=>{
     if (!E) return;
-    const t=$('#ed-title')?.value.trim() || E.d.title || 'Titel';
+    const t=$('#ed-title')?.value.trim() || E.d.title || 'Title';
     const plat=$('#ed-platform')?.value.trim() || E.d.platform;
     wrap.replaceChildren(
-      h('div',{class:'ed-cover-prev'}, E.coverBusy ? h('div',{class:'busy'}, h('span',{class:'spin'}), 'Lädt …') : coverEl({title:t, platform:plat, cover:E.d.cover},'cover')),
+      h('div',{class:'ed-cover-prev'}, E.coverBusy ? h('div',{class:'busy'}, h('span',{class:'spin'}), 'Uploading …') : coverEl({title:t, platform:plat, cover:E.d.cover},'cover')),
       S.assets ? h('div',{class:'ed-cover-actions'},
-        h('label',{class:'btn btn-sm', for:'ed-cover-file'}, icon('img'), E.d.cover ? 'Ändern' : 'Cover hochladen'),
+        h('label',{class:'btn btn-sm', for:'ed-cover-file'}, icon('img'), E.d.cover ? 'Change' : 'Upload cover'),
         h('input',{type:'file', id:'ed-cover-file', accept:'image/png,image/jpeg,image/webp,image/gif', class:'vh', onchange:e=>{ const f=e.target.files[0]; e.target.value=''; if (f) setCover(f); }}),
-        E.d.cover ? h('button',{class:'btn btn-sm btn-ghost', type:'button', onclick:()=>{ dropAsset(E.d.cover); E.d.cover=null; draw(); }}, 'Entfernen') : null)
-      : h('p',{class:'f-h'},'Bilder hochladen geht in dieser Ansicht nicht.'),
-      h('p',{class:'f-h'}, 'Hochformat passt am besten. Ohne Cover gibt es eine Hülle mit dem Titel.'));
+        E.d.cover ? h('button',{class:'btn btn-sm btn-ghost', type:'button', onclick:()=>{ dropAsset(E.d.cover); E.d.cover=null; draw(); }}, 'Remove') : null)
+      : h('p',{class:'f-h'},'Image uploads don’t work in this view.'),
+      h('p',{class:'f-h'}, 'Portrait works best. Without a cover you get a case with the title.'));
   };
   E.drawCover=draw; draw();
   return wrap;
@@ -1226,24 +1226,24 @@ function shotsBlock(){
   const wrap=h('div',{class:'ed-shots'});
   const grid=h('div',{class:'ed-shots-grid'});
   if (S.assets){
-    const zone=h('label',{class:'drop', for:'ed-shot-file'}, icon('cam'), h('span',null, h('strong',null,'Screenshots hinzufügen'), h('br'), 'Klicken, Bilder hierher ziehen oder mit Strg+V einfügen'));
+    const zone=h('label',{class:'drop', for:'ed-shot-file'}, icon('cam'), h('span',null, h('strong',null,'Add screenshots'), h('br'), 'Click, drag images here or paste with Ctrl+V'));
     const input=h('input',{type:'file', id:'ed-shot-file', accept:'image/png,image/jpeg,image/webp,image/gif', multiple:true, class:'vh', onchange:e=>{ const fs=[...e.target.files]; e.target.value=''; addShots(fs); }});
     zone.addEventListener('dragover', e=>{ e.preventDefault(); zone.classList.add('over'); });
     zone.addEventListener('dragleave', ()=>zone.classList.remove('over'));
     zone.addEventListener('drop', e=>{ e.preventDefault(); zone.classList.remove('over'); addShots([...(e.dataTransfer?.files||[])].filter(f=>/^image\//.test(f.type))); });
-    wrap.append(zone, input, h('p',{class:'f-h'},'Mit dem Stern wählst du das Titelbild für die Startseite. Ohne Stern wechseln die Screenshots.'));
-  } else wrap.append(h('p',{class:'f-h'},'Bilder hochladen geht in dieser Ansicht nicht.'));
+    wrap.append(zone, input, h('p',{class:'f-h'},'Use the star to pick the featured image for the home page. Without a star, the screenshots rotate.'));
+  } else wrap.append(h('p',{class:'f-h'},'Image uploads don’t work in this view.'));
   E.drawShots=()=>{
     if (!E) return;
     const a=E.d.shots;
     grid.replaceChildren(
       ...a.map((s,i)=>h('div',{class:'ed-shot'+(E.d.heroShot===s.id?' hero':'')},
         h('div',{class:'ed-shot-img'}, pic(blobUrl(s.id),''),
-          h('button',{class:'x', type:'button', 'aria-label':'Screenshot entfernen', onclick:()=>{ if (E.d.heroShot===s.id) E.d.heroShot=null; dropAsset(s.id); a.splice(a.indexOf(s),1); E.drawShots(); }}, icon('close')),
-          h('button',{class:'st'+(E.d.heroShot===s.id?' on':''), type:'button', 'aria-pressed':String(E.d.heroShot===s.id), title: E.d.heroShot===s.id ? 'Titelbild der Startseite, zum Abwählen klicken' : 'Als Titelbild für die Startseite wählen', 'aria-label': E.d.heroShot===s.id ? 'Titelbild abwählen' : 'Als Titelbild für die Startseite wählen', onclick:()=>{ E.d.heroShot = E.d.heroShot===s.id ? null : s.id; E.drawShots(); }}, icon(E.d.heroShot===s.id?'starOn':'star')),
-          i>0 ? h('button',{class:'mv', type:'button', 'aria-label':'Weiter nach vorne', title:'Weiter nach vorne', onclick:()=>{ const j=a.indexOf(s); [a[j-1],a[j]]=[a[j],a[j-1]]; E.drawShots(); }}, icon('left')) : null),
-        h('input',{type:'text', class:'cap', id:'ed-cap-'+s.id, maxlength:300, value:s.caption||'', placeholder:'Bildunterschrift', 'aria-label':`Bildunterschrift für Screenshot ${i+1}`, oninput:e=>{ s.caption=e.target.value; }}))),
-      ...E.pending.map(()=>h('div',{class:'ed-shot'}, h('div',{class:'ed-shot-img'}, h('div',{class:'busy'}, h('span',{class:'spin'}), 'Lädt …')))));
+          h('button',{class:'x', type:'button', 'aria-label':'Remove screenshot', onclick:()=>{ if (E.d.heroShot===s.id) E.d.heroShot=null; dropAsset(s.id); a.splice(a.indexOf(s),1); E.drawShots(); }}, icon('close')),
+          h('button',{class:'st'+(E.d.heroShot===s.id?' on':''), type:'button', 'aria-pressed':String(E.d.heroShot===s.id), title: E.d.heroShot===s.id ? 'Featured on the home page, click to remove' : 'Feature on the home page', 'aria-label': E.d.heroShot===s.id ? 'Remove from home page' : 'Feature on the home page', onclick:()=>{ E.d.heroShot = E.d.heroShot===s.id ? null : s.id; E.drawShots(); }}, icon(E.d.heroShot===s.id?'starOn':'star')),
+          i>0 ? h('button',{class:'mv', type:'button', 'aria-label':'Move forward', title:'Move forward', onclick:()=>{ const j=a.indexOf(s); [a[j-1],a[j]]=[a[j],a[j-1]]; E.drawShots(); }}, icon('left')) : null),
+        h('input',{type:'text', class:'cap', id:'ed-cap-'+s.id, maxlength:300, value:s.caption||'', placeholder:'Caption', 'aria-label':`Caption for screenshot ${i+1}`, oninput:e=>{ s.caption=e.target.value; }}))),
+      ...E.pending.map(()=>h('div',{class:'ed-shot'}, h('div',{class:'ed-shot-img'}, h('div',{class:'busy'}, h('span',{class:'spin'}), 'Uploading …')))));
   };
   E.drawShots();
   wrap.append(grid);
@@ -1285,7 +1285,7 @@ async function saveEditor(){
   const body={ title:d.title, year:d.year, platform:d.platform, genres:d.genres, status:d.status, score:d.score, scores:d.scores,
     start:d.start, end:d.end, hours:d.hours, verdict:d.verdict, moment:d.moment, song:d.song, songUrl:d.songUrl, cover:d.cover||null,
     shots:d.shots.map(s=>({id:s.id, caption:(s.caption||'').trim()})), heroShot:(d.heroShot && d.shots.some(x=>x.id===d.heroShot)) ? d.heroShot : null, created:(myE.orig && myE.orig.created)||now, updated:now };
-  const btn=$('#ed-save'); btn.disabled=true; btn.textContent='Speichert …';
+  const btn=$('#ed-save'); btn.disabled=true; btn.textContent='Saving …';
   const ok=await writeDoc('games/'+ref.id, ()=>ref.set(body));
   if (!ok){ if (E===myE) updSave(); return; }
   S.games.set(ref.id, norm(ref.id, body));
@@ -1296,7 +1296,7 @@ async function saveEditor(){
   }
   myE.fresh.clear();
   if (E===myE) closeEditor(true);
-  toast(myE.id ? 'Änderungen gespeichert' : `„${body.title}“ eingetragen`);
+  toast(myE.id ? 'Changes saved' : `“${body.title}” added`);
   renderAll();
   openDetail(ref.id);
 }
@@ -1304,7 +1304,7 @@ async function saveEditor(){
 /* ---------- Tierlisten ---------- */
 let drag=null, suppressUntil=0;
 function tile(g){
-  const b=h('button',{class:'tile', type:'button', style:{'--h':hue(g.title)}, 'data-id':g.id, title:g.title, 'aria-label':`${g.title}${g.score?', '+fmtScore(g.score)+' von 10':''}`}, coverEl(g,'cover'), g.score ? h('span',{class:'tile-score'}, fmtScore(g.score)) : null);
+  const b=h('button',{class:'tile', type:'button', style:{'--h':hue(g.title)}, 'data-id':g.id, title:g.title, 'aria-label':`${g.title}${g.score?', '+fmtScore(g.score)+' out of 10':''}`}, coverEl(g,'cover'), g.score ? h('span',{class:'tile-score'}, fmtScore(g.score)) : null);
   b.addEventListener('click', ()=>{ if (Date.now()<suppressUntil) return; openDetail(g.id); });
   b.addEventListener('pointerdown', tileDown);
   return b;
@@ -1322,62 +1322,62 @@ function renderTiers(){
   const gotyG = t.goty && ids.has(t.goty) ? S.games.get(t.goty) : null;
   const edit = S.tierEdit && S.owner && yGames.length>0;
 
-  const sel=h('select',{class:'nf-select', id:'tier-year', 'aria-label':'Jahr wählen', onchange:e=>{ S.tierYear=+e.target.value; S.tierEdit=false; S.gotyAdj=null; renderTiers(); }},
-    years.map(yy=>h('option',{value:String(yy), selected:yy===y}, `${yy} · ${plural(gamesOf(yy).length,'Spiel','Spiele')}`)));
+  const sel=h('select',{class:'nf-select', id:'tier-year', 'aria-label':'Choose year', onchange:e=>{ S.tierYear=+e.target.value; S.tierEdit=false; S.gotyAdj=null; renderTiers(); }},
+    years.map(yy=>h('option',{value:String(yy), selected:yy===y}, `${yy} · ${plural(gamesOf(yy).length,'game','games')}`)));
   root.append(h('div',{class:'page-head'},
-    h('h2',{class:'page-title'}, 'Tierliste'), sel,
-    yGames.length ? h('span',{class:'page-count'}, `${placed.size} von ${yGames.length} eingestuft`) : null,
-    S.owner && yGames.length ? h('div',{class:'page-tools'}, h('button',{class:'btn '+(edit?'btn-red':'btn-grey'), type:'button', onclick:()=>{ S.tierEdit=!S.tierEdit; S.gotyAdj=null; renderTiers(); }}, edit ? [icon('check'),'Fertig'] : [icon('edit'),'Bearbeiten'])) : null));
+    h('h2',{class:'page-title'}, 'Tier list'), sel,
+    yGames.length ? h('span',{class:'page-count'}, `${placed.size} of ${yGames.length} ranked`) : null,
+    S.owner && yGames.length ? h('div',{class:'page-tools'}, h('button',{class:'btn '+(edit?'btn-red':'btn-grey'), type:'button', onclick:()=>{ S.tierEdit=!S.tierEdit; S.gotyAdj=null; renderTiers(); }}, edit ? [icon('check'),'Done'] : [icon('edit'),'Edit'])) : null));
   if (!yGames.length){
     root.append(h('div',{class:'empty'},
       h('div',{class:'slot','aria-hidden':'true'}, h('span',{class:'slot-plus'},'+'), h('span',{class:'slot-lbl'}, String(y))),
       h('div',{class:'empty-txt'},
-        h('h2',null, `Für ${y} ist noch nichts eingetragen`),
-        h('p',null,'Jedes Spiel landet über sein Jahr in der passenden Tierliste. Danach kannst du es hier in S bis D einsortieren und ein Spiel des Jahres küren.'),
-        S.owner ? h('button',{class:'btn btn-primary', type:'button', onclick:()=>openEditor(null,{year:y})}, icon('plus'), `Spiel für ${y} eintragen`) : null)));
+        h('h2',null, `Nothing added for ${y} yet`),
+        h('p',null,'Each game lands in the tier list for its year. Then you can sort it into S to D here and crown a Game of the Year.'),
+        S.owner ? h('button',{class:'btn btn-primary', type:'button', onclick:()=>openEditor(null,{year:y})}, icon('plus'), `Add a game for ${y}`) : null)));
     tierNote(root);
     return;
   }
-  if (edit) root.append(h('p',{class:'t-hint'}, 'Zieh die Hüllen in eine Reihe, auf „Spiel des Jahres“ oder zurück nach unten. Ein kurzer Tipp öffnet das Spiel.'));
+  if (edit) root.append(h('p',{class:'t-hint'}, 'Drag the cases into a row, onto “Game of the Year” or back down. A quick tap opens the game.'));
   root.append(gotyBlock(y, gotyG, yGames, edit));
   root.append(h('div',{class:'board'+(edit?' editing':'')}, TIERS.map(T=>h('div',{class:'t-row', 'data-drop':T},
     h('div',{class:'t-label', style:tierVar(T)}, T, h('small',null, String(rows[T].length))),
     h('div',{class:'t-tiles'}, rows[T].map(id=>tile(S.games.get(id))), (!rows[T].length && !edit) ? h('span',{class:'t-empty'},'–') : null)))));
   if (pool.length || edit){
     root.append(h('section',{class:'pool-wrap'},
-      h('h3',{class:'lbl'},'Noch nicht eingestuft'),
-      h('div',{class:'pool'+(edit?' editing':''), 'data-drop':'POOL'}, h('div',{class:'t-tiles'}, pool.map(tile), !pool.length ? h('span',{class:'t-empty'},'Alles eingestuft') : null)),
-      !edit && S.owner ? h('p',{class:'f-h'},'Über „Tierliste bearbeiten“ sortierst du sie ein.') : null));
+      h('h3',{class:'lbl'},'Not ranked yet'),
+      h('div',{class:'pool'+(edit?' editing':''), 'data-drop':'POOL'}, h('div',{class:'t-tiles'}, pool.map(tile), !pool.length ? h('span',{class:'t-empty'},'All ranked') : null)),
+      !edit && S.owner ? h('p',{class:'f-h'},'Use “Edit” to sort them in.') : null));
   }
   tierNote(root);
 }
 function tierNote(root){
   const n=[...S.games.values()].filter(g=>!g.year).length;
-  if (n) root.append(h('p',{class:'f-h t-note'}, n===1 ? '1 Spiel ohne Jahr taucht in keiner Tierliste auf. Gib ihm auf seiner Spielseite ein Jahr, um es einzusortieren.' : `${n} Spiele ohne Jahr tauchen in keiner Tierliste auf. Gib ihnen auf ihrer Spielseite ein Jahr, um sie einzusortieren.`));
+  if (n) root.append(h('p',{class:'f-h t-note'}, n===1 ? '1 game without a year doesn’t appear in any tier list. Give it a year on its game page to rank it.' : `${n} games without a year don’t appear in any tier list. Give them a year on their game pages to rank them.`));
 }
 function gotyBlock(y, gg, yGames, edit){
-  const sel = edit ? h('select',{class:'nf-select', id:'goty-sel', 'aria-label':'Spiel des Jahres wählen', onchange:e=>{ const n=cloneTier(S.tiers[y]||normTier({})); n.goty=e.target.value||null; saveTier(y,n); renderTiers(); }},
-      h('option',{value:''},'Noch keins gewählt'),
+  const sel = edit ? h('select',{class:'nf-select', id:'goty-sel', 'aria-label':'Choose Game of the Year', onchange:e=>{ const n=cloneTier(S.tiers[y]||normTier({})); n.goty=e.target.value||null; saveTier(y,n); renderTiers(); }},
+      h('option',{value:''},'None chosen yet'),
       yGames.slice().sort((a,b)=>(b.score||0)-(a.score||0)).map(g=>h('option',{value:g.id, selected:!!gg && gg.id===g.id}, g.title))) : null;
   const adj=gotyAdjFor(y, gg), imgs=gg ? gotyImgs(gg) : [];
   const canAdj = !!gg && S.owner && !S.isStatic && !!S.db && imgs.length>0;
   return h('div',{class:'goty'+(gg?'':' goty-empty')+(adj?' adjusting':''), 'data-drop': edit && !adj ? 'GOTY' : null},
     gg ? h('div',{class:'goty-bg','aria-hidden':'true'}, gotyArt(y, gg)) : null,
     h('div',{class:'goty-txt'},
-      h('p',{class:'bb-tag'}, h('span',{class:'bb-mark'}), `Spiel des Jahres ${y}`),
-      h('p',{class:'goty-title'}, gg ? gg.title : 'Noch nicht gekürt'),
+      h('p',{class:'bb-tag'}, h('span',{class:'bb-mark'}), `Game of the Year ${y}`),
+      h('p',{class:'goty-title'}, gg ? gg.title : 'Not crowned yet'),
       gg ? h('p',{class:'bb-meta'}, gg.score ? h('span',{class:'match'}, `${fmtScore(gg.score)}/10`) : null, gg.platform ? h('span',null,gg.platform) : null, gg.hours ? h('span',null,fmtHours(gg.hours)) : null)
-         : S.owner ? h('p',{class:'muted small'}, edit ? 'Wähle unten ein Spiel aus oder zieh eine Hülle hierher.' : 'Über „Bearbeiten“ kürst du dein Spiel des Jahres.') : null,
-      gg && !edit ? h('button',{class:'btn btn-white btn-sm', type:'button', onclick:()=>openDetail(gg.id)}, icon('info'), 'Weitere Infos') : null,
+         : S.owner ? h('p',{class:'muted small'}, edit ? 'Pick a game below or drag a case here.' : 'Use “Edit” to crown your Game of the Year.') : null,
+      gg && !edit ? h('button',{class:'btn btn-white btn-sm', type:'button', onclick:()=>openDetail(gg.id)}, icon('info'), 'More info') : null,
       sel),
-    canAdj && !adj ? h('button',{class:'btn btn-grey btn-sm goty-adj-btn', type:'button', title:'Bildausschnitt verschieben', 'aria-label':'Bildausschnitt verschieben', onclick:()=>startGotyAdj(y, gg)}, icon('move'), h('span',{class:'gab-txt'},'Bild verschieben')) : null,
-    adj ? h('div',{class:'goty-drag', tabindex:'0', 'aria-label':'Bildausschnitt: ziehen oder mit den Pfeiltasten verschieben, Enter speichert, Escape bricht ab',
+    canAdj && !adj ? h('button',{class:'btn btn-grey btn-sm goty-adj-btn', type:'button', title:'Reposition image', 'aria-label':'Reposition image', onclick:()=>startGotyAdj(y, gg)}, icon('move'), h('span',{class:'gab-txt'},'Reposition image')) : null,
+    adj ? h('div',{class:'goty-drag', tabindex:'0', 'aria-label':'Image crop: drag or use the arrow keys, Enter saves, Escape cancels',
         onpointerdown:adjDown, onpointermove:adjMove, onpointerup:adjUp, onpointercancel:adjUp, onkeydown:e=>adjKey(e, y, gg)},
-        h('span',{class:'goty-drag-hint'}, icon('move'), 'Zieh das Bild an die richtige Stelle')) : null,
+        h('span',{class:'goty-drag-hint'}, icon('move'), 'Drag the image into place')) : null,
     adj ? h('div',{class:'goty-adj-bar'},
-        imgs.length>1 ? h('button',{class:'btn btn-grey btn-sm', type:'button', 'aria-label':'Anderes Bild wählen', onclick:()=>cycleGotyImg(gg)}, icon('img'), h('span',{class:'gab-txt'},'Anderes Bild ·'), `${imgs.indexOf(adj.img)+1}/${imgs.length}`) : null,
-        h('button',{class:'btn btn-grey btn-sm', type:'button', onclick:cancelGotyAdj}, 'Abbrechen'),
-        h('button',{class:'btn btn-white btn-sm', type:'button', onclick:()=>saveGotyAdj(y, gg)}, icon('check'), 'Speichern')) : null);
+        imgs.length>1 ? h('button',{class:'btn btn-grey btn-sm', type:'button', 'aria-label':'Choose another image', onclick:()=>cycleGotyImg(gg)}, icon('img'), h('span',{class:'gab-txt'},'Other image ·'), `${imgs.indexOf(adj.img)+1}/${imgs.length}`) : null,
+        h('button',{class:'btn btn-grey btn-sm', type:'button', onclick:cancelGotyAdj}, 'Cancel'),
+        h('button',{class:'btn btn-white btn-sm', type:'button', onclick:()=>saveGotyAdj(y, gg)}, icon('check'), 'Save')) : null);
 }
 /* Spiel des Jahres: Bildausschnitt verschieben */
 function gotyImgs(g){ return [...g.shots.map(s=>s.id), ...(g.cover && !g.shots.some(s=>s.id===g.cover) ? [g.cover] : [])]; }
@@ -1415,7 +1415,7 @@ function saveGotyAdj(y, g){
   const n=cloneTier(S.tiers[y]||normTier({}));
   n.gotyArt={id:g.id, img:a.img, x:pct(a.px,50), y:pct(a.py,50)};
   S.gotyAdj=null;
-  saveTier(y, n).then(ok=>{ if (ok) toast('Bildausschnitt gespeichert'); });
+  saveTier(y, n).then(ok=>{ if (ok) toast('Image position saved'); });
   renderTiers();
 }
 function adjImg(layer){ return $('.goty-bg>img', layer.closest('.goty')); }
@@ -1550,26 +1550,42 @@ function landscapeArt(g, mode, eager){
   return genWide(g);
 }
 function posterCard(g){
-  const flag = g.status==='spielt' ? h('span',{class:'nc-flag'}, 'Läuft gerade') : g.status==='platin' ? h('span',{class:'nc-flag gold'}, '100 %') : g.example ? h('span',{class:'nc-flag grey'}, 'Beispiel') : null;
-  return h('button',{class:'nc poster', type:'button', style:{'--h':hue(g.title)}, 'aria-label':`${g.title} öffnen`, onclick:()=>openDetail(g.id)},
+  const flag = g.status==='spielt' ? h('span',{class:'nc-flag'}, 'Playing now') : g.status==='platin' ? h('span',{class:'nc-flag gold'}, '100%') : g.example ? h('span',{class:'nc-flag grey'}, 'Example') : null;
+  return h('button',{class:'nc poster', type:'button', style:{'--h':hue(g.title)}, 'aria-label':`Open ${g.title}`, onclick:()=>openDetail(g.id)},
     h('div',{class:'nc-art'}, coverEl(g,'cover'),
       flag,
       h('div',{class:'nc-hover'}, h('b',null, g.title), h('span',null, h('em',null, g.score ? `${fmtScore(g.score)}/10` : '–'), [g.platform, fmtHours(g.hours)].filter(Boolean).join(' · ')))));
 }
 function wideCard(g){
-  return h('button',{class:'nc wide', type:'button', style:{'--h':hue(g.title)}, 'aria-label':`${g.title} öffnen`, onclick:()=>openDetail(g.id)},
+  return h('button',{class:'nc wide', type:'button', style:{'--h':hue(g.title)}, 'aria-label':`Open ${g.title}`, onclick:()=>openDetail(g.id)},
     h('div',{class:'nc-art'}, landscapeArt(g), h('div',{class:'nc-shade'}), h('span',{class:'nc-wtitle'}, g.title),
-      g.status==='spielt' ? h('span',{class:'nc-flag'}, 'Läuft gerade') : null),
-    h('div',{class:'nc-info'}, h('span',{class:'nc-score'}, g.score ? `${fmtScore(g.score)}/10` : 'Ohne Wertung'), [g.platform, fmtHours(g.hours)].filter(Boolean).length ? h('span',null, [g.platform, fmtHours(g.hours)].filter(Boolean).join(' · ')) : null));
+      g.status==='spielt' ? h('span',{class:'nc-flag'}, 'Playing now') : null),
+    h('div',{class:'nc-info'}, h('span',{class:'nc-score'}, g.score ? `${fmtScore(g.score)}/10` : 'Not rated'), [g.platform, fmtHours(g.hours)].filter(Boolean).length ? h('span',null, [g.platform, fmtHours(g.hours)].filter(Boolean).join(' · ')) : null));
 }
 function top10Card(g, n){
-  return h('button',{class:'nc top10', type:'button', style:{'--h':hue(g.title)}, 'aria-label':`Platz ${n}: ${g.title} öffnen`, onclick:()=>openDetail(g.id)},
+  return h('button',{class:'nc top10', type:'button', style:{'--h':hue(g.title)}, 'aria-label':`#${n}: open ${g.title}`, onclick:()=>openDetail(g.id)},
     h('span',{class:'rank','aria-hidden':'true'}, String(n)),
     h('div',{class:'nc-art'}, coverEl(g,'cover'), h('div',{class:'nc-hover'}, h('b',null, g.title), h('span',null, h('em',null, `${fmtScore(g.score)}/10`)))));
 }
+/* Screenshot-Reihe bunt gemischt: Spiele in zufälliger Reihenfolge, pro Runde ein Bild je Spiel.
+   Die Zufallswerte gelten für den ganzen Seitenaufruf, damit die Reihe beim Neuzeichnen nicht springt. */
+const mixKey=new Map();
+function rk(k){ if (!mixKey.has(k)) mixKey.set(k, Math.random()); return mixKey.get(k); }
+function mixedShots(games, n){
+  const per=games.filter(g=>g.shots.length)
+    .map(g=>({g, list:g.shots.map((s,i)=>({g, i, k:rk('s:'+s.id)})).sort((a,b)=>a.k-b.k)}))
+    .sort((a,b)=>rk('g:'+a.g.id)-rk('g:'+b.g.id));
+  const out=[];
+  for (let r=0; out.length<n; r++){
+    let any=false;
+    for (const p of per){ const x=p.list[r]; if (!x) continue; any=true; out.push({g:x.g, i:x.i}); if (out.length>=n) break; }
+    if (!any) break;
+  }
+  return out;
+}
 function shotCard({g,i}){
   const s=g.shots[i];
-  return h('button',{class:'nc wide', type:'button', 'aria-label':`Screenshot aus ${g.title} vergrößern`, onclick:()=>openLB(g,i)},
+  return h('button',{class:'nc wide', type:'button', 'aria-label':`Enlarge screenshot from ${g.title}`, onclick:()=>openLB(g,i)},
     h('div',{class:'nc-art'}, pic(blobUrl(s.id), s.caption), h('div',{class:'nc-shade'}), h('span',{class:'nc-wtitle small'}, g.title)),
     s.caption ? h('div',{class:'nc-info'}, h('span',null, s.caption)) : null);
 }
@@ -1578,19 +1594,19 @@ function row(title, items, opts){
   const track=h('div',{class:'row-track'}, items);
   const step=d=>track.scrollBy({left:d*track.clientWidth*0.85, behavior:'smooth'});
   return h('section',{class:'row'+(opts.cls?' '+opts.cls:'')},
-    h('div',{class:'row-head'}, h('h2',{class:'row-title'}, title), opts.more ? h('button',{class:'row-more', type:'button', onclick:opts.more}, opts.moreLabel || 'Alle ansehen', icon('next')) : null),
+    h('div',{class:'row-head'}, h('h2',{class:'row-title'}, title), opts.more ? h('button',{class:'row-more', type:'button', onclick:opts.more}, opts.moreLabel || 'See all', icon('next')) : null),
     h('div',{class:'row-wrap'},
-      h('button',{class:'row-arrow prev', type:'button', 'aria-label':'Zurückblättern', onclick:()=>step(-1)}, icon('left')),
+      h('button',{class:'row-arrow prev', type:'button', 'aria-label':'Scroll back', onclick:()=>step(-1)}, icon('left')),
       track,
-      h('button',{class:'row-arrow next', type:'button', 'aria-label':'Weiterblättern', onclick:()=>step(1)}, icon('right'))));
+      h('button',{class:'row-arrow next', type:'button', 'aria-label':'Scroll forward', onclick:()=>step(1)}, icon('right'))));
 }
 function billboardList(all, recent){
   const out=[], seen=new Set();
   const add=(g,label)=>{ if (g && !seen.has(g.id) && out.length<6){ seen.add(g.id); out.push({g,label}); } };
-  recent.filter(g=>g.status==='spielt').forEach(g=>add(g,'Gerade dabei'));
-  Object.keys(S.tiers).sort((a,b)=>b-a).forEach(y=>{ const id=S.tiers[y].goty; const g=id && S.games.get(id); if (g && g.year===+y) add(g,`Spiel des Jahres ${y}`); });
-  all.filter(g=>g.score).sort((a,b)=>b.score-a.score || a.title.localeCompare(b.title,'de')).slice(0,3).forEach(g=>add(g,'Top bewertet'));
-  recent.forEach(g=>add(g, g.status==='spielt' ? 'Gerade dabei' : 'Zuletzt gespielt'));
+  recent.filter(g=>g.status==='spielt').forEach(g=>add(g,'Currently playing'));
+  Object.keys(S.tiers).sort((a,b)=>b-a).forEach(y=>{ const id=S.tiers[y].goty; const g=id && S.games.get(id); if (g && g.year===+y) add(g,`Game of the Year ${y}`); });
+  all.filter(g=>g.score).sort((a,b)=>b.score-a.score || a.title.localeCompare(b.title,'de')).slice(0,3).forEach(g=>add(g,'Top rated'));
+  recent.forEach(g=>add(g, g.status==='spielt' ? 'Currently playing' : 'Recently played'));
   return out;
 }
 function bbContent(g, label){
@@ -1604,13 +1620,13 @@ function bbContent(g, label){
       g.year ? h('span',null, String(g.year)) : null,
       g.platform ? h('span',null, g.platform) : null,
       g.hours ? h('span',null, fmtHours(g.hours)) : null,
-      goty ? h('span',{class:'box gold'}, icon('crown'), 'Spiel des Jahres') : null),
+      goty ? h('span',{class:'box gold'}, icon('crown'), 'Game of the Year') : null),
     text ? h('p',{class:'bb-text'}, text) : null,
     h('div',{class:'bb-btns'},
       song ? playBtn(g,'btn btn-white btn-lg')
-           : h('button',{class:'btn btn-white btn-lg', type:'button', onclick:()=>openDetail(g.id)}, icon('info'), 'Weitere Infos'),
-      song ? h('button',{class:'btn btn-grey btn-lg', type:'button', onclick:()=>openDetail(g.id)}, icon('info'), 'Weitere Infos')
-           : h('button',{class:'btn btn-grey btn-lg', type:'button', onclick:()=>setView('lib',true)}, 'Zur Bibliothek'))];
+           : h('button',{class:'btn btn-white btn-lg', type:'button', onclick:()=>openDetail(g.id)}, icon('info'), 'More info'),
+      song ? h('button',{class:'btn btn-grey btn-lg', type:'button', onclick:()=>openDetail(g.id)}, icon('info'), 'More info')
+           : h('button',{class:'btn btn-grey btn-lg', type:'button', onclick:()=>setView('lib',true)}, 'Go to library'))];
 }
 /* Titelbild-Runden: erst die normale Runde, dann Runden aus der Top 10 (gemischt, je höchstens 6 Spiele),
    danach wieder die normale Runde. So kommen auch Spiele dran, die sonst nie vorne stehen. */
@@ -1622,20 +1638,20 @@ function topBatches(){
   const ids=top.map(g=>g.id);
   for (let i=ids.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [ids[i],ids[j]]=[ids[j],ids[i]]; }
   const nb=Math.ceil(ids.length/6), size=Math.ceil(ids.length/nb), out=[];
-  for (let k=0;k<ids.length;k+=size) out.push(ids.slice(k,k+size).map(id=>({g:S.games.get(id), label:`Platz ${rank.get(id)} deiner Top 10`, round:'top'})));
+  for (let k=0;k<ids.length;k+=size) out.push(ids.slice(k,k+size).map(id=>({g:S.games.get(id), label:`#${rank.get(id)} in your Top 10`, round:'top'})));
   return out;
 }
 function billboard(list){
   const bg=h('div',{class:'bb-bg','aria-hidden':'true'});
   const inner=h('div',{class:'bb-in', 'aria-live':'polite'});
   const flag=h('div',{class:'bb-flag'});
-  const dots=h('div',{class:'bb-dots', role:'group', 'aria-label':'Titelbild wechseln'});
+  const dots=h('div',{class:'bb-dots', role:'group', 'aria-label':'Switch featured game'});
   const col=h('div',{class:'bb-col'}, inner, dots);
   const sec=h('section',{class:'bb'}, bg, col, flag);
   const reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   let cur=-1, started=false, swapT=null, pre=null, queue=topBatches(), upcoming=null;
   const renderDots=()=>{
-    dots.replaceChildren(...list.map((it,i)=>h('button',{class:'bb-dot', type:'button', title:it.g.title, 'aria-label':`${it.g.title} zeigen`, onclick:()=>show(i)}, h('i',null, h('b')))));
+    dots.replaceChildren(...list.map((it,i)=>h('button',{class:'bb-dot', type:'button', title:it.g.title, 'aria-label':`Show ${it.g.title}`, onclick:()=>show(i)}, h('i',null, h('b')))));
     dots.hidden = list.length<2;
   };
   const takeRound=()=>{
@@ -1688,34 +1704,33 @@ function renderStart(){
     root.append(h('section',{class:'bb'},
       h('div',{class:'bb-bg','aria-hidden':'true'}, h('div',{class:'gen', style:{'--h':352}})),
       h('div',{class:'bb-in'},
-        h('p',{class:'bb-tag'}, h('span',{class:'bb-mark'}), 'Spieletagebuch'),
-        h('h1',{class:'bb-title'}, S.owner ? 'Dein erster Speicherstand' : 'Bald geht es los'),
-        h('p',{class:'bb-text'}, S.owner ? 'Hier sammelst du deine Spiele mit Wertung, kurzem Fazit, Lieblingssong und Screenshots. Daraus entstehen deine Reihen, Tierlisten und Statistiken.' : 'Hier entsteht ein Spieletagebuch mit Wertungen, Lieblingssongs und Screenshots. Die ersten Spiele kommen bald dazu.'),
-        S.owner ? h('div',{class:'bb-btns'}, h('button',{class:'btn btn-white btn-lg', type:'button', onclick:()=>openEditor(null)}, icon('plus'), 'Erstes Spiel eintragen')) : null)));
+        h('p',{class:'bb-tag'}, h('span',{class:'bb-mark'}), 'Game diary'),
+        h('h1',{class:'bb-title'}, S.owner ? 'Your first save' : 'Coming soon'),
+        h('p',{class:'bb-text'}, S.owner ? 'Collect your games here with a rating, short verdict, favorite song and screenshots. They turn into your rows, tier lists and stats.' : 'A game diary with ratings, favorite songs and screenshots is coming together here. The first games will be added soon.'),
+        S.owner ? h('div',{class:'bb-btns'}, h('button',{class:'btn btn-white btn-lg', type:'button', onclick:()=>openEditor(null)}, icon('plus'), 'Add your first game')) : null)));
     return;
   }
   const recent=all.slice().sort((a,b)=>recentKey(b).localeCompare(recentKey(a)));
   const playing=recent.filter(g=>g.status==='spielt');
   root.append(billboard(billboardList(all, recent)));
   const rows=h('div',{class:'rows-wrap'});
-  if (playing.length) rows.append(row('Gerade dabei', playing.map(wideCard)));
-  rows.append(row('Zuletzt gespielt', recent.filter(g=>g.status!=='spielt').slice(0,12).map(wideCard), {more:()=>setView('lib',true)}));
+  if (playing.length) rows.append(row('Currently playing', playing.map(wideCard)));
+  rows.append(row('Recently played', recent.filter(g=>g.status!=='spielt').slice(0,12).map(wideCard), {more:()=>setView('lib',true)}));
   const top=all.filter(g=>g.score).sort((a,b)=>b.score-a.score || a.title.localeCompare(b.title,'de')).slice(0,10);
-  if (top.length>=3) rows.append(row('Deine Top 10', top.map((g,i)=>top10Card(g,i+1))));
+  if (top.length>=3) rows.append(row('Your Top 10', top.map((g,i)=>top10Card(g,i+1))));
   const ly=latestYear(), lyGames=gamesOf(ly);
   if (lyGames.length){
     const ord=g=>{ const t=tierOf(g); return t ? TIERS.indexOf(t) : 9; };
-    rows.append(row(`Das Beste aus ${ly}`, lyGames.slice().sort((a,b)=>ord(a)-ord(b) || (b.score||0)-(a.score||0)).map(posterCard), {more:()=>goTiers(ly), moreLabel:'Zur Tierliste'}));
+    rows.append(row(`Best of ${ly}`, lyGames.slice().sort((a,b)=>ord(a)-ord(b) || (b.score||0)-(a.score||0)).map(posterCard), {more:()=>goTiers(ly), moreLabel:'Go to tier list'}));
   }
-  const shots=[];
-  for (const g of all.slice().sort((a,b)=>b.updated-a.updated)) for (let i=g.shots.length-1;i>=0;i--) shots.push({g,i});
-  if (shots.length) rows.append(row('Neueste Screenshots', shots.slice(0,14).map(shotCard)));
-  rows.append(row('Neu in deiner Sammlung', all.slice().sort((a,b)=>(b.created||0)-(a.created||0)).slice(0,14).map(posterCard), {more:()=>{ S.sort='added'; $('#f-sort').value='added'; setView('lib',true); }}));
+  const shots=mixedShots(all, 16);
+  if (shots.length) rows.append(row('Screenshots', shots.map(shotCard)));
+  rows.append(row('New in your collection', all.slice().sort((a,b)=>(b.created||0)-(a.created||0)).slice(0,14).map(posterCard), {more:()=>{ S.sort='added'; $('#f-sort').value='added'; setView('lib',true); }}));
   for (const [gname] of countBy(all,g=>g.genres).filter(x=>x[1]>=2).slice(0,3))
     rows.append(row(gname, all.filter(g=>g.genres.includes(gname)).sort((a,b)=>(b.score||0)-(a.score||0)).map(posterCard)));
   const now=new Date(); const ym=`${now.getFullYear()-1}-${String(now.getMonth()+1).padStart(2,'0')}`;
   const mem=all.filter(g=>(g.end||g.start||'').startsWith(ym));
-  if (mem.length) rows.append(row('Heute vor einem Jahr', mem.map(posterCard)));
+  if (mem.length) rows.append(row('One year ago', mem.map(posterCard)));
   root.append(rows);
 }
 
@@ -1731,11 +1746,11 @@ function yearChart(all){
   const max=Math.max(1,...data.map(d=>d.n));
   const bw=46, gap=30, top=26, bottom=44, H=220, plotH=H-top-bottom;
   const content=data.length*bw+(data.length-1)*gap; const W=Math.max(340, content+24); const x0=(W-content)/2;
-  const svg=sv('svg',{viewBox:`0 0 ${W} ${H}`, width:W, height:H, role:'img', 'aria-label':'Spiele pro Jahr'});
+  const svg=sv('svg',{viewBox:`0 0 ${W} ${H}`, width:W, height:H, role:'img', 'aria-label':'Games per year'});
   svg.append(sv('line',{x1:8, x2:W-8, y1:top+plotH+.5, y2:top+plotH+.5, class:'c-axis'}));
   data.forEach((d,i)=>{
     const x=x0+i*(bw+gap), bh=Math.max(2, d.n/max*plotH), yy=top+plotH-bh;
-    const r=sv('rect',{x, y:yy, width:bw, height:bh, rx:4, class:d.y===YEAR_NOW?'c-bar':'c-bar-past'}); r.append(sv('title',{}, `${d.y}: ${plural(d.n,'Spiel','Spiele')}${d.hrs?', '+nf1.format(d.hrs)+' h':''}`));
+    const r=sv('rect',{x, y:yy, width:bw, height:bh, rx:4, class:d.y===YEAR_NOW?'c-bar':'c-bar-past'}); r.append(sv('title',{}, `${d.y}: ${plural(d.n,'game','games')}${d.hrs?', '+nf1.format(d.hrs)+' h':''}`));
     svg.append(r, sv('text',{x:x+bw/2, y:yy-8, 'text-anchor':'middle', class:'c-val'}, String(d.n)),
       sv('text',{x:x+bw/2, y:top+plotH+18, 'text-anchor':'middle', class:'c-lbl'}, String(d.y)),
       sv('text',{x:x+bw/2, y:top+plotH+34, 'text-anchor':'middle', class:'c-sub'}, d.hrs ? nf1.format(d.hrs)+' h' : '–'));
@@ -1746,7 +1761,7 @@ function scoreHist(scored){
   const bins=Array.from({length:10},()=>0);
   for (const g of scored) bins[Math.min(9, Math.max(0, Math.floor(g.score)-1))]++;
   const max=Math.max(1,...bins); const W=340, H=150, top=20, bottom=24, plotH=H-top-bottom, bw=24, step=W/10;
-  const svg=sv('svg',{viewBox:`0 0 ${W} ${H}`, width:'100%', role:'img', 'aria-label':'Verteilung der Wertungen', style:'max-width:440px'});
+  const svg=sv('svg',{viewBox:`0 0 ${W} ${H}`, width:'100%', role:'img', 'aria-label':'Rating distribution', style:'max-width:440px'});
   svg.append(sv('line',{x1:0, x2:W, y1:top+plotH+.5, y2:top+plotH+.5, class:'c-axis'}));
   bins.forEach((n,i)=>{
     const cx=step*i+step/2, bh=n ? Math.max(3, n/max*plotH) : 0, yy=top+plotH-bh;
@@ -1761,18 +1776,18 @@ function rankList(list, valFn){
 function renderStats(){
   const root=$('#view-stats'); root.replaceChildren();
   const gate=gateEl(); if (gate){ root.append(gate); return; }
-  root.append(h('div',{class:'page-head'}, h('h2',{class:'page-title'},'Statistik')));
+  root.append(h('div',{class:'page-head'}, h('h2',{class:'page-title'},'Stats')));
   const all=[...S.games.values()];
-  if (!all.length){ root.append(h('div',{class:'notice'}, h('h2',null,'Noch keine Statistik'), h('p',{class:'muted'},'Sobald du Spiele einträgst, siehst du hier Spielzeit, Wertungen, Lieblingsgenres und deine Jahre im Vergleich.'))); if (S.owner) root.append(toolsPanel()); return; }
+  if (!all.length){ root.append(h('div',{class:'notice'}, h('h2',null,'No stats yet'), h('p',{class:'muted'},'Once you add games, you’ll see playtime, ratings, favorite genres and your years compared here.'))); if (S.owner) root.append(toolsPanel()); return; }
   const scored=all.filter(g=>g.score); const hrs=sum(all,g=>g.hours);
   const done=all.filter(g=>g.status==='durch'||g.status==='platin').length;
   const avg=scored.length ? sum(scored,g=>g.score)/scored.length : null;
   const thisYear=gamesOf(YEAR_NOW);
   root.append(h('div',{class:'kpis'},
-    h('div',{class:'kpi'}, h('span',{class:'lbl'},'Spiele'), h('span',{class:'kpi-v'}, String(all.length)), h('span',{class:'kpi-s'}, `${thisYear.length} davon ${YEAR_NOW}`)),
-    h('div',{class:'kpi'}, h('span',{class:'lbl'},'Spielzeit'), h('span',{class:'kpi-v'}, nf1.format(Math.round(hrs)), h('small',null,'h')), h('span',{class:'kpi-s'}, `${nf1.format(sum(thisYear,g=>g.hours))} h in ${YEAR_NOW}`)),
-    h('div',{class:'kpi'}, h('span',{class:'lbl'},'Ø Wertung'), h('span',{class:'kpi-v'}, avg ? nf1.format(Math.round(avg*10)/10) : '–', avg ? h('small',null,'/10') : null), h('span',{class:'kpi-s'}, `aus ${plural(scored.length,'Wertung','Wertungen')}`)),
-    h('div',{class:'kpi'}, h('span',{class:'lbl'},'Durchgespielt'), h('span',{class:'kpi-v'}, String(done)), h('span',{class:'kpi-s'}, `${Math.round(done/all.length*100)} % aller Spiele`))));
+    h('div',{class:'kpi'}, h('span',{class:'lbl'},'Games'), h('span',{class:'kpi-v'}, String(all.length)), h('span',{class:'kpi-s'}, `${thisYear.length} in ${YEAR_NOW}`)),
+    h('div',{class:'kpi'}, h('span',{class:'lbl'},'Playtime'), h('span',{class:'kpi-v'}, nf1.format(Math.round(hrs)), h('small',null,'h')), h('span',{class:'kpi-s'}, `${nf1.format(sum(thisYear,g=>g.hours))} h in ${YEAR_NOW}`)),
+    h('div',{class:'kpi'}, h('span',{class:'lbl'},'Avg. rating'), h('span',{class:'kpi-v'}, avg ? nf1.format(Math.round(avg*10)/10) : '–', avg ? h('small',null,'/10') : null), h('span',{class:'kpi-s'}, `from ${plural(scored.length,'rating','ratings')}`)),
+    h('div',{class:'kpi'}, h('span',{class:'lbl'},'Completed'), h('span',{class:'kpi-v'}, String(done)), h('span',{class:'kpi-s'}, `${Math.round(done/all.length*100)}% of all games`))));
 
   const withYear=all.filter(g=>g.year), noYear=all.length-withYear.length;
   const genres=countBy(all,g=>g.genres).slice(0,8);
@@ -1783,33 +1798,33 @@ function renderStats(){
   const memory=all.filter(g=>(g.end||'').startsWith(ym) || (!g.end && (g.start||'').startsWith(ym)));
 
   root.append(h('div',{class:'panels'},
-    memory.length ? h('section',{class:'panel wide'}, h('h3',null,'Vor einem Jahr'), h('div',{class:'memory'}, memory.map(g=>h('p',null, `Im ${MONTHS[now.getMonth()]} ${now.getFullYear()-1} hast du `, h('strong',null,g.title), g.end ? ' beendet' : ' angefangen', g.score ? ` und mit ${fmtScore(g.score)} bewertet.` : '.')))) : null,
-    h('section',{class:'panel wide'}, h('h3',null,'Spiele pro Jahr'),
-      withYear.length ? yearChart(withYear) : h('p',{class:'muted'},'Noch keinem Spiel ist ein Jahr zugeordnet.'),
-      noYear ? h('p',{class:'small muted'}, `${plural(noYear,'Spiel','Spiele')} ohne Jahr ${noYear===1?'ist':'sind'} hier nicht mitgezählt.`) : null),
-    h('section',{class:'panel'}, h('h3',null,'Wertungen'), scored.length ? scoreHist(scored) : h('p',{class:'muted'},'Noch keine Wertungen.')),
-    h('section',{class:'panel'}, h('h3',null,'Genres'), genres.length ? hbars(genres) : h('p',{class:'muted'},'Noch keine Genres eingetragen.')),
-    h('section',{class:'panel'}, h('h3',null,'Plattformen'), plats.length ? hbars(plats) : h('p',{class:'muted'},'Noch keine Plattformen eingetragen.')),
-    h('section',{class:'panel'}, h('h3',null,'Bestbewertet'), best.length ? rankList(best,g=>fmtScore(g.score)) : h('p',{class:'muted'},'Noch keine Wertungen.')),
-    h('section',{class:'panel'}, h('h3',null,'Längste Abenteuer'), longest.length ? rankList(longest,g=>fmtHours(g.hours)) : h('p',{class:'muted'},'Noch keine Spielzeiten eingetragen.')),
+    memory.length ? h('section',{class:'panel wide'}, h('h3',null,'One year ago'), h('div',{class:'memory'}, memory.map(g=>h('p',null, `In ${MONTHS[now.getMonth()]} ${now.getFullYear()-1} you ${g.end ? 'finished' : 'started'} `, h('strong',null,g.title), g.score ? ` and rated it ${fmtScore(g.score)}.` : '.')))) : null,
+    h('section',{class:'panel wide'}, h('h3',null,'Games per year'),
+      withYear.length ? yearChart(withYear) : h('p',{class:'muted'},'No game has a year yet.'),
+      noYear ? h('p',{class:'small muted'}, `${plural(noYear,'game','games')} without a year ${noYear===1?'is':'are'} not counted here.`) : null),
+    h('section',{class:'panel'}, h('h3',null,'Ratings'), scored.length ? scoreHist(scored) : h('p',{class:'muted'},'No ratings yet.')),
+    h('section',{class:'panel'}, h('h3',null,'Genres'), genres.length ? hbars(genres) : h('p',{class:'muted'},'No genres yet.')),
+    h('section',{class:'panel'}, h('h3',null,'Platforms'), plats.length ? hbars(plats) : h('p',{class:'muted'},'No platforms yet.')),
+    h('section',{class:'panel'}, h('h3',null,'Highest rated'), best.length ? rankList(best,g=>fmtScore(g.score)) : h('p',{class:'muted'},'No ratings yet.')),
+    h('section',{class:'panel'}, h('h3',null,'Longest adventures'), longest.length ? rankList(longest,g=>fmtHours(g.hours)) : h('p',{class:'muted'},'No playtimes yet.')),
     S.owner ? toolsPanel() : null));
 }
 function toolsPanel(){
   const meter=h('div',{class:'memory'});
   const status=h('p',{class:'pub-status', id:'pub-status', 'aria-live':'polite'});
-  const zipBtn=h('button',{class:'btn btn-red btn-sm', type:'button'}, icon('down'), 'Paket herunterladen (ZIP)');
+  const zipBtn=h('button',{class:'btn btn-red btn-sm', type:'button'}, icon('down'), 'Download package (ZIP)');
   zipBtn.addEventListener('click', ()=>exportZip(zipBtn, t=>{ status.textContent=t; }));
-  const p=h('section',{class:'panel'}, h('h3',null,'Veröffentlichen & Backup'),
-    h('p',{class:'small muted'},'Das Paket enthält die Seite, alle Einträge und alle Bilder. Es ist dein komplettes Backup, und hochgeladen bei GitHub Pages kann jeder die Seite ohne Claude ansehen.'),
+  const p=h('section',{class:'panel'}, h('h3',null,'Publish & backup'),
+    h('p',{class:'small muted'},'The package contains the page, all entries and all images. It’s your complete backup, and once uploaded to GitHub Pages anyone can view the page without Claude.'),
     h('ol',{class:'pub-steps'},
-      h('li',null,'Paket herunterladen und entpacken.'),
-      h('li',null,'Inhalt in dein GitHub-Repo legen, am einfachsten mit GitHub Desktop.'),
-      h('li',null,'Nach neuen Einträgen wiederholen. Git speichert jede alte Version.')),
-    S.downloads ? h('div',{class:'pub-btns'}, zipBtn, h('button',{class:'btn btn-sm', type:'button', onclick:exportJson}, 'Nur Daten (JSON)')) : h('p',{class:'small muted'},'Downloads sind in dieser Ansicht nicht verfügbar.'),
+      h('li',null,'Download and unzip the package.'),
+      h('li',null,'Put the contents in your GitHub repo, easiest with GitHub Desktop.'),
+      h('li',null,'Repeat after new entries. Git keeps every old version.')),
+    S.downloads ? h('div',{class:'pub-btns'}, zipBtn, h('button',{class:'btn btn-sm', type:'button', onclick:exportJson}, 'Data only (JSON)')) : h('p',{class:'small muted'},'Downloads aren’t available in this view.'),
     status,
     meter);
   if (S.assets){
-    const draw=u=>{ const pct=u.maxBytes ? Math.min(100, u.bytes/u.maxBytes*100) : 0; meter.replaceChildren(h('p',{class:'small'}, `Bilder: ${plural(u.files,'Datei','Dateien')}, ${fmtBytes(u.bytes)}${u.maxBytes ? ' von '+fmtBytes(u.maxBytes) : ''}`), u.maxBytes ? h('div',{class:'meter'}, h('span',{style:{width:pct+'%'}})) : null); };
+    const draw=u=>{ const pct=u.maxBytes ? Math.min(100, u.bytes/u.maxBytes*100) : 0; meter.replaceChildren(h('p',{class:'small'}, `Images: ${plural(u.files,'file','files')}, ${fmtBytes(u.bytes)}${u.maxBytes ? ' of '+fmtBytes(u.maxBytes) : ''}`), u.maxBytes ? h('div',{class:'meter'}, h('span',{style:{width:pct+'%'}})) : null); };
     if (S.usage && Date.now()-S.usage.t<60000) draw(S.usage.u);
     else S.assets.list().then(r=>{ S.usage={t:Date.now(), u:r.usage}; draw(r.usage); }).catch(()=>{});
   }
@@ -1850,17 +1865,17 @@ function exportData(map){
 let exporting=false;
 async function exportZip(btn, status){
   if (exporting) return;
-  if (!S.downloads){ toast('Downloads sind in dieser Ansicht nicht verfügbar.'); return; }
+  if (!S.downloads){ toast('Downloads aren’t available in this view.'); return; }
   exporting=true; btn.disabled=true;
   try {
-    status('Lade das Packprogramm …');
+    status('Loading the zip tool …');
     const JSZip=await loadJSZip();
     const zip=new JSZip();
     const ids=[...new Set([...S.games.values()].flatMap(g=>[g.cover, ...g.shots.map(s=>s.id)]).filter(Boolean))];
     const map={}; let failed=0;
     for (let i=0;i<ids.length;i++){
       const id=ids[i];
-      status(`Packe Bild ${i+1} von ${ids.length} …`);
+      status(`Packing image ${i+1} of ${ids.length} …`);
       try {
         const r=await fetch(blobUrl(id)); if (!r.ok) throw new Error(String(r.status));
         const b=await r.blob();
@@ -1873,28 +1888,28 @@ async function exportZip(btn, status){
     zip.file('daten/spiele.json', JSON.stringify(data,null,2));
     zip.file('daten/spiele.js', 'window.SPEICHERSTAND_DATEN = '+JSON.stringify(data)+';\n');
     zip.file('LIESMICH.txt', README);
-    status('Füge die Seite hinzu …');
+    status('Adding the page …');
     let pageOk=false;
     try { const r=await fetch('export/index.html', {cache:'no-store'}); if (r.ok){ zip.file('index.html', await r.text()); pageOk=true; } } catch {}
     for (const f of FONT_FILES){ try { const r=await fetch('export/'+f); if (r.ok) zip.file(f, await r.blob(), {binary:true, compression:'STORE'}); } catch {} }
-    status('Erstelle die ZIP-Datei …');
+    status('Creating the ZIP file …');
     const blob=await zip.generateAsync({type:'blob', compression:'DEFLATE', compressionOptions:{level:6}});
     const d=new Date(); const stamp=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-    status('Warte auf deine Bestätigung zum Speichern …');
+    status('Waiting for you to confirm the download …');
     await S.downloads.save({filename:`speicherstand-${stamp}.zip`, data:blob});
-    const notes=[failed ? `${plural(failed,'Bild','Bilder')} konnten nicht geladen werden.` : '', pageOk ? '' : 'Die Seite selbst fehlt im Paket, frag Claude nach einer neuen index.html.'].filter(Boolean).join(' ');
-    status(`Gespeichert: ${plural(Object.keys(map).length,'Bild','Bilder')}, ${plural(S.games.size,'Spiel','Spiele')}. ${notes}`.trim());
+    const notes=[failed ? `${plural(failed,'image','images')} couldn’t be loaded.` : '', pageOk ? '' : 'The page itself is missing from the package, ask Claude for a new index.html.'].filter(Boolean).join(' ');
+    status(`Saved: ${plural(Object.keys(map).length,'image','images')}, ${plural(S.games.size,'game','games')}. ${notes}`.trim());
   } catch (e){
     const code=e && e.code;
-    status(code==='declined' ? 'Speichern abgebrochen.' : code==='extension_not_enabled' || code==='rejected_extension' ? 'ZIP-Dateien sind hier gerade nicht erlaubt. Nimm „Nur Daten (JSON)“.' : 'Das Paket konnte nicht erstellt werden. Prüfe deine Verbindung und versuch es nochmal.');
+    status(code==='declined' ? 'Download cancelled.' : code==='extension_not_enabled' || code==='rejected_extension' ? 'ZIP files aren’t allowed here right now. Use “Data only (JSON)”.' : 'The package couldn’t be created. Check your connection and try again.');
   } finally { exporting=false; btn.disabled=false; }
 }
 async function exportJson(){
   const data={ app:'Speicherstand', version:1, exportedAt:new Date().toISOString(),
     games:[...S.games.values()].map(g=>({...g, shots:g.shots.map(s=>({id:s.id, caption:s.caption}))})), tierlists:S.tiers };
   const d=new Date(); const stamp=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-  try { await S.downloads.save({filename:`speicherstand-backup-${stamp}.json`, data:JSON.stringify(data,null,2)}); toast('Backup gespeichert'); }
-  catch (e){ if (!e || e.code!=='declined') toast('Download geht in dieser Ansicht gerade nicht.'); }
+  try { await S.downloads.save({filename:`speicherstand-backup-${stamp}.json`, data:JSON.stringify(data,null,2)}); toast('Backup saved'); }
+  catch (e){ if (!e || e.code!=='declined') toast('Downloads don’t work in this view right now.'); }
 }
 
 /* ---------- Start ---------- */
@@ -1917,10 +1932,10 @@ function bind(){
     if (!E || !S.assets) return;
     const files=[...(e.clipboardData?.files||[])].filter(f=>/^image\//.test(f.type));
     if (!files.length) return;
-    e.preventDefault(); addShots(files); toast(plural(files.length,'Screenshot','Screenshots')+' eingefügt');
+    e.preventDefault(); addShots(files); toast(plural(files.length,'screenshot','screenshots')+' pasted');
   });
   const tok=(location.hash||'').slice(1);
-  setView(tok==='bibliothek'?'lib':tok==='tierlisten'?'tiers':tok==='statistik'?'stats':'start', false);
+  setView((tok==='library'||tok==='bibliothek')?'lib':(tok==='tiers'||tok==='tierlisten')?'tiers':(tok==='stats'||tok==='statistik')?'stats':'start', false);
 }
 function loadStatic(){
   return new Promise(res=>{
@@ -1942,7 +1957,7 @@ async function startStatic(){
   renderAll();
 }
 async function start(){
-  document.documentElement.lang='de';
+  document.documentElement.lang='en';
   bind();
   const C=window.claude;
   if (!C || typeof C.use!=='function'){ startStatic(); return; }
